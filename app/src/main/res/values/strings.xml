@@ -1,0 +1,141 @@
+<resources>
+    <string name="app_name">TravelInsurance</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!--  Welcome Page-->
+    <string name="WelcomeToRcbc">Welcome to RCBC ATM Go</string>
+    <string name="youWillNeed">You"'"ll need the following things to start</string>
+    <string name="help"><u>Help</u></string>
+    <!-- end-->
+
+    <string name="Note"><i>Note: Please verify the serial number.</i></string>
+    <string name="forgot_user_id"><u>Forgot User ID</u></string>
+
+    <string name="forgot_password"><u>Forgot Password</u></string>
+
+    <string name="retry">Retry</string>
+
+    <string name="content_desc" />
+
+    <!--    menu-->
+    <string name="transaction_history">Transaction History</string>
+    <string name="reprint">Reprint</string>
+    <string name="setting">Settings</string>
+    <string name="reports">Reports</string>
+    <string name="help_menu">Help</string>
+    <string name="logout">Logout</string>
+    <!--  register-->
+    <string name="enter_the_otp_displayed">Enter the OTP</string>
+    <string name="enter_pin">Enter PIN</string>
+    <string name="resend_otp">Resend</string>
+    <string name="authorization_succesfull">Authorization Successful</string>
+    <string name="user_name_hint">User Name</string>
+    <string name="password_hint">Password</string>
+    <string name="old_password_hint">Existing Password</string>
+    <string name="new_password_hint">New Password</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="re_enter_new_password">Re-enter New Password</string>
+    <string name="login_with_password"><u>Login with password</u></string>
+    <string name="forgot_pin"><u>Forgot PIN</u></string>
+
+    <string name="create_4_digit_pin">Create 4 digit PIN</string>
+    <string name="create_pin_descr">A 4 digit PIN can be created to allow you have quick access to RCBC ATM Go.</string>
+    <string name="confirm_4_digit_pin">Confirm 4 digit PIN</string>
+    <string name="reenter_4_digit_pin">Re-enter 4 digit PIN</string>
+
+    <string name="source_id">A89D941B-882C-4CFC-9875-0CED3E697875</string>
+
+    <!--    //Display Number-->
+    <string name="Tvzero">0</string>
+    <string name="Tvone">1</string>
+    <string name="Tvtwo">2</string>
+    <string name="Tvthree">3</string>
+    <string name="Tvfour">4</string>
+    <string name="Tvfive">5</string>
+    <string name="Tvsix">6</string>
+    <string name="Tvseven">7</string>
+    <string name="Tveight">8</string>
+    <string name="Tvnine">9</string>
+    <string name="Tvplus">+</string>
+
+    <!-- Currency-->
+    <string name="php_symbol">₱</string>
+    <string name="php_symbol_dec">&#8369;</string>
+    <string name="php_symbol_hex">&#x20B1;</string>
+
+    <string name="transaction">Transactions</string>
+
+    <!--  bank Certificatr-->
+    <string name="card_replacement">Card\nReplacement</string>
+    <string name="check_book">Check\nBook</string>
+    <string name="bank_certificate">Bank\nCertificate</string>
+    <string name="terms_condition">Terms  &amp; Condition</string>
+    <string name="iaccept">I Accept</string>
+    <string name="account_holder_detail">Account holder details</string>
+    <string name="enter_account_holder_detail">Enter Account holder details</string>
+    <string name="review_account_holder_detail">Review cccount holder details</string>
+    <string name="print">Print</string>
+
+    <string name="thanksMessage">Thank you for your business</string>
+
+    <string name="enter_service_fee">Enter Service Fee</string>
+
+    <string name="transaction_confirm">Transaction Confirmation</string>
+
+    <string name="acc_holder_val">Account holder validation</string>
+
+    <!-- Send Cash-->
+    <string name="enter_customer_detail">Enter Customer details</string>
+    <string name="capture_kyc">Capture KYC</string>
+    <string name="camera">Camera</string>
+    <string name="custom_signature">Customer Signature</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="yes">Yes</string>
+    <string name="confirm">Confirm</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="date_picker_reset">Reset</string>
+    <string name="date_picker_done">Done</string>
+    <string name="select_date_range"> Select Date Range</string>
+
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="no_recoard_found">No record found</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_test">TestActivity</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="wallet_card_no">Wallet Card No.:</string>
+    <string name="wallet_card_no1">Wallet Card No.</string>
+    <string name="wallet_card_no_param">Wallet Card No.: %1$s</string>
+    <string name="amount_title">Amount</string>
+    <string name="total_title">Total</string>
+    <string name="convenience_fee">Acquirer Fee</string>
+
+
+    <string name="rrn">RRN</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="continue_btn">Continue</string>
+    <string name="customer">Customer</string>
+    <string name="signature">Signature</string>
+    <string name="card_no">Card No.</string>
+    <string name="agent_name">Agent Name</string>
+    <string name="address">Address</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="date_time">Date/Time</string>
+    <string name="date_time_param">Date/Time: %1$s</string>
+    <string name="tid">TID: BKL00103</string>
+    <string name="tid_param">TID: %1$s</string>
+
+    <string name="title_activity_register">RegisterActivity</string>
+
+</resources>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <color name="colorPrimary">#E64A19</color>
+    <color name="colorPrimaryDark">#BF360C</color>
+    <color name="colorAccent">#FFAB91</color>
+
+    <color name="green_shaded">#64764c</color>
+    <color name="light_green">#9FE2BF</color>
+    <color name="white_light">#f4f4f4</color>
+    <!-- For Default TextInputLayout stroke color  vvimp-->
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#808080</color>
+
+    <color name="bg">#F0F5FD</color>
+
+    <color name="error_color">#FF0000</color>
+
+    <color name="hint_color">#727272</color>
+
+
+    <color name="selectedColor">#f4f4f4</color>
+    <color name="unselectedColor">#303F9F</color>
+
+    <color name="textinput_box_bg">#105093</color>
+
+    <color name="default_icon_color">#3D85B7</color>
+
+    <color name="light_gray_transparent">#33CCCCCC</color>
+    <color name="bg_transparent">#4Dffffff</color>
+    <color name="semi_transparent_bg">#80FFFFFF</color>
+    <color name="higlight_color2">#727272</color>
+    <color name="text_color">#212121</color>
+    <color name="black_color">#000000</color>
+    <color name="button_blue">#02539b</color>
+    <color name="blue">#161971</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteFog">#F9F9F9</color>
+    <color name="color_light_grey">#D3D3D3</color>
+    <color name="color_light_grey_version">#55D3D3D3</color>
+    <color name="color_grey">#808080</color>
+
+    <color name="pin_normal">#6B767E</color>
+
+    <color name="layoutcolor1">#00284d</color>
+    <color name="layoutcolor2">#62d2f2</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="bl_list_item_color">#656855</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay70">#77000000</color>
+    <color name="black_overlay_50">#50000000</color>
+    <color name="black_overlay_40">#40000000</color>
+    <color name="black_overlay_30">#30000000</color>
+    <color name="black_overlay_white_30">#64AD01</color>
+    <color name="black_overlay_white_regular">#50DDDDDD</color>
+    <color name="black_overlay_white_regular1">#5064AD01</color>
+    <color name="black_overlay_white_20">#3062d2f2</color>
+    <color name="black_overlay_20">#20000000</color>
+
+    <color name="dialog_bg">#ffe74c3c</color>
+
+    <color name="btn_press_color">#66000000</color>
+    <color name="btn_unpress_color">#22000000</color>
+    <color name="error_red">#ff8566</color>
+
+    <color name="reversed">#DDDD00</color>
+
+
+    <color name="calendar_header">@color/colorPrimary</color>
+    <color name="calendar_header_title">#FFF</color>
+    <color name="selected_date_circle_color_app">#64AD01</color>
+    <color name="range_bg_color_app">#6064AD01</color>
+
+
+    <!-- Trans Amount color -->
+    <color name="trans_amount_color">#FD4800</color>
+    <!-- unimportant text color -->
+    <color name="prompt_text_color">#858585</color>
+    <color name="textColor">#ff696969</color>
+    <color name="account_xian">#ffb1b5bb</color>
+    <color name="btn_gray_n">#8F9296</color>
+    <color name="btn_blue_p">#00A2FF</color>
+    <color name="btn_blue_n">#167EFB</color>
+
+    <!-- longin button color -->
+    <color name="login_btn_bg_color">#DB7D25</color>
+    <color name="login_btn_bg_pressed_color">#BE6D1E</color>
+
+    <!-- prompt -->
+    <color name="prompt_no_pwd_color">#666666</color>
+
+    <!-- version -->
+    <color name="prompt_version">#FF0000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="TitleBackground">#1E82D2</color>
+    <!-- GridView color -->
+    <color name="grid_item_bg">#ffe8ecef</color>
+    <color name="line">#ffd3dde6</color>
+    <color name="common_text_color">#ff333333</color>
+    <color name="float_transparent">#00000000</color>
+
+    <!-- CustomKeyboard color -->
+    <color name="key_normal_color">#ffffff</color>
+    <color name="key_selected_color">#b8bcc0</color>
+    <color name="opkey_selected_color">#436EEE</color>
+    <color name="keyboard_bg_color">#5CACEE</color>
+    <color name="black">#000000</color>
+
+    <!-- CustomAlertDialog color -->
+    <color name="button_text_color">#000000</color>
+    <color name="blue_btn_bg_color">#AEDEF4</color>
+    <color name="blue_btn_bg_pressed_color">#96BFD2</color>
+    <color name="gray_btn_bg_pressed_color">#B6B6B6</color>
+    <color name="gray_btn_bg_color">#D0D0D0</color>
+    <color name="sweet_dialog_bg_color">#FFFFFF</color>
+    <color name="error_stroke_color">#FF0000</color>
+    <color name="success_stroke_color">#008B8B</color>
+    <color name="warning_stroke_color">#F8BB86</color>
+    <color name="cancel_button_text">#333333</color>
+    <color name="mainmenu_text">#ffffffff</color>
+    <!-- 红紫色 -->
+    <color name="red">#FF0000</color>
+    <color name="gray_input_pin_bg">#DDDDDD</color>
+    <color name="tab">#90d7ec</color>
+
+    <!-- 输入框 -->
+    <color name="textview_infos">#ff666666</color>
+    <color name="textedit_hint">#999999</color>
+
+    <!-- PagerSlidingTab -->
+    <color name="background_tab_pressed">#88ebebeb</color>
+
+    <color name="updateBackground">#F2F3F5</color>
+
+
+    <!-- Toolbar color -->
+    <color name="color_toolbar">#323438</color>
+    <!-- KeyBoard background -->
+    <color name="keyboard_background_color">#cccccc</color>
+
+
+    <!-- Background color -->
+    <color name="colorPrimaryBackground">#ebebeb</color>
+
+    <color name="header_text">#58585b</color>
+
+    <color name="transparent_black_hex_1">#11000000</color>
+
+    <color name="light_ef">#EFEFEF</color>
+    <color name="light_sky">#F2F3F9</color>
+    <color name="sky_e2">#e2e8f0</color>
+
+    <color name="btn_bg">#EAEAF3</color>
+    <color name="third_text_color">#313131</color>
+    <color name="bg_ebebf8">#EBEBF8</color>
+    <color name="bg_f8">#F8F8F8</color>
+    <color name="hint_text_color">#D6D6D6</color>
+    <color name="disable">#B6B6B6</color>
+    <color name="light_disable">#1AB6B6B6</color>
+    <color name="bg_f0f5fd">#F0F5FD</color>
+    <color name="border_e4">#E4E4E4</color>
+
+</resources>

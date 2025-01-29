@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="list_divider">.5dp</dimen>
+    <dimen name="_1dp">1dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
+    <dimen name="_3dp">3dp</dimen>
+    <dimen name="_4dp">4dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
+    <dimen name="_7dp">7dp</dimen>
+    <dimen name="_8dp">8dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+    <dimen name="_12dp">12dp</dimen>
+    <dimen name="_13dp">13dp</dimen>
+    <dimen name="_15dp">15dp</dimen>
+    <dimen name="_16dp">16dp</dimen>
+    <dimen name="_18dp">18dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_22dp">22dp</dimen>
+    <dimen name="_24dp">24dp</dimen>
+    <dimen name="_28dp">24dp</dimen>
+    <dimen name="_30dp">30dp</dimen>
+    <dimen name="_40dp">40dp</dimen>
+    <dimen name="_42dp">42dp</dimen>
+    <dimen name="_45">45dp</dimen>
+    <dimen name="_48dp">48dp</dimen>
+    <dimen name="_50dp">50dp</dimen>
+    <dimen name="_60dp">60dp</dimen>
+    <dimen name="_65dp">65dp</dimen>
+
+    <dimen name="padding_30">30dp</dimen>
+    <dimen name="padding_35">35dp</dimen>
+    <dimen name="padding_40">40dp</dimen>
+    <dimen name="padding_45">45dp</dimen>
+    <dimen name="padding_50">50dp</dimen>
+    <dimen name="padding_60">60dp</dimen>
+    <dimen name="padding_65">65dp</dimen>
+    <dimen name="padding_70">70dp</dimen>
+    <dimen name="padding_80">80dp</dimen>
+    <dimen name="padding_90">90dp</dimen>
+    <dimen name="padding_100">100dp</dimen>
+    <dimen name="padding_120">110dp</dimen>
+    <dimen name="padding_130">130dp</dimen>
+    <dimen name="padding_150">150dp</dimen>
+    <dimen name="padding_160">160dp</dimen>
+    <dimen name="padding_220">220dp</dimen>
+    <dimen name="padding_230">230dp</dimen>
+    <dimen name="padding_290">250dp</dimen>
+    <dimen name="padding_300">300dp</dimen>
+    <dimen name="padding_320">320dp</dimen>
+    <dimen name="padding_350">350dp</dimen>>
+
+
+
+    <dimen name="_80dp">80dp</dimen>
+    <dimen name="_220dp">220dp</dimen>
+
+
+    <dimen name="fontsize_17">17sp</dimen>
+    <dimen name="fontsize_18">18sp</dimen>
+    <dimen name="fontsize_30">30sp</dimen>
+
+    <dimen name="banner_width">170dp</dimen>
+
+
+    <dimen name="fontsize_15">15sp</dimen>
+
+    <dimen name="font_xlarge">22sp</dimen>
+    <dimen name="font_large">20sp</dimen>
+    <dimen name="font_medium">18sp</dimen>
+    <dimen name="font_normal">16sp</dimen>
+    <dimen name="font_small">14sp</dimen>
+    <dimen name="font_xsmall">12sp</dimen>
+
+    <!-- Cards -->
+    <dimen name="card_corner_radius">3dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <!-- Selectable Items -->
+
+    <dimen name="twelve">12dp</dimen>
+    <dimen name="eight">8dp</dimen>
+    <dimen name="twenty_four">24dp</dimen>
+</resources>

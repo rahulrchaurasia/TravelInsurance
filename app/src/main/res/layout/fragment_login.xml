@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+     android:padding="@dimen/_24dp"
+
+    tools:context=".view.login.LoginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_marginTop="@dimen/_40dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        style="@style/header_textview_24"
+        android:text="Login" />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:hint="User Name"
+        android:paddingBottom="0dp"
+        android:imeOptions="actionNext"
+        style="@style/textInputLayoutStyle"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/tieUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:maxLength="50"
+
+            android:inputType="text"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:hint="Password"
+        app:endIconMode="password_toggle"
+
+        app:startIconDrawable="@drawable/ic_lock_24"
+        android:imeOptions="actionNext"
+
+
+        style="@style/textInputLayoutWithoutClearTextStyle"
+
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiePassword"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:maxLength="30"
+            android:inputType="textPassword"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_marginTop="20dp"
+
+        android:text="Submit"
+        style="@style/ButtonStyle.Primary">
+
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRegister"
+        android:textColor="@color/white"
+        style="@style/ButtonStyle.Secondary"
+        android:layout_marginTop="40dp"
+
+        android:text="Register"
+        />
+
+</LinearLayout>

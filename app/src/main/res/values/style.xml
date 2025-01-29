@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+
+    <!-- Custom AppBarLayout style -->
+    <style name="Widget.App.AppBarLayout" parent="Widget.Material3.AppBarLayout">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <!-- Custom Toolbar style -->
+    <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="titleTextAppearance">@style/Toolbar.TitleText</item>
+        <item name="popupTheme">@style/ThemeOverlay.Material3.Light</item>
+        <item name="android:theme">@style/ThemeOverlay.Material3.Dark.ActionBar</item>
+    </style>
+
+
+
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/poppinsmedium</item>
+    </style>
+
+
+    <!-- Add this style for drawer arrow -->
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item> <!-- Hamburger icon color -->
+        <item name="spinBars">true</item>
+    </style>
+
+    <!-- Custom ActionBar style -->
+    <style name="Widget.App.ActionBar" parent="Widget.Material3.ActionBar.Solid">
+        <item name="elevation">0dp</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+    <style name="dialog_tran" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="dialog_untran" parent="dialog_tran">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/error_red</item>
+    </style>
+
+    <style name="dialog_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <!--        <item name="android:background">@drawable/btn_selector</item>-->
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/text_color</item>
+        <!--dialog background-->  <!--        005-->
+        <!--        <item name="android:windowBackground">@drawable/custom_dialog_drawable</item>-->
+        <!--For smooth interaction with slidding-->
+        <item name="android:windowActionBarOverlay">true</item>
+        <!--<item name="android:padding">@dimen/padding_10</item>-->
+    </style>
+
+    <style name="TextLabel" parent="AppTheme">
+
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/color_light_grey</item>
+        <item name="android:textColor">@color/text_color</item>
+
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+
+        <item name="colorAccent">@color/color_light_grey</item>
+        <item name="colorControlNormal">@color/higlight_color2</item>
+        <item name="colorControlActivated">@color/higlight_color2</item>
+
+    </style>
+
+    <!--popup window animation-->
+    <style name="Animation">
+        <!--        005-->
+        <!--        <item name="android:windowEnterAnimation">@anim/enter_from_left</item>-->
+        <!--        <item name="android:windowExitAnimation">@anim/exit_to_left</item>-->
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <!--        005-->
+        <!--        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>-->
+        <!--        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>-->
+
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:singleLine">true</item>
+    </style>
+
+
+    <style name="OverlayDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+    <style name="alert_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/float_transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="dialog_blue_button" parent="android:Widget.Button">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">45dp</item>
+        <!--        005-->
+        <!--        <item name="android:background">@drawable/common_button_background</item>-->
+        <!--        <item name="android:textSize">@dimen/font_size_smaller</item>-->
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:textColor">@color/prompt_text_color</item>
+    </style>
+
+    <style name="popup_anim_style" parent="@android:style/Animation">
+        <!--        005-->
+        <!--        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>-->
+        <!--        <item name="android:windowExitAnimation">@anim/dialog_exit</item>-->
+    </style>
+
+    <style name="popup_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/colorPrimaryBackground</item>
+    </style>
+
+    <style name="Transparent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <!--textview header 24-->
+    <style name="header_textview_24" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/poppinsbold</item>
+        <item name="android:textColor">@color/header_text</item>
+    </style>
+
+    <style name="regular_textview_18" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/header_text</item>
+    </style>
+
+
+
+    <style name="semibold_regular_18" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">@color/header_text</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
+    <style name="semibold_regular_16" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">@color/header_text</item>
+
+    </style>
+
+
+    <!--text size 14-->
+
+    <style name="regular_gray" parent="semibold_regular_white">
+        <item name="android:textColor">@color/header_text</item>
+        <item name="fontFamily">@font/poppinsregular</item>
+    </style>
+
+
+    <style name="semibold_regular_white" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">@color/header_text</item>
+    </style>
+
+    <style name="semibold_regular_gray" parent="semibold_regular_white">
+        <item name="android:textColor">@color/header_text</item>
+        <item name="fontFamily">@font/poppinsmedium</item>
+    </style>
+
+    <style name="bold_regular_gray" parent="semibold_regular_white">
+        <item name="android:textColor">@color/header_text</item>
+        <item name="fontFamily">@font/poppinsbold</item>
+    </style>
+
+
+    <style name="semibold_regular_black" parent="semibold_regular_white">
+        <item name="android:textColor">@color/header_text</item>
+    </style>
+
+
+    <!--text size 18-->
+    <style name="regular_primary_18" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/header_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="semibold_primary_18" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">@color/header_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+    <style name="primary_bold_18" parent="regular_primary_16">
+        <item name="fontFamily">@font/poppinsbold</item>
+        <item name="android:textColor">@color/header_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+    <!--text size 16-->
+    <style name="regular_primary_16_gray" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/white_light</item>
+    </style>
+
+    <style name="regular_primary_16" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/header_text</item>
+    </style>
+
+    <style name="semibold_primary_16" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">@color/header_text</item>
+    </style>
+
+
+    <style name="primary_bold_16" parent="regular_primary_16">
+        <item name="fontFamily">@font/poppinsbold</item>
+        <item name="android:textColor">@color/header_text</item>
+    </style>
+
+
+
+
+
+
+
+    <style name="solid_button" parent="Widget.MaterialComponents.Button">
+        <item name="android:height">?attr/actionBarSize</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:radius">0dp</item>
+        <item name="android:backgroundTint">@color/trans_amount_color</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <!--text size 12-->
+    <style name="section_primary_textview_12" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="section_textview_12" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <!--text size 12-->
+    <style name="sub_textview_bold_12" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="sub_textview_12" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="sub_textview_10" parent="section_textview_12">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <style name="sub_textview_white_12" parent="sub_textview_12">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.Theme.ATMGo.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.ATMGo.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+
+    <!--textview end-->
+
+
+    <style name="CustomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+
+    <!-- profiel TextView style -->
+    <style name="profileTextViewLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/_10dp</item>
+        <item name="android:paddingTop">@dimen/_20dp</item>
+        <item name="android:paddingRight">@dimen/_10dp</item>
+        <item name="android:paddingBottom">@dimen/_20dp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="fontFamily">@font/poppinsregular</item>
+    </style>
+
+    <style name="profileTextViewValue">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/_10dp</item>
+        <item name="android:paddingTop">@dimen/_20dp</item>
+        <item name="android:paddingRight">@dimen/_10dp</item>
+        <item name="android:paddingBottom">@dimen/_20dp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="fontFamily">@font/poppinsregular</item>
+    </style>
+
+    <!-- tab layout style -->
+    <style name="TabLayout" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+<!--    <style name="RoundedTabLayoutStyle" parent="Widget.Design.TabLayout">-->
+<!--        <item name="android:background">@drawable/tab_layout_bg</item>-->
+<!--        <item name="tabIndicator">@drawable/tabs_selector</item>-->
+<!--        <item name="tabIndicatorColor">@null</item>-->
+<!--        <item name="tabRippleColor">@null</item>-->
+<!--        <item name="tabIndicatorHeight">@dimen/_42dp</item>-->
+<!--        <item name="tabIndicatorGravity">center</item>-->
+<!--        <item name="tabSelectedTextColor">@color/selectedColor</item>-->
+<!--        <item name="tabTextColor">@color/unselectedColor</item>-->
+<!--        <item name="tabTextAppearance">@style/TabLayout</item>-->
+<!--        <item name="tabMode">fixed</item>-->
+<!--    </style>-->
+</resources>
