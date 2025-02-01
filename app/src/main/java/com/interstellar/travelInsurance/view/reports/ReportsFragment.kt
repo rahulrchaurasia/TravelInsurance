@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.R
+import com.interstellar.travelInsurance.databinding.FragmentReportsBinding
 
 
-class ReportsFragment : Fragment() {
+class ReportsFragment : BaseFragment<FragmentReportsBinding>(FragmentReportsBinding::inflate) {
     // TODO: Rename and change types of parameters
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,13 +18,11 @@ class ReportsFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reports, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setToolbarTitle("Reports")
     }
+
 
 
 }

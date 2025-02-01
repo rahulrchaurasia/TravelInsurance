@@ -8,6 +8,8 @@
     <string name="help"><u>Help</u></string>
     <!-- end-->
 
+
+    <string name="profile_image">profile_image</string>
     <string name="Note"><i>Note: Please verify the serial number.</i></string>
     <string name="forgot_user_id"><u>Forgot User ID</u></string>
 

@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <color name="colorPrimary">#E64A19</color>
-    <color name="colorPrimaryDark">#BF360C</color>
+    <color name="colorPrimary">#EF5350</color>
+    <color name="colorPrimaryDark">#E53935</color>
     <color name="colorAccent">#FFAB91</color>
 
     <color name="green_shaded">#64764c</color>
     <color name="light_green">#9FE2BF</color>
     <color name="white_light">#f4f4f4</color>
     <!-- For Default TextInputLayout stroke color  vvimp-->
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#808080</color>
+<!--    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#808080</color>-->
 
     <color name="bg">#F0F5FD</color>
 
     <color name="error_color">#FF0000</color>
 
     <color name="hint_color">#727272</color>
+
+
+    <!-- Navigation drawer and Bottom Navigation Color COde specific colors -->
+
+    <color name="nav_item_selected_bg">#1FEF5350</color>  <!-- 12% opacity red -->
+      <color name="nav_item_ripple_color">#29EF5350</color> <!-- 16%% opacity red -->
+    <color name="nav_item_text_selected">#EF5350</color>  <!-- Full opacity red -->
+
+    <color name="nav_item_pressed_bg">#29EF5350</color>  <!-- 16%  opacity -->
+
+
+    <color name="bottom_background_bg">#14E53935</color>  <!-- 8% opacity blue -->
+    <color name="navigation_bar_color">@color/bottom_background_bg</color> <!-- For bottom bar color: Bolow Bottom navg default backspace tool -->
 
 
     <color name="selectedColor">#f4f4f4</color>
@@ -146,6 +159,8 @@
     <color name="colorPrimaryBackground">#ebebeb</color>
 
     <color name="header_text">#58585b</color>
+
+    <color name="primary_text">#757575</color>
 
     <color name="transparent_black_hex_1">#11000000</color>
 

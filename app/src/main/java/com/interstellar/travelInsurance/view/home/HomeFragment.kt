@@ -61,15 +61,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        setToolbarTitle("home")
         binding.btnProduct.setOnClickListener(this)
 
         setupMenu()
 
         setupObservers()
 
-        viewModel.getData()
+       // viewModel.getData()
     }
 
+
+    //region setUp Menu
+    //Note : Home Menu Logout way
     private fun setupMenu(){
 
         // For Creating Menu
@@ -100,8 +105,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
         },viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    //endregion
 
-
+    //region Observer
     private fun setupObservers() {
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -110,13 +116,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
                 // Observe loading state
 
-                launch {
-
-                    viewModel.isLoading.collect{isLoading ->
-
-                        displayLoadingWithText(binding.root, "Loading..", null, false)
-                    }
-                }
+//                launch {
+//
+//                    viewModel.isLoading.collect{isLoading ->
+//
+//                        displayLoadingWithText(binding.root, "Loading..", null, false)
+//                    }
+//                }
 
                 // Observe logout events
                 launch {
@@ -127,7 +133,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
             }
         }
     }
+    //endregion
 
+
+    //region Methods
     private fun showLogoutConfirmation() {
         showAlert( title = "Logout", msg = "Are you sure you want to log out?",
             positiveBtn = resources.getString(R.string.yes) , showNegativeButton = true){
@@ -137,16 +146,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
     }
     // Best Practice: Using Global Action (Most Recommended):
-    private fun navigateToAuth1() {
 
 
-        findNavController().navigate(R.id.action_global_to_auth)
-
+    fun scrollToTop() {
+//        binding.recyclerView.smoothScrollToPosition(0)
+//        // Optionally refresh data
+//        viewModel.refreshData()
     }
 
+    //endregion
 
-    // region  Official Way (Using NavOptions):
+    //region handling Graph  Official Way (Using NavOptions):
     //Navigate to auth graph and remove all existing graph ie home_graph using setPopUpTo
+
+    //Note : Home Menu Logout way { Not from Navigation View , for Navigation View use Main Activity bec its implement there
     private fun navigateToAuth() {
         findNavController().navigate(
             R.id.auth_graph,
@@ -160,7 +173,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
         )
     }
 
+    private fun navigateToAuth1() {
 
+
+        findNavController().navigate(R.id.action_global_to_auth)
+
+    }
+
+    //endregion
+
+    //region event
     override fun onClick(view: View?) {
 
         requireContext().hideKeyboard(binding.root)
@@ -176,6 +198,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
             }
         }
     }
+
+    //endregion
 
 
 }

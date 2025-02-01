@@ -9,6 +9,10 @@
         android:id="@+id/action_global_homeFragment"
         app:destination="@+id/home_graph"
 
+        app:popUpTo="@id/auth_graph"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
         />
 
 

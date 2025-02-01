@@ -17,6 +17,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>(FragmentPaymentBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarTitle("Payment")
         binding.btnBack.setOnClickListener(this)
         binding.btnShare.setOnClickListener(this)
     }

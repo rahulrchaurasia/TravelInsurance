@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
 
     fun  getData(){
 
-        _isLoading.value = true
+        _isLoading.value = false
         viewModelScope.launch {
 
             try{
@@ -42,6 +42,7 @@ class HomeViewModel @Inject constructor(
             }catch (ex: Exception) {
                 // Handle error
                 Log.d(Constant.TAG, ex.message.toString())
+                _isLoading.value = false
             } finally {
                 _isLoading.value = false
             }

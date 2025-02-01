@@ -53,6 +53,13 @@
         tools:layout="@layout/fragment_setting" />
 
     <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.interstellar.travelInsurance.view.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+
+
+    <fragment
         android:id="@+id/productDtlFragment"
         android:name="com.interstellar.travelInsurance.view.productDtl.ProductDtlFragment"
         android:label="fragment_product_dtl"

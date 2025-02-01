@@ -15,6 +15,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
@@ -56,7 +57,13 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     //endregion
 
-
+    protected fun setToolbarTitle(title: String) {
+        try {
+            (requireActivity() as? AppCompatActivity)?.supportActionBar?.title = title
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
     fun roundOffDecimal(number: Float): String {
         val df = DecimalFormat("#.##")
         //df.roundingMode = RoundingMode.FLOOR

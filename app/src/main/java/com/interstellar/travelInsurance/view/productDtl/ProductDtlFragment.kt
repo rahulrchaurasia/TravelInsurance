@@ -20,6 +20,7 @@ class ProductDtlFragment : BaseFragment<FragmentProductDtlBinding>(FragmentProdu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarTitle("Product")
         binding.btnAddToCart.setOnClickListener(this)
     }
 

@@ -8,37 +8,55 @@
 
         <!-- Status bar color -->
         <item name="colorPrimaryVariant">@color/black</item> <!-- status bar color-->
-        <item name="android:statusBarColor">@color/black</item><!-- status bar color-->
+<!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>&lt;!&ndash; status bar color&ndash;&gt;-->
 
-<!--        // Option 2 Light Status bar-->
-        <!-- Make status bar transparent -->
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-        <!-- Add a light scrim for better text visibility -->
-<!--        <item name="android:windowLightStatusBar">false</item>-->
+<!--        Refers to the color of the status bar at the top of the screen.-->
+        <item name="android:statusBarColor">@color/navigation_bar_color</item><!-- status bar color-->
 
 
 
+        <!-- depricated colors -->
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/blue</item>
-        <item name="colorControlActivated">@color/blue</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>
 
-        <!-- AppBar and Toolbar theme -->
-<!--        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>-->
-<!--        <item name="appBarLayoutStyle">@style/Widget.App.AppBarLayout</item>-->
+        <!-- Control colors -->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item><!-- When activated/checked -->
+        <item name="colorControlHighlight">@color/nav_item_ripple_color</item> <!-- Ripple effect -->
 
+        <!-- AppBar and Toolbar theme  for Default style -->
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="appBarLayoutStyle">@style/Widget.App.AppBarLayout</item>
+        <item name="actionBarStyle">@style/Widget.App.ActionBar</item>
+        <!-- *****End OF AppBar and Toolbar ***** -->
 
-        <!--     NOTE:   Makes status bar semi-transparent .Content can draw behind the status bar .Ignores android:statusBarColor setting-->
-<!--        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>-->
+        <!--  NOTE:   Makes status bar semi-transparent .Content can draw behind the status bar .Ignores android:statusBarColor setting-->
+<!--        <item name="android:windowTranslucentStatus" >false</item>-->
 
-        <item name="android:windowTranslucentStatus" >false</item>
-
-        <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">false</item>
 
         <!-- Add this style for drawer arrow -->
-
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="actionBarStyle">@style/Widget.App.ActionBar</item>
+<!--        <item name="homeAsUpIndicator">@drawable/ic_hemberger_menu_24</item> Note : Note working-->
+
+
+        <!-- Bottom Navigation -->
+         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <!-- *****End OF Bottom Navigation ***** -->
+
+
+        <!-- System Bar Configuration navigation bar color ie system navigation bar (the bar with the back, home, and recent apps buttons-->
+<!--        Note :  enableEdgeToEdge() my System Bar {nav bootom bar} default color not chnge when apply on theme.-->
+<!--         In That case below code not worked we have to apply via code-->
+<!--        That's exactly the issue.-->
+<!--        When you use enableEdgeToEdge(), it manages the system bars differently.-->
+<!--        The theme's navigationBarColor is being overridden because edge-to-edge mode handles system bars differently.-->
+
+        <item name="android:navigationBarColor">@color/navigation_bar_color</item>  <!-- Refers to the color of the navigation bar at the bottom of the screen.-->
+        <item name="android:windowLightNavigationBar" tools:ignore ="NewApi" >false</item>
+
+
+        <item name="android:windowTranslucentStatus" >false</item> <!-- Makes status bar semi-transparent .Content can draw behind-->
+        <item name="android:windowTranslucentNavigation">false</item>
+        <!-- End Of System bar -->
 
         <!--   //textViewStyle for all textView-->
         <item name="android:textViewStyle">@style/regular_primary_16</item>
@@ -46,6 +64,7 @@
 
         <!--For Window Bg-->
         <item name="android:windowBackground">@color/bg</item>
+
 
 
     </style>

@@ -5,9 +5,11 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context=".MainActivity">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:fitsSystemWindows="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.google.android.material.appbar.AppBarLayout
@@ -15,7 +17,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                app:liftOnScroll="true"
                 android:elevation="0dp"
                 android:background="@color/colorPrimaryDark">
 
@@ -26,7 +27,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
+
                     app:titleTextAppearance="@style/Toolbar.TitleText"
                     style="@style/Widget.Material3.Toolbar"
                     android:background="@color/transparent"
@@ -61,6 +62,15 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:navGraph="@navigation/nav_graph" />
 
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:menu="@menu/bottom_nav_menu"
+                android:fitsSystemWindows="false"
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -70,12 +80,19 @@
         android:layout_gravity="start"
         android:background="@color/white_light"
 
-        app:itemIconTint="@drawable/nav_item_color_selector"
-        app:itemTextColor="@drawable/nav_item_color_selector"
+        android:fitsSystemWindows="true"
+        app:itemIconSize="22dp"
+        app:itemMaxLines="1"
+        app:itemIconPadding="16dp"
+        app:itemTextAppearance="@style/NavigationDrawerText"
+
+        app:itemIconTint="@color/nav_item_color_selector"
+        app:itemTextColor="@color/nav_item_color_selector"
+
         app:itemBackground="@drawable/nav_item_background_selector"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"
-
-
+        app:itemShapeAppearance="@style/ShapeAppearance.NavigationItem"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>
