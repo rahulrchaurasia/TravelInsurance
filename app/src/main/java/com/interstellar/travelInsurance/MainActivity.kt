@@ -358,4 +358,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 .build()
         )
     }
+
+    fun showData(){
+
+    }
 }
