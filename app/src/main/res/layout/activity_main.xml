@@ -5,71 +5,158 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:fitsSystemWindows="false"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:elevation="0dp"
-                android:background="@color/colorPrimaryDark">
+            android:layout_height="match_parent"
 
 
-<!--                android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"-->
-<!--                app:popupTheme="@style/ThemeOverlay.Material3.Light"-->
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+            >
 
-                    app:titleTextAppearance="@style/Toolbar.TitleText"
-                    style="@style/Widget.Material3.Toolbar"
-                    android:background="@color/transparent"
-                    app:titleTextColor="@color/white"
-                    app:subtitleTextColor="@color/white"
+<!--            <com.google.android.material.appbar.AppBarLayout-->
+<!--                android:id="@+id/appbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fitsSystemWindows="true">-->
 
+<!--                <com.google.android.material.appbar.MaterialToolbar-->
+<!--                    android:id="@+id/toolbar"-->
+<!--                    android:visibility="visible"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="?attr/actionBarSize"-->
 
-                    android:elevation="0dp"
-                    android:contentInsetStart="0dp"
-                    android:contentInsetEnd="0dp"
-
-                    />
-
-<!--                Note : For static menu we can add from here also-->
-<!--                app:navigationIcon="@drawable/ic_drawer_menu_24"-->
-<!--                app:menu="@menu/logout_menu"-->
+<!--                    app:titleTextAppearance="@style/Toolbar.TitleText"-->
+<!--                    style="@style/Widget.Material3.Toolbar"-->
+<!--                    android:background="@color/colorPrimaryDark"-->
+<!--                    app:titleTextColor="@color/white"-->
+<!--                    app:subtitleTextColor="@color/white"-->
 
 
+<!--                    android:elevation="0dp"-->
+<!--                    android:contentInsetStart="0dp"-->
+<!--                    android:contentInsetEnd="0dp"-->
 
+<!--                    />-->
+<!--            </com.google.android.material.appbar.AppBarLayout>-->
 
+            <include layout="@layout/layout_default_toolbar"
+                android:id="@+id/include_default_toolbar"
+                android:visibility="visible"
 
+                />
 
-            </com.google.android.material.appbar.AppBarLayout>
+            <include layout="@layout/layout_custom_toolbar"
+                android:id="@+id/include_custom_toolbar"
+                android:visibility="gone"
 
+                />
+            <include layout="@layout/layout_custom_toolbar2"
+                android:id="@+id/include_custom_toolbar2"
+                android:visibility="gone"
+
+                />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/navHostFragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clipToPadding="false"
+
                 app:defaultNavHost="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+
                 app:navGraph="@navigation/nav_graph" />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
+
+<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--                android:id="@+id/bottomNavigationView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:elevation="8dp"-->
+<!--                app:menu="@menu/bottom_nav_menu"-->
+<!--                android:fitsSystemWindows="true"-->
+<!--                app:hideOnScroll="true"-->
+<!--                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>-->
+
+
+            <LinearLayout
+                android:id="@+id/bottomLayer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:menu="@menu/bottom_nav_menu"
-                android:fitsSystemWindows="false"
-                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+                app:hideOnScroll="true"
+                android:background="@color/bg"
+                android:elevation="@dimen/_8dp"
+                android:orientation="vertical"
+
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="@dimen/_2dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginHorizontal="@dimen/_16dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imgLock"
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:contentDescription="@string/content_desc"
+                        android:src="@drawable/ic_lock_24"
+
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:tint="@color/colorAccent"/>
+
+                    <TextView
+                        android:id="@+id/txtUnlock"
+                        style="@style/sub_textview_bold_12"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@id/imgLock"
+                        app:layout_constraintTop_toTopOf="@id/imgLock"
+                        app:layout_constraintBottom_toBottomOf="@id/imgLock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="Add items worth 99 to unlock free delivery witjh"
+                        android:layout_height="wrap_content"/>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+
+                    android:layout_height="1.5dp"
+                    android:background="@color/line"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:layout_marginBottom="@dimen/_1dp"
+                    />
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomNavigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:elevation="8dp"
+                    app:menu="@menu/bottom_nav_menu"
+                    android:fitsSystemWindows="true"
+                    app:hideOnScroll="true"
+                  />
+
+            </LinearLayout>
+
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

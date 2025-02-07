@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.interstellar.travelInsurance.view.home.HomeFragment"
-        android:label="fragment_home"
+        android:label=""
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_productDtlFragment"
@@ -29,40 +29,42 @@
         app:popExitAnim="@anim/slide_out_right"
         app:popUpTo="@id/homeFragment"
         app:popUpToInclusive="true" />
+
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.interstellar.travelInsurance.view.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label=""
         tools:layout="@layout/fragment_profile"
 
         />
     <fragment
         android:id="@+id/transactionFragment"
         android:name="com.interstellar.travelInsurance.view.TransactionFragment"
-        android:label="fragment_transaction"
+        android:label=""
         tools:layout="@layout/fragment_transaction" />
     <fragment
         android:id="@+id/reportsFragment"
         android:name="com.interstellar.travelInsurance.view.reports.ReportsFragment"
-        android:label="fragment_reports"
+        android:label=""
         tools:layout="@layout/fragment_reports" />
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.interstellar.travelInsurance.view.setting.SettingFragment"
-        android:label="fragment_setting"
+        android:label=""
         tools:layout="@layout/fragment_setting" />
 
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.interstellar.travelInsurance.view.notification.NotificationFragment"
-        android:label="fragment_notification"
+        android:label=""
         tools:layout="@layout/fragment_notification" />
 
 
     <fragment
         android:id="@+id/productDtlFragment"
         android:name="com.interstellar.travelInsurance.view.productDtl.ProductDtlFragment"
-        android:label="fragment_product_dtl"
+        android:label=""
         tools:layout="@layout/fragment_product_dtl" >
         <action
             android:id="@+id/action_productDtlFragment_to_cartFragment"
@@ -76,7 +78,7 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.interstellar.travelInsurance.view.cart.CartFragment"
-        android:label="fragment_cart"
+        android:label=""
         tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_paymentFragment"
@@ -85,7 +87,40 @@
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.interstellar.travelInsurance.view.payment.PaymentFragment"
-        android:label="fragment_payment"
+        android:label=""
         tools:layout="@layout/fragment_payment" />
+
+
+       <navigation android:id="@+id/carInsurance_nested_graph"
+
+        app:startDestination="@id/carInsuranceMainFragment">
+        <fragment
+            android:id="@+id/carInsuranceMainFragment"
+            android:name="com.interstellar.travelInsurance.view.carInsurance.main.CarInsuranceMainFragment"
+            android:label="Car Insurance "
+            tools:layout="@layout/fragment_car_insurance">
+
+            <action
+                android:id="@+id/action_carInsuranceFragment_to_carJourneyFragment"
+                app:destination="@id/carJourneyFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/carJourneyFragment"
+            android:name="com.interstellar.travelInsurance.view.carInsurance.detail.CarJourneyFragment"
+            android:label="Car Insurance Journey"
+            tools:layout="@layout/fragment_car_journey">
+
+
+            <action
+                android:id="@+id/action_carJourneyFragment_to_carDetailFragment"
+                app:destination="@id/carDetailFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/carDetailFragment"
+            android:name="com.interstellar.travelInsurance.view.carInsurance.detail.CarDetailFragment"
+            android:label="Car Insurance Details"
+            tools:layout="@layout/fragment_car_detail" />
+    </navigation>
+
 
 </navigation>

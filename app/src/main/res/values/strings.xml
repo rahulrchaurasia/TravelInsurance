@@ -19,6 +19,10 @@
 
     <string name="content_desc" />
 
+    <string name="content_search"> serach description </string>
+    <string name="content_share"> share description </string>
+    <string name="content_common"> common description </string>
+
     <!--    menu-->
     <string name="transaction_history">Transaction History</string>
     <string name="reprint">Reprint</string>

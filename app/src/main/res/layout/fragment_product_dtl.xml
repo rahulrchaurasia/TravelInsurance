@@ -1,38 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+    <!-- Main Content -->
+<androidx.core.widget.NestedScrollView android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.productDtl.ProductDtlFragment">
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:contentDescription="@string/content_common"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/title"
-        style="@style/header_textview_24"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:orientation="vertical">
 
-        android:layout_marginStart="@dimen/_16dp"
-        android:layout_marginTop="@dimen/_40dp"
-        android:text="Product Details"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-       />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAddToCart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:text="Add To Cart"
-        style="@style/ButtonStyle.Secondary"
-        android:layout_marginHorizontal="@dimen/_40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddToCart"
+                android:layout_marginTop="20dp"
 
-    </com.google.android.material.button.MaterialButton>
+                android:text="Add To Cart"
+                style="@style/ButtonStyle.Primary">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.button.MaterialButton>
+
+            <TextView
+                android:id="@+id/txtheader"
+                android:text="Product"
+                style="@style/header_textview_24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/line"
+                />
+            <TextView
+                android:text="body content"
+                style="@style/regular_primary_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="body content2"
+                style="@style/regular_primary_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="body content3"
+                style="@style/regular_primary_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Data message"
+                style="@style/regular_primary_16"
+
+                android:layout_marginTop="400dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Data message2"
+                style="@style/regular_primary_16"
+
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Data message3"
+                style="@style/regular_primary_16"
+
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Data message3"
+                style="@style/regular_primary_16"
+
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Footer data1 "
+                style="@style/semibold_primary_16"
+
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Footer data2 "
+                style="@style/semibold_primary_16"
+
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+<!--            >>>>>>>.-->
+
+            <TextView
+                android:text="SubFooter Data1 "
+                style="@style/semibold_primary_16"
+
+                android:layout_marginTop="@dimen/_40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="SubFooter Data1 "
+                style="@style/semibold_primary_16"
+
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="End of Live Data "
+                style="@style/semibold_primary_16"
+
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+

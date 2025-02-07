@@ -1,15 +1,19 @@
 package com.interstellar.travelInsurance
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -20,11 +24,16 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import coil.size.ViewSizeResolver
+import androidx.transition.Visibility
+import com.google.android.material.appbar.AppBarLayout
 import com.interstellar.travelInsurance.databinding.ActivityMainBinding
+import com.interstellar.travelInsurance.interfaces.AppBarType
+import com.interstellar.travelInsurance.interfaces.IHandleAppBar
+import com.interstellar.travelInsurance.interfaces.IHandleToolbar
 import com.interstellar.travelInsurance.utils.Constant
 import com.interstellar.travelInsurance.view.home.ICustomBackNavigation
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
 
 /*
 Note :  enableEdgeToEdge() my System Bar {ie apps below  bootom bar} default color not chnge when apply on theme.
@@ -42,39 +51,46 @@ android:fitsSystemWindows="false" // for enableEdgeToEdge()
  */
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    private var isToolbarCollapsed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+
+        ///region for Full Abar Bar ahndling
+
+     //   enableEdgeToEdge()
 //
-//        //region Default Code commented
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//           // v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        window.navigationBarColor = getColor(R.color.navigation_bar_color)
+//        window.statusBarColor = getColor(R.color.navigation_bar_color)
 //
-//            // Only apply padding to top, left, and right - NOT bottom
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-//            insets
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+//            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            binding.appbar.setPadding(0, systemBars.top, 0, 0)
+//            windowInsets
 //        }
 
 
-
-
          //endregion
-//
-//        // Add this to ensure proper navigation bar styling
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.navigationBarColor = getColor(R.color.navigation_bar_color)
+
+// handle apbar from bottom
+//        window.navigationBarColor = ContextCompat.getColor(this, R.color.navigation_bar_color)
+
+
+
 
         setupNavigation()
 
-        setupNavigationVisibility()
+        setupNavigationAndToolbarVisibility()
+
+      //  setupCustomToolBarVisibility()
 
         setupBottomNavigation()
 
@@ -84,12 +100,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         // Back Press Handling
         setupBackPressedDispatcher()
+
+
+   // appbar scroll effect
+       // setupCollapsingToolbar()
     }
 
     private fun setupNavigation() {
 
         // 1. First set the toolbar as action bar
-        setSupportActionBar(binding.toolbar)
+        // our toolbar come via other layout which is include in main content
+        // setSupportActionBar(binding.toolbar)
+       setSupportActionBar(binding.includeDefaultToolbar.toolbar)
 
         // 2. Get NavController
         val navHostFragment = supportFragmentManager
@@ -125,46 +147,83 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     }
 
-    private fun setupNavigationVisibility() {
+    private fun setupNavigationAndToolbarVisibility() {
         // Initially hide navigation
         hideNavigationDrawer()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
+            when {
+                // Auth Graph - Hide AppBar and Drawer
+                destination.parent?.id == R.id.auth_graph -> {
+                   // hideAppBar()
+                    setAppBar(AppBarType.Hidden)
+                    hideNavigationDrawer()
 
-            if (destination.parent?.id == R.id.auth_graph) {
-                // Auth flow - no appbar, no drawer
-                binding.appbar.visibility = View.GONE
+                    hideBottomNavigation() //05
+                }
 
-                hideNavigationDrawer()
+                // Fragments with Navigation Drawer
+                //{contains the set of destination IDs that should show the navigation drawer (hamburger menu)
+                // instead of the back arrow. These are typically your app's top-level/root destinations.
+                destination.id in appBarConfiguration.topLevelDestinations -> {
+                   // showAppBar()
+                    setAppBar(AppBarType.Default)
+                    setupActionBarWithNavController(navController, appBarConfiguration)
+                    showNavigationDrawer()
+                }
+
+                // Fragments with CustomToolbar and Hide  bottomLayer
+                destination.id in customToolbarDestinations -> {
+                    binding.bottomLayer.visibility = View.GONE
+                }
+
+                // All other cases - Default to hiding Drawer and AppBar
+                else -> {
+                   // hideAppBar()
+                    hideNavigationDrawer()
+                }
             }
-            else if (destination.id in customToolbarDestinations) {
-                // Specific fragments with custom toolbars
-                binding.appbar.visibility = View.GONE
 
-                hideNavigationDrawer()
-               // for More Specification
-//                when (destination.id) {
-//                    R.id.productDetailFragment -> hideNavigationDrawer()
-//                    R.id.profileFragment -> showNavigationDrawer()
-//                }
-            }
+            //region comment
+            //For Auth Graph
+//            if (destination.parent?.id == R.id.auth_graph) {
+//                // Auth flow - no appbar, no drawer
+//                binding.appbar.visibility = View.GONE
+//
+//                hideNavigationDrawer()
+//            }
+//            //For Custom Toolbar {has mostly not a part of Navigation Drawer bec its set fix Configuration
+//            else if (destination.id in customToolbarDestinations) {
+//                // Specific fragments with custom toolbars
+//                binding.appbar.visibility = View.GONE
+//
+//                hideNavigationDrawer()
+//               // for More Specification
+////                when (destination.id) {
+////                    R.id.productDetailFragment -> hideNavigationDrawer()
+////                    R.id.profileFragment -> showNavigationDrawer()
+////                }
+//            }
+//
+//            else {
+//                // Main flow - default appbar with hamburger
+//                binding.appbar.visibility = View.VISIBLE
+//                setupActionBarWithNavController(navController, appBarConfiguration)
+//
+//                showNavigationDrawer()
+//            }
 
-            else {
-                // Main flow - default appbar with hamburger
-                binding.appbar.visibility = View.VISIBLE
-                setupActionBarWithNavController(navController, appBarConfiguration)
-
-                showNavigationDrawer()
-            }
-
+            //endregion
         }
 
     }
 
-    private val customToolbarDestinations = setOf(
-        R.id.paymentFragment,
 
+
+    private val customToolbarDestinations = setOf(
+        R.id.paymentFragment
+       // R.id.productDtlFragment,
 
         // Add other fragments that need custom toolbars
     )
@@ -184,6 +243,62 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
 
+   // region comment
+
+//
+//    fun handleToolbarState(percentage: Float) {
+//        binding.apply {
+//            when {
+//                percentage > 0.9f -> {
+//                    toolbar.isVisible = false
+//                    collapsingToolbar.isVisible = true
+//                }
+//                percentage < 0.1f -> {
+//                    toolbar.isVisible = true
+//                    collapsingToolbar.isVisible = false
+//                }
+//                else -> {
+//                    toolbar.alpha = 1 - percentage
+//                    collapsingToolbar.alpha = percentage
+//                }
+//            }
+//        }
+//    }
+
+//    fun showCollapsingToolbar() {
+//        binding.collapsingToolbar.visibility = View.VISIBLE
+//        binding.toolbar.visibility = View.GONE
+//    }
+//
+//    fun showincludeDefaultToolbar() {
+//        binding.collapsingToolbar.visibility = View.GONE
+//        binding.toolbar.visibility = View.VISIBLE
+//    }
+
+    //endregion
+
+
+//    private fun setupCollapsingToolbar() {
+//        // Setup AppBar scroll listener
+//        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+//            val scrollRange = appBarLayout.totalScrollRange
+//            val percentage = abs(verticalOffset).toFloat() / scrollRange.toFloat()
+//
+//            // Toggle between expanded and collapsed layouts
+//            if (percentage > 0.8f && !isToolbarCollapsed) {
+//                isToolbarCollapsed = true
+//                binding.collapsedContent.visibility = View.VISIBLE
+//                binding.expandedContent.alpha = 0f
+//            } else if (percentage < 0.8f && isToolbarCollapsed) {
+//                isToolbarCollapsed = false
+//                binding.collapsedContent.visibility = View.GONE
+//                binding.expandedContent.alpha = 1f
+//            }
+//
+//            // Fade expanded content
+//            binding.expandedContent.alpha = 1f - percentage
+//        })
+//    }
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
 
@@ -255,7 +370,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 
 
-    fun menuNavigationListner(){
+    private fun menuNavigationListner(){
 
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -282,6 +397,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+    private fun hideBottomNavigation() {
+        binding.bottomLayer.visibility = View.GONE
+    }
+
+    private fun showBottomNavigation() {
+        binding.bottomLayer.visibility = View.VISIBLE
+    }
+
     private fun setupBottomNavigation() {
 
         // 6. Set up BottomNavigationView with NavController
@@ -291,39 +414,61 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when {
                 destination.parent?.id == R.id.auth_graph -> {
-                    binding.bottomNavigationView.visibility = View.GONE
+
+                    binding.bottomLayer.visibility = View.GONE
                 }
                 destination.id in customToolbarDestinations -> {
-                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.bottomLayer.visibility = View.GONE
                 }
                 else -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
+                    binding.bottomLayer.visibility = View.VISIBLE
                 }
             }
         }
 
         binding.bottomNavigationView.setOnItemReselectedListener { item ->
-            val currentFragment = navController.currentDestination?.id
-            if (currentFragment == item.itemId) {
-                // Handle reselection using existing navController
-                when (currentFragment) {
+
+            // // Get current destination from NavController
+            val currentDestination = navController.currentDestination?.id
+
+            //Mark : Only proceed if we're in the home graph (not auth graph)
+            if (navController.currentDestination?.parent?.id == R.id.home_graph) {
+                when (item.itemId) {
                     R.id.homeFragment -> {
-                        // Refresh home or scroll to top
-                        // Scroll to top and/or refresh
-                      //  currentFragment.scrollToTop()
-
-                        navController.popBackStack(R.id.homeFragment, false)
-
+                        // If we're not already at HomeFragment, pop back to it
+                        if (currentDestination != R.id.homeFragment) {
+                            navController.popBackStack(R.id.homeFragment, false)
+                        }else{
+                            // Scroll to top and/or refresh
+                           // currentDestination.scrollToTop()
+                        }
                     }
                     R.id.transactionFragment -> {
-                        // Refresh transactions
-                       // currentFragment.refreshContent()
-                        // Clear back stack of transaction tab and return to main transaction list
-                      //  navController.popBackStack(R.id.transactionFragment, false)
+                        // If we're not already at TransactionFragment, pop back to it
+                        if (currentDestination != R.id.transactionFragment) {
+                            navController.popBackStack(R.id.transactionFragment, false)
+                        }
                     }
-                    // Other cases
+                    // Add other bottom nav destinations as needed
                 }
             }
+               //Mark : Because we added all journy fo car is nested Graph whose id is carInsurance_nested_graph
+            // hence we have to used nested Graph id name where we used tab in graph we have select start fragment hence it identified  start-uo
+
+            else if(navController.currentDestination?.parent?.id == R.id.carInsurance_nested_graph){
+
+               // showAlert("tested")
+               // when (item.itemId) {
+                   // R.id.carInsuranceMainFragment -> {
+                        if (currentDestination != R.id.carInsuranceMainFragment) {
+                            navController.popBackStack(R.id.carInsuranceMainFragment, false)
+                        }
+                   // }
+
+               // }
+            }
+
+
         }
     }
 
@@ -346,6 +491,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     }
 
+    // refer from here: https://www.youtube.com/watch?v=1sgRsGUXrNU&list=PLj76U7gxVixTYE8n2X_z50nP3O8TqyBb3&index=12
     private fun navigateToAuth() {
         navController.navigate(
             R.id.auth_graph,
@@ -359,7 +505,51 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
     }
 
-    fun showData(){
+    //region Appbar Handling
+    override fun hideAppBar() {
+       // binding.includeDefaultToolbar.appbar.visibility = View.GONE
+
+        with(binding){
+            includeDefaultToolbar.appbar.visibility = View.GONE
+            includeCustomToolbar.appbar.visibility = View.GONE
+            includeCustomToolbar2.appbar.visibility = View.GONE
+        }
+
+
+        //setAppBar(AppBarType.Hidden)
+    }
+
+    override fun showAppBar() {
+        binding.includeDefaultToolbar.appbar.visibility = View.VISIBLE
+       // binding.includeDefaultToolbar.appbar.visibility = View.VISIBLE
+        //setAppBar(AppBarType.Default)
+
+        with(binding){
+
+            includeCustomToolbar.appbar.visibility = View.GONE
+            includeCustomToolbar2.appbar.visibility = View.GONE
+        }
 
     }
+
+    override fun setAppBar(appBarType: AppBarType) {
+        // Hide all toolbars first
+        with(binding){
+            includeDefaultToolbar.appbar.visibility = View.GONE
+            includeCustomToolbar.appbar.visibility = View.GONE
+            includeCustomToolbar2.appbar.visibility = View.GONE
+        }
+
+        // Show specific toolbar based on AppBarType
+        when (appBarType) {
+            AppBarType.Default -> binding.includeDefaultToolbar.appbar.visibility = View.VISIBLE
+
+            AppBarType.Custom1 -> binding.includeCustomToolbar.appbar.visibility = View.VISIBLE
+            AppBarType.Custom2 -> binding.includeCustomToolbar2.appbar.visibility = View.VISIBLE
+            AppBarType.Hidden -> Unit // No toolbar
+        }
+    }
+
+
+    //endregion
 }
