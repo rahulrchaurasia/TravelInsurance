@@ -12,7 +12,8 @@
 
 <!--        Refers to the color of the status bar at the top of the screen.-->
         <item name="android:statusBarColor">@color/navigation_bar_color</item><!-- status bar color-->
-
+        <item name="android:windowLightStatusBar">false</item>
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
 
 
         <!-- depricated colors -->
@@ -50,12 +51,13 @@
 <!--        When you use enableEdgeToEdge(), it manages the system bars differently.-->
 <!--        The theme's navigationBarColor is being overridden because edge-to-edge mode handles system bars differently.-->
 
+        <!-- Navigation bar color -->
         <item name="android:navigationBarColor">@color/navigation_bar_color</item>  <!-- Refers to the color of the navigation bar at the bottom of the screen.-->
         <item name="android:windowLightNavigationBar" tools:ignore ="NewApi" >false</item>
 
 
         <item name="android:windowTranslucentStatus" >false</item> <!-- Makes status bar semi-transparent .Content can draw behind-->
-        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentNavigation">false</item> <!-- For older devices -->
         <!-- End Of System bar -->
 
         <!--   //textViewStyle for all textView-->

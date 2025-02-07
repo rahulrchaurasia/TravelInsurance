@@ -26,26 +26,52 @@ import android.provider.Settings
 import java.text.SimpleDateFormat
 
 
-fun Context.showSnackbar(view: View, msg: String?) {
-    Snackbar.make(view, msg ?: "Something went wrong", Snackbar.LENGTH_SHORT).show()
-}
+//fun Context.showSnackbar(view: View, msg: String?) {
+//    Snackbar.make(view, msg ?: "Something went wrong", Snackbar.LENGTH_SHORT).show()
+//}
 
+
+fun Context.showSnackbar(view: View,anchorView : View?, msg: String?) {
+    Snackbar.make(view, msg ?: "Something went wrong", Snackbar.LENGTH_SHORT)
+        .setAnchorView(anchorView)
+        .show()
+}
 
 fun Context.showSnackbar(
     view: View,
-    msg: String? = null,
+    anchorView: View?,
+    msg: String?,
+    duration: Int = Snackbar.LENGTH_SHORT,
     actionText: String? = null,
     actionListener: View.OnClickListener? = null
 ) {
     val message = msg ?: "Something went wrong"
-    val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
-
-    if (actionText != null && actionListener != null) {
-        snackbar.setAction(actionText, actionListener)
-    }
-
-    snackbar.show()
+    Snackbar.make(view, message, duration)
+        .apply {
+            anchorView?.let { setAnchorView(it) }
+            if (actionText != null && actionListener != null) {
+                setAction(actionText, actionListener)
+            }
+        }
+        .show()
 }
+
+//fun Context.showSnackbar(
+//    view: View,
+//    msg: String? = null,
+//    actionText: String? = null,
+//    actionListener: View.OnClickListener? = null
+//) {
+//    val message = msg ?: "Something went wrong"
+//    val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+//
+//    if (actionText != null && actionListener != null) {
+//        snackbar.setAction(actionText, actionListener)
+//    }
+//
+//    snackbar.show()
+//}
+
 
 
 

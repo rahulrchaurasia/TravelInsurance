@@ -27,7 +27,7 @@
     <color name="nav_item_pressed_bg">#29EF5350</color>  <!-- 16%  opacity -->
 
 
-    <color name="bottom_background_bg">#14E53935</color>  <!-- 8% opacity blue -->
+    <color name="bottom_background_bg">#efd7dd</color>  <!-- light red color -->
     <color name="navigation_bar_color">@color/bottom_background_bg</color> <!-- For bottom bar color: Bolow Bottom navg default backspace tool -->
 
 
@@ -37,6 +37,15 @@
     <color name="textinput_box_bg">#105093</color>
 
     <color name="default_icon_color">#3D85B7</color>
+
+
+<!--    <color name="colorPrimary">#FF2B2B2B</color>-->
+<!--    <color name="colorPrimaryDark">#FF1A1A1A</color>-->
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="scrim_color">#99000000</color>
+    <color name="toolbar_elevated_color">#80FFFFFF</color>
+    <color name="status_bar_scrim">#F9F9F9</color>
 
     <color name="light_gray_transparent">#33CCCCCC</color>
     <color name="bg_transparent">#4Dffffff</color>
@@ -57,8 +66,6 @@
 
     <color name="layoutcolor1">#00284d</color>
     <color name="layoutcolor2">#62d2f2</color>
-
-    <color name="transparent">#00000000</color>
 
     <color name="bl_list_item_color">#656855</color>
 
@@ -107,7 +114,6 @@
 
     <!-- version -->
     <color name="prompt_version">#FF0000</color>
-    <color name="white">#FFFFFF</color>
     <color name="TitleBackground">#1E82D2</color>
     <!-- GridView color -->
     <color name="grid_item_bg">#ffe8ecef</color>

@@ -18,10 +18,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.interstellar.travelInsurance.BaseFragment
+import com.interstellar.travelInsurance.MainActivity
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.core.viewmodel.HomeViewModel
 import com.interstellar.travelInsurance.databinding.FragmentHomeBinding
 import com.interstellar.travelInsurance.utils.hideKeyboard
+import com.interstellar.travelInsurance.utils.showSnackbar
 import com.interstellar.travelInsurance.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -68,6 +70,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
         setupMenu()
 
         setupObservers()
+
+        requireContext().showSnackbar(view = binding.root,
+            anchorView = (activity as? MainActivity)?.findViewById(R.id.bottomNavigationView),
+            msg = "Home Fragment Loaded")
+
+        showSnackbar(
+            msg = "Home Fragment Loaded"
+        )
 
        // viewModel.getData()
     }

@@ -1,6 +1,7 @@
 package com.interstellar.travelInsurance
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -28,7 +29,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.Snackbar
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
+import com.interstellar.travelInsurance.interfaces.IHandleAppBar
+import com.interstellar.travelInsurance.utils.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -46,6 +50,39 @@ abstract class BaseFragment<VB : ViewBinding>(
     val binding: VB
         get() = _binding as VB
 
+    // Handling Appbar using Interface
+     var appBarHandler: IHandleAppBar? = null
+
+
+    protected val bottomNavView: View?
+        get() = activity?.findViewById(R.id.bottomNavigationView)
+
+    // Base showSnackbar function that all fragments can use
+    protected fun showSnackbar(
+        msg: String?,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        actionText: String? = null,
+        actionListener: View.OnClickListener? = null
+    ) {
+        requireContext().showSnackbar(
+            view = requireView(),
+            anchorView = bottomNavView,
+            msg = msg,
+            actionText = actionText,
+            actionListener = actionListener
+        )
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IHandleAppBar) {
+            appBarHandler = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        appBarHandler = null
+    }
 
     //region lifecycle
 
