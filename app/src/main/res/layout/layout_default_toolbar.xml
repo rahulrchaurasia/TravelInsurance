@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="visible"
+    android:background="@color/colorPrimaryDark"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        style="@style/Widget.Material3.Toolbar"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/white"
+        app:subtitleTextColor="@color/white"
+
+        app:contentInsetStartWithNavigation="0dp"
+        android:elevation="10dp"
+        android:contentInsetStart="0dp"
+        android:contentInsetEnd="0dp"
+
+        />
+</com.google.android.material.appbar.AppBarLayout>
+
+
