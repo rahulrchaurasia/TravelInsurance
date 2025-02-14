@@ -51,7 +51,7 @@ android:fitsSystemWindows="false" // for enableEdgeToEdge()
  */
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
+class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
 
     private lateinit var navController: NavController
@@ -65,7 +65,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
         ///region for Full Abar Bar ahndling
 
-     //   enableEdgeToEdge()
+        //   enableEdgeToEdge()
 //
 //        WindowCompat.setDecorFitsSystemWindows(window, false)
 //        window.navigationBarColor = getColor(R.color.navigation_bar_color)
@@ -78,19 +78,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 //        }
 
 
-         //endregion
+        //endregion
 
 // handle apbar from bottom
 //        window.navigationBarColor = ContextCompat.getColor(this, R.color.navigation_bar_color)
-
-
 
 
         setupNavigation()
 
         setupNavigationAndToolbarVisibility()
 
-      //  setupCustomToolBarVisibility()
+        //  setupCustomToolBarVisibility()
 
         setupBottomNavigation()
 
@@ -102,8 +100,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
         setupBackPressedDispatcher()
 
 
-   // appbar scroll effect
-       // setupCollapsingToolbar()
+        // appbar scroll effect
+        // setupCollapsingToolbar()
     }
 
     private fun setupNavigation() {
@@ -111,7 +109,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
         // 1. First set the toolbar as action bar
         // our toolbar come via other layout which is include in main content
         // setSupportActionBar(binding.toolbar)
-       setSupportActionBar(binding.includeDefaultToolbar.toolbar)
+        setSupportActionBar(binding.includeDefaultToolbar.toolbar)
 
         // 2. Get NavController
         val navHostFragment = supportFragmentManager
@@ -128,7 +126,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
                 R.id.settingFragment
 
 
-                ),
+            ),
             binding.drawerLayout
         )
 
@@ -137,13 +135,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
 
         // 5. Set up ActionBar with NavController and appBarConfiguration
-        setupActionBarWithNavController(navController,appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         // 6. Set up BottomNavigationView with NavController
-     //   binding.bottomNavigationView.setupWithNavController(navController)
+        //   binding.bottomNavigationView.setupWithNavController(navController)
 
         // Override the icon
-       // supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_hemberger_menu_24)
+        // supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_hemberger_menu_24)
 
     }
 
@@ -156,7 +154,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
             when {
                 // Auth Graph - Hide AppBar and Drawer
                 destination.parent?.id == R.id.auth_graph -> {
-                   // hideAppBar()
+                    // hideAppBar()
                     setAppBar(AppBarType.Hidden)
                     hideNavigationDrawer()
 
@@ -167,7 +165,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
                 //{contains the set of destination IDs that should show the navigation drawer (hamburger menu)
                 // instead of the back arrow. These are typically your app's top-level/root destinations.
                 destination.id in appBarConfiguration.topLevelDestinations -> {
-                   // showAppBar()
+                    // showAppBar()
                     setAppBar(AppBarType.Default)
                     setupActionBarWithNavController(navController, appBarConfiguration)
                     showNavigationDrawer()
@@ -180,7 +178,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
                 // All other cases - Default to hiding Drawer and AppBar
                 else -> {
-                   // hideAppBar()
+                    // hideAppBar()
                     hideNavigationDrawer()
                 }
             }
@@ -220,10 +218,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
     }
 
 
-
     private val customToolbarDestinations = setOf(
         R.id.paymentFragment
-       // R.id.productDtlFragment,
+        // R.id.productDtlFragment,
 
         // Add other fragments that need custom toolbars
     )
@@ -243,7 +240,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
     }
 
 
-   // region comment
+    // region comment
 
 //
 //    fun handleToolbarState(percentage: Float) {
@@ -278,7 +275,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
     //endregion
 
 
-//    private fun setupCollapsingToolbar() {
+    //    private fun setupCollapsingToolbar() {
 //        // Setup AppBar scroll listener
 //        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
 //            val scrollRange = appBarLayout.totalScrollRange
@@ -310,7 +307,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
         return handleCustomBackNavigation() || navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
 
 
     //region handBackPress and Navigation UP
@@ -349,13 +345,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
             }
         })
     }
+
     private fun isAtHomeFragment(): Boolean {
         return navController.currentDestination?.id == R.id.homeFragment &&
                 navController.currentDestination?.parent?.id == R.id.home_graph
     }
 
     private fun handleCustomBackNavigation(): Boolean {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val currentFragment = navHostFragment.childFragmentManager.fragments.firstOrNull()
 
 
@@ -369,21 +367,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
     //endregion
 
 
-
-    private fun menuNavigationListner(){
+    private fun menuNavigationListner() {
 
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
 
             when (menuItem.itemId) {
                 R.id.logout -> {
-                    showAlert( title = "Logout", msg = "Are you sure you want to log out?",positiveBtn = resources.getString(R.string.yes) , showNegativeButton = true,
-                        onPositiveClick =  ::handleLogOut)
+                    showAlert(
+                        title = "Logout",
+                        msg = "Are you sure you want to log out?",
+                        positiveBtn = resources.getString(R.string.yes),
+                        showNegativeButton = true,
+                        onPositiveClick = ::handleLogOut
+                    )
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
 
 
                     false // Don't navigate
                 }
+
                 else -> {
                     // Use the NavigationUI to handle standard destination changes
                     val handled = NavigationUI.onNavDestinationSelected(menuItem, navController)
@@ -417,9 +420,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
                     binding.bottomLayer.visibility = View.GONE
                 }
+
                 destination.id in customToolbarDestinations -> {
                     binding.bottomLayer.visibility = View.GONE
                 }
+
                 else -> {
                     binding.bottomLayer.visibility = View.VISIBLE
                 }
@@ -438,11 +443,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
                         // If we're not already at HomeFragment, pop back to it
                         if (currentDestination != R.id.homeFragment) {
                             navController.popBackStack(R.id.homeFragment, false)
-                        }else{
+                        } else {
                             // Scroll to top and/or refresh
-                           // currentDestination.scrollToTop()
+                            // currentDestination.scrollToTop()
                         }
                     }
+
                     R.id.transactionFragment -> {
                         // If we're not already at TransactionFragment, pop back to it
                         if (currentDestination != R.id.transactionFragment) {
@@ -452,20 +458,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
                     // Add other bottom nav destinations as needed
                 }
             }
-               //Mark : Because we added all journy fo car is nested Graph whose id is carInsurance_nested_graph
+            //Mark : Because we added all journy fo car is nested Graph whose id is carInsurance_nested_graph
             // hence we have to used nested Graph id name where we used tab in graph we have select start fragment hence it identified  start-uo
 
-            else if(navController.currentDestination?.parent?.id == R.id.carInsurance_nested_graph){
+            else if (navController.currentDestination?.parent?.id == R.id.carInsurance_nested_graph) {
 
-               // showAlert("tested")
-               // when (item.itemId) {
-                   // R.id.carInsuranceMainFragment -> {
-                        if (currentDestination != R.id.carInsuranceMainFragment) {
-                            navController.popBackStack(R.id.carInsuranceMainFragment, false)
-                        }
-                   // }
+                // showAlert("tested")
+                // when (item.itemId) {
+                // R.id.carInsuranceMainFragment -> {
+                if (currentDestination != R.id.carInsuranceMainFragment) {
+                    navController.popBackStack(R.id.carInsuranceMainFragment, false)
+                }
+                // }
 
-               // }
+                // }
             }
 
 
@@ -507,9 +513,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
     //region Appbar Handling
     override fun hideAppBar() {
-       // binding.includeDefaultToolbar.appbar.visibility = View.GONE
+        // binding.includeDefaultToolbar.appbar.visibility = View.GONE
 
-        with(binding){
+        with(binding) {
             includeDefaultToolbar.appbar.visibility = View.GONE
             includeCustomToolbar.appbar.visibility = View.GONE
             includeCustomToolbar2.appbar.visibility = View.GONE
@@ -521,10 +527,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
     override fun showAppBar() {
         binding.includeDefaultToolbar.appbar.visibility = View.VISIBLE
-       // binding.includeDefaultToolbar.appbar.visibility = View.VISIBLE
+        // binding.includeDefaultToolbar.appbar.visibility = View.VISIBLE
         //setAppBar(AppBarType.Default)
 
-        with(binding){
+        with(binding) {
 
             includeCustomToolbar.appbar.visibility = View.GONE
             includeCustomToolbar2.appbar.visibility = View.GONE
@@ -534,7 +540,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
 
     override fun setAppBar(appBarType: AppBarType) {
         // Hide all toolbars first
-        with(binding){
+        with(binding) {
             includeDefaultToolbar.appbar.visibility = View.GONE
             includeCustomToolbar.appbar.visibility = View.GONE
             includeCustomToolbar2.appbar.visibility = View.GONE
@@ -549,7 +555,40 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar{
             AppBarType.Hidden -> Unit // No toolbar
         }
     }
+}
 
 
     //endregion
-}
+
+
+
+//
+//    fun handleToolbarState(percentage: Float) {
+//        binding.apply {
+//            when {
+//                percentage > 0.9f -> {
+//                    toolbar.isVisible = false
+//                    collapsingToolbar.isVisible = true
+//                }
+//                percentage < 0.1f -> {
+//                    toolbar.isVisible = true
+//                    collapsingToolbar.isVisible = false
+//                }
+//                else -> {
+//                    toolbar.alpha = 1 - percentage
+//                    collapsingToolbar.alpha = percentage
+//                }
+//            }
+//        }
+//    }
+
+//    fun showCollapsingToolbar() {
+//        binding.collapsingToolbar.visibility = View.VISIBLE
+//        binding.toolbar.visibility = View.GONE
+//    }
+//
+//    fun showDefaultToolbar() {
+//        binding.collapsingToolbar.visibility = View.GONE
+//        binding.toolbar.visibility = View.VISIBLE
+//    }
+
