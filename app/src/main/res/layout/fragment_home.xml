@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<!--// Note Use @string/appbar_scrolling_view_behavior" for root layer and NestedScrollView always-->
+
+
+<androidx.core.widget.NestedScrollView android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:contentDescription="@string/content_common"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.home.HomeFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/_16dp"
-        android:layout_marginTop="@dimen/_8dp"
-
-        android:contentDescription="@string/content_common"
-       >
-
-    <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_40dp"
+        >
 
         <TextView
             android:id="@+id/title"
@@ -30,7 +27,7 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="@dimen/_16dp"
-            android:text="Home"
+            android:text="Home Page"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +39,7 @@
             android:layout_height="wrap_content"
             style="@style/ButtonStyle.Secondary"
             android:layout_marginHorizontal="@dimen/_24dp"
-            android:text="Product"
+            android:text="Get Product"
             app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -105,7 +102,5 @@
             app:layout_constraintTop_toBottomOf="@+id/txtDes4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
 
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

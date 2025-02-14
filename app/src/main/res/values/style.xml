@@ -444,34 +444,34 @@
     <!--text size 12-->
     <style name="section_primary_textview_12" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/poppinsregular</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/header_text</item>
     </style>
 
     <style name="section_textview_12" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/poppinsregular</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/header_text</item>
     </style>
 
 
     <!--text size 12-->
     <style name="sub_textview_bold_12" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="fontFamily">@font/poppinsmedium</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/poppinsbold</item>
+        <item name="android:textColor">@color/header_text</item>
     </style>
 
     <style name="sub_textview_12" parent="TextAppearance.MaterialComponents.Caption">
         <item name="fontFamily">@font/poppinsregular</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/header_text</item>
     </style>
 
     <style name="sub_textview_10" parent="section_textview_12">
         <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/header_text</item>
     </style>
 
 
     <style name="sub_textview_white_12" parent="sub_textview_12">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/header_text</item>
     </style>
 
 <!--    <style name="Widget.Theme.ATMGo.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">-->

@@ -22,6 +22,7 @@ import com.interstellar.travelInsurance.MainActivity
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.core.viewmodel.HomeViewModel
 import com.interstellar.travelInsurance.databinding.FragmentHomeBinding
+import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.utils.hideKeyboard
 import com.interstellar.travelInsurance.utils.showSnackbar
 import com.interstellar.travelInsurance.utils.showToast
@@ -71,16 +72,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
         setupObservers()
 
-        requireContext().showSnackbar(view = binding.root,
-            anchorView = (activity as? MainActivity)?.findViewById(R.id.bottomNavigationView),
-            msg = "Home Fragment Loaded")
+//        requireContext().showSnackbar(view = binding.root,
+//            anchorView = (activity as? MainActivity)?.findViewById(R.id.bottomNavigationView),
+//            msg = "Home Fragment Loaded")
 
-        showSnackbar(
-            msg = "Home Fragment Loaded"
-        )
+        showSnackbar(msg = "Home Fragment Loaded")
 
        // viewModel.getData()
+
+      //  appBarHandler?.setAppBar(AppBarType.Default)
     }
+
+//    override val appBarType: AppBarType
+//        get() = AppBarType.Default
 
 
     //region setUp Menu

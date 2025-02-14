@@ -250,6 +250,11 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <!-- Secondary button style -->
+    <style name="ButtonStyle.ternary" parent="ButtonStyle.Base">
+        <item name="android:backgroundTint">@color/green_status</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
     <style name="ButtonStyle.Capsule" parent="ButtonStyle.Base">
         <item name="android:backgroundTint">@color/colorPrimary</item>

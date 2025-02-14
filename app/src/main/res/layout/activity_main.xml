@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -13,201 +13,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
+
             >
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:elevation="0dp"
-                android:background="@color/colorPrimaryDark">
+
+<!--            <com.google.android.material.appbar.AppBarLayout-->
+<!--                android:id="@+id/appbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fitsSystemWindows="true">-->
+
+<!--                <com.google.android.material.appbar.MaterialToolbar-->
+<!--                    android:id="@+id/toolbar"-->
+<!--                    android:visibility="visible"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="?attr/actionBarSize"-->
+
+<!--                    app:titleTextAppearance="@style/Toolbar.TitleText"-->
+<!--                    style="@style/Widget.Material3.Toolbar"-->
+<!--                    android:background="@color/colorPrimaryDark"-->
+<!--                    app:titleTextColor="@color/white"-->
+<!--                    app:subtitleTextColor="@color/white"-->
 
 
-               <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                   android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+<!--                    android:elevation="0dp"-->
+<!--                    android:contentInsetStart="0dp"-->
+<!--                    android:contentInsetEnd="0dp"-->
 
-                    app:titleTextAppearance="@style/Toolbar.TitleText"
-                    style="@style/Widget.Material3.Toolbar"
-                    android:background="@color/colorPrimaryDark"
-                    app:titleTextColor="@color/white"
-                    app:subtitleTextColor="@color/white"
+<!--                    />-->
+<!--            </com.google.android.material.appbar.AppBarLayout>-->
 
+            <include layout="@layout/layout_default_toolbar"
+                android:id="@+id/include_default_toolbar"
+                android:visibility="visible"
 
-                    android:elevation="0dp"
-                    android:contentInsetStart="0dp"
-                    android:contentInsetEnd="0dp"
+                />
 
-                    />
+            <include layout="@layout/layout_custom_toolbar"
+                android:id="@+id/include_custom_toolbar"
+                android:visibility="gone"
 
+                />
+            <include layout="@layout/layout_custom_toolbar2"
+                android:id="@+id/include_custom_toolbar2"
+                android:visibility="gone"
 
-
-<!--                ///-->
-
-                <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsingToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                    app:contentScrim="@color/colorPrimaryDark"
-                    app:statusBarScrim="@color/colorPrimaryDark"
-                    app:expandedTitleMarginStart="16dp"
-                    app:expandedTitleMarginEnd="16dp">
-
-                    <!-- Expanded Content -->
-                    <LinearLayout
-                        android:id="@+id/expandedContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        app:layout_collapseMode="parallax">
-
-                        <!-- Product Image -->
-                        <ImageView
-                            android:id="@+id/productImage"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:src="@drawable/ic_person_24"
-                            android:layout_marginTop="?attr/actionBarSize"
-                            android:scaleType="centerCrop"/>
-
-                        <!-- Product Title -->
-                        <TextView
-                            android:id="@+id/expandedTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:textSize="24sp"
-                            android:text="Steel Product"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold"/>
-
-                        <!-- Price Layout -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/expandedPrice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="20sp"
-                                android:text="20Rs"
-                                android:textColor="@android:color/white"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:id="@+id/expandedOriginalPrice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:textSize="16sp"
-                                android:text="300"
-                                android:textColor="@android:color/white"
-                                android:alpha="0.7"
-                                />
-
-                            <TextView
-                                android:id="@+id/discountPercentage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:textSize="14sp"
-                                android:text="40"
-                                android:textColor="@android:color/holo_green_light"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <!-- Toolbar -->
-                    <com.google.android.material.appbar.MaterialToolbar
-                        android:id="@+id/productToolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="@color/blue"
-                        android:paddingTop="0dp"
-                        app:layout_collapseMode="pin">
-
-                        <!-- Collapsed Content -->
-                    <!--   layout_height="match_parent" -->
-
-                        <LinearLayout
-                            android:id="@+id/collapsedContent"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:visibility="visible"
-                            android:fitsSystemWindows="false"
-                            >
-
-                            <ImageView
-                                android:id="@+id/productThumb"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginEnd="8dp"
-                                android:scaleType="centerCrop"/>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/collapsedTitle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="16sp"
-                                    android:maxLines="1"
-                                    android:text="Collapse title"
-                                    android:ellipsize="end"/>
-
-                                <TextView
-                                    android:id="@+id/collapsedPrice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="200Rs"
-                                    android:textColor="@android:color/white"
-                                    android:textSize="14sp"/>
-                            </LinearLayout>
-
-                            <!-- Action Buttons -->
-                            <ImageButton
-                                android:id="@+id/searchButton"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:src="@drawable/ic_search"
-                                app:tint="@color/white" />
-
-                            <ImageButton
-                                android:id="@+id/shareButton"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:src="@drawable/ic_share"
-                                app:tint="@color/white"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.appbar.MaterialToolbar>
-
-                </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-<!--                Note : For static menu we can add from here also-->
-<!--                app:navigationIcon="@drawable/ic_drawer_menu_24"-->
-<!--                app:menu="@menu/logout_menu"-->
-
-
-
-            </com.google.android.material.appbar.AppBarLayout>
-
+                />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/navHostFragment"
@@ -218,19 +68,95 @@
 
                 app:defaultNavHost="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+
                 app:navGraph="@navigation/nav_graph" />
 
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
+<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--                android:id="@+id/bottomNavigationView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:elevation="8dp"-->
+<!--                app:menu="@menu/bottom_nav_menu"-->
+<!--                android:fitsSystemWindows="true"-->
+<!--                app:hideOnScroll="true"-->
+<!--                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>-->
+
+
+            <LinearLayout
+                android:id="@+id/bottomLayer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:elevation="8dp"
-                app:menu="@menu/bottom_nav_menu"
-                android:fitsSystemWindows="true"
                 app:hideOnScroll="true"
-                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+                android:background="@color/bg"
+                android:elevation="@dimen/_8dp"
+                android:orientation="vertical"
+
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="@dimen/_2dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginHorizontal="@dimen/_16dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imgLock"
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        android:contentDescription="@string/content_desc"
+                        android:src="@drawable/ic_lock_24"
+
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:tint="@color/colorAccent"/>
+
+                    <TextView
+                        android:id="@+id/txtUnlock"
+                        style="@style/sub_textview_bold_12"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@id/imgLock"
+                        app:layout_constraintTop_toTopOf="@id/imgLock"
+                        app:layout_constraintBottom_toBottomOf="@id/imgLock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="Add items worth 99 to unlock free delivery witjh"
+                        android:layout_height="wrap_content"/>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+
+                    android:layout_height="1.5dp"
+                    android:background="@color/line"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:layout_marginBottom="@dimen/_1dp"
+                    />
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomNavigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:elevation="8dp"
+                    app:menu="@menu/bottom_nav_menu"
+                    android:fitsSystemWindows="true"
+                    app:hideOnScroll="true"
+                  />
+
+            </LinearLayout>
+
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

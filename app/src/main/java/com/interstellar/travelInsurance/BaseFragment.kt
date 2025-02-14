@@ -31,7 +31,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
+import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.interfaces.IHandleAppBar
+import com.interstellar.travelInsurance.interfaces.IHandleToolbar
 import com.interstellar.travelInsurance.utils.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,9 +55,16 @@ abstract class BaseFragment<VB : ViewBinding>(
     // Handling Appbar using Interface
      var appBarHandler: IHandleAppBar? = null
 
+    //Note : Since using of abract every child has to implemt that field or methjod.
+    // hee when we wan to force every fragment to implement and define appbar use below
+   // abstract val appBarType: AppBarType
 
-    protected val bottomNavView: View?
-        get() = activity?.findViewById(R.id.bottomNavigationView)
+   // OR we can set Default ie it apply to all child Frag of Base Class
+    open val appBarType: AppBarType = AppBarType.Default
+
+
+    protected val bottomView: View?
+        get() = activity?.findViewById(R.id.bottomLayer)
 
     // Base showSnackbar function that all fragments can use
     protected fun showSnackbar(
@@ -66,7 +75,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     ) {
         requireContext().showSnackbar(
             view = requireView(),
-            anchorView = bottomNavView,
+            anchorView = bottomView,
             msg = msg,
             actionText = actionText,
             actionListener = actionListener
@@ -76,12 +85,22 @@ abstract class BaseFragment<VB : ViewBinding>(
         super.onAttach(context)
         if (context is IHandleAppBar) {
             appBarHandler = context
+
         }
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Note :u can set here for apply default to all and override "appBarType" if wann  change : or manually set to each frag using appBarHandler?.setAppBar(appBarType)
+       // appBarHandler?.setAppBar(appBarType)  (Optional : for Default set every fragment)
     }
 
     override fun onDetach() {
         super.onDetach()
         appBarHandler = null
+
     }
 
     //region lifecycle
