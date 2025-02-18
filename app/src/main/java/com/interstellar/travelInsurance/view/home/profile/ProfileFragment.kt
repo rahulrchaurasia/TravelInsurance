@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.view.setting
+package com.interstellar.travelInsurance.view.home.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,17 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.R
-import com.interstellar.travelInsurance.databinding.FragmentSettingBinding
+import com.interstellar.travelInsurance.databinding.FragmentProfileBinding
 
 
-class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBinding::inflate) {
+class ProfileFragment : BaseFragment<FragmentProfileBinding> (FragmentProfileBinding::inflate){
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle("Setting")
-
+      //  setToolbarTitle("Profile")
     }
+
 
 
 

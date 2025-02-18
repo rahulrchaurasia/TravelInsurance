@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.interstellar.travelInsurance.view.profile.ProfileFragment"
+        android:name="com.interstellar.travelInsurance.view.home.profile.ProfileFragment"
         android:label=""
         tools:layout="@layout/fragment_profile"
 
@@ -45,12 +45,12 @@
         tools:layout="@layout/fragment_transaction" />
     <fragment
         android:id="@+id/reportsFragment"
-        android:name="com.interstellar.travelInsurance.view.reports.ReportsFragment"
+        android:name="com.interstellar.travelInsurance.view.home.reports.ReportsFragment"
         android:label=""
         tools:layout="@layout/fragment_reports" />
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.interstellar.travelInsurance.view.setting.SettingFragment"
+        android:name="com.interstellar.travelInsurance.view.home.setting.SettingFragment"
         android:label=""
         tools:layout="@layout/fragment_setting" />
 
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/productDtlFragment"
-        android:name="com.interstellar.travelInsurance.view.productDtl.ProductDtlFragment"
+        android:name="com.interstellar.travelInsurance.view.home.productDtl.ProductDtlFragment"
         android:label=""
         tools:layout="@layout/fragment_product_dtl" >
         <action
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.interstellar.travelInsurance.view.cart.CartFragment"
+        android:name="com.interstellar.travelInsurance.view.home.cart.CartFragment"
         android:label=""
         tools:layout="@layout/fragment_cart" >
         <action

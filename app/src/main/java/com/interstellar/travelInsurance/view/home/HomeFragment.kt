@@ -61,11 +61,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
         private val viewModel : HomeViewModel by viewModels()
 
 
+    // Override to set screen title
+    override val screenTitle: String = "Home"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        setToolbarTitle("home")
+
         binding.btnProduct.setOnClickListener(this)
 
         setupMenu()

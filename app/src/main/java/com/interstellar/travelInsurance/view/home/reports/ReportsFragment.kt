@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.view.reports
+package com.interstellar.travelInsurance.view.home.reports
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,7 +20,7 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(FragmentReportsBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle("Reports")
+        //setToolbarTitle("Reports")
     }
 
 

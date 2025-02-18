@@ -17,7 +17,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>(FragmentPaymentBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setToolbarTitle("Payment")
+       // setToolbarTitle("Payment")
         binding.btnBack.setOnClickListener(this)
         binding.btnShare.setOnClickListener(this)
     }
@@ -42,7 +42,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>(FragmentPaymentBind
 
     override fun onCustomBackPressed(): Boolean {
 
-        findNavController().popBackStack(R.id.productDtlFragment, false )
+        findNavController().popBackStack(R.id.homeFragment, false )
         return true
     }
 }

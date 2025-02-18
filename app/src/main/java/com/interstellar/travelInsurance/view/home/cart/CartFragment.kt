@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.view.cart
+package com.interstellar.travelInsurance.view.home.cart
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

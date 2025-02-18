@@ -11,8 +11,8 @@
 <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>&lt;!&ndash; status bar color&ndash;&gt;-->
 
 <!--        Refers to the color of the status bar at the top of the screen.-->
-        <item name="android:statusBarColor">@color/navigation_bar_color</item><!-- status bar color-->
-        <item name="android:windowLightStatusBar">false</item>
+<!--        <item name="android:statusBarColor">@color/navigation_bar_color</item>&lt;!&ndash; status bar color&ndash;&gt;-->
+<!--        <item name="android:windowLightStatusBar">false</item>-->
 <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
 
 
@@ -52,12 +52,12 @@
 <!--        The theme's navigationBarColor is being overridden because edge-to-edge mode handles system bars differently.-->
 
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor">@color/navigation_bar_color</item>  <!-- Refers to the color of the navigation bar at the bottom of the screen.-->
-        <item name="android:windowLightNavigationBar" tools:ignore ="NewApi" >false</item>
+<!--        <item name="android:navigationBarColor">@color/navigation_bar_color</item>  &lt;!&ndash; Refers to the color of the navigation bar at the bottom of the screen.&ndash;&gt;-->
+<!--        <item name="android:windowLightNavigationBar" tools:ignore ="NewApi" >false</item>-->
 
 
-        <item name="android:windowTranslucentStatus" >false</item> <!-- Makes status bar semi-transparent .Content can draw behind-->
-        <item name="android:windowTranslucentNavigation">false</item> <!-- For older devices -->
+<!--        <item name="android:windowTranslucentStatus" >false</item> &lt;!&ndash; Makes status bar semi-transparent .Content can draw behind&ndash;&gt;-->
+<!--        <item name="android:windowTranslucentNavigation">false</item> &lt;!&ndash; For older devices &ndash;&gt;-->
         <!-- End Of System bar -->
 
         <!--   //textViewStyle for all textView-->
@@ -66,6 +66,14 @@
 
         <!--For Window Bg-->
         <item name="android:windowBackground">@color/bg</item>
+
+        <!-- System bars configuration -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
 
 
 

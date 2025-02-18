@@ -8,11 +8,12 @@ import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.databinding.FragmentCarDetailBinding
 import com.interstellar.travelInsurance.utils.hideKeyboard
-import com.interstellar.travelInsurance.view.productDtl.ProductDtlFragmentDirections
+import com.interstellar.travelInsurance.view.home.ICustomBackNavigation
+
 
 
 class CarDetailFragment : BaseFragment<FragmentCarDetailBinding>(FragmentCarDetailBinding::inflate),
-    OnClickListener {
+    OnClickListener, ICustomBackNavigation {
 
 
 
@@ -57,6 +58,12 @@ class CarDetailFragment : BaseFragment<FragmentCarDetailBinding>(FragmentCarDeta
 
         }
 
+    }
+
+    override fun onCustomBackPressed(): Boolean {
+
+        findNavController().popBackStack(R.id.carInsuranceMainFragment, false )
+        return true
     }
 
 

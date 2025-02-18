@@ -1,17 +1,10 @@
-package com.interstellar.travelInsurance.view.productDtl
+package com.interstellar.travelInsurance.view.home.productDtl
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
-import android.view.ViewGroup
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import com.interstellar.travelInsurance.BaseFragment
-import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.databinding.FragmentProductDtlBinding
 import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.utils.hideKeyboard
@@ -47,7 +40,7 @@ class ProductDtlFragment : BaseFragment<FragmentProductDtlBinding>(FragmentProdu
        // toolbarBarHandler?.hideToolbar()
 
         //appBarHandler?.setAppBar(AppBarType.Custom1)
-        appBarHandler?.setAppBar(AppBarType.Custom1)
+        //this.appBarHandlerOld?.setAppBar(AppBarType.Custom1)
 
         binding.btnAddToCart.setOnClickListener(this)
     }

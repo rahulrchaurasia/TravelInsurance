@@ -1,38 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_8dp"
-    tools:context=".view.carInsurance.main.CarInsuranceMainFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-
-        android:layout_marginTop="@dimen/_50dp"
-        android:id="@+id/txtTitle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/_8dp"
+        app:layout_collapseMode="pin"
+        tools:context=".view.carInsurance.main.CarInsuranceMainFragment">
 
-        style="@style/header_textview_24"
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
 
-        android:text="Lets Start Car Journey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="@dimen/_50dp"
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCar"
-        android:layout_marginTop="20dp"
+            style="@style/header_textview_24"
 
-        android:text="Start Journey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
-        style="@style/ButtonStyle.Secondary">
+            android:text="Lets Start Car Journey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.button.MaterialButton>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCar"
+            android:layout_marginTop="20dp"
+
+            android:text="Start Journey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+            style="@style/ButtonStyle.Secondary">
+
+        </com.google.android.material.button.MaterialButton>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_marginTop="@dimen/_220dp"
+            android:background="@color/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCar"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvCar"
+            android:layout_marginLeft="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="@dimen/_12dp"
+            app:cardElevation="@dimen/_8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/colorPrimary"
+
+            >
+
+            <!-- Use ConstraintLayout as container for better control -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Image filling the card -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgCar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_car_24"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CornerSize12" />
+
+                <!-- Text at the bottom -->
+                <TextView
+                    android:id="@+id/txtdata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Car"
+                    android:textColor="@color/blue"
+                    style="@style/semibold_primary_16"
+                    android:layout_marginBottom="@dimen/_2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:background="@color/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvCar"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvTwoWheeler"
+            android:layout_marginLeft="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="@dimen/_12dp"
+            android:backgroundTint="@color/colorPrimary"
+            app:cardElevation="@dimen/_8dp"
+            android:clickable="true"
+            android:focusable="true"
+
+           >
+
+            <!-- Use ConstraintLayout as container for better control -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Image filling the card -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgCar2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:padding="@dimen/_8dp"
+                    android:src="@drawable/ic_bike_24"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CornerSize12" />
+
+                <!-- Text at the bottom -->
+                <TextView
+                    android:id="@+id/txtdata2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Two Wheeler"
+                    android:textColor="@color/blue"
+                    style="@style/semibold_primary_16"
+                    android:layout_marginBottom="@dimen/_2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@color/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvTwoWheeler"/>
+
+        <TextView
+
+            android:layout_marginTop="@dimen/_50dp"
+            android:id="@+id/txtfooter"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            style="@style/semibold_primary_16"
+
+            android:text="End of Insurance\ Pls verify your details\n\n End Data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+        <TextView
+
+            android:layout_marginTop="@dimen/_50dp"
+            android:id="@+id/txtfooter1"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            style="@style/semibold_primary_16"
+
+            android:text="test data ada "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtfooter" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvdata"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/_12dp"
+            app:cardElevation="@dimen/_8dp"
+
+
+            app:layout_constraintEnd_toStartOf="@+id/txtTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtfooter1"
+            >
+
+            <!-- Use ConstraintLayout as container for better control -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Image filling the card -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgCar3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_person_24"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CornerSize12" />
+
+                <!-- Text at the bottom -->
+                <TextView
+                    android:id="@+id/txtdata3"
+                    style="@style/semibold_primary_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_2dp"
+                    android:gravity="center"
+                    android:text="Two Wheeler"
+                    android:textColor="@color/blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

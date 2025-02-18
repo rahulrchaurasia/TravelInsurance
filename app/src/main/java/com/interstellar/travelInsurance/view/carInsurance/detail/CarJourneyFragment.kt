@@ -12,7 +12,7 @@ import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.databinding.FragmentCarInsuranceBinding
 import com.interstellar.travelInsurance.databinding.FragmentCarJourneyBinding
 import com.interstellar.travelInsurance.utils.hideKeyboard
-import com.interstellar.travelInsurance.view.productDtl.ProductDtlFragmentDirections
+
 
 
 class CarJourneyFragment : BaseFragment<FragmentCarJourneyBinding>(FragmentCarJourneyBinding::inflate),

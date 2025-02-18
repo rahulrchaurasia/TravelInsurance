@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- layout_home_header.xml -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+
+    app:layout_collapseMode="pin"
+    android:padding="16dp">
+    <!-- add Pin above -->
+<!-- Location Section -->
+<LinearLayout
+    android:id="@+id/locationSection"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/txtLocationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your location"
+        android:textColor="@color/white"
+        android:alpha="0.7"/>
+
+    <TextView
+        android:id="@+id/txtLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mumbai"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+</LinearLayout>
+
+<!-- My Garage Button -->
+<com.google.android.material.button.MaterialButton
+    android:id="@+id/garageButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="My Garage"
+    style="@style/Widget.Material3.Button.OutlinedButton"
+    android:textColor="@color/white"
+    app:strokeColor="@color/white"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+<!-- Search Bar -->
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/searchBar"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_marginTop="16dp"
+    app:cardCornerRadius="28dp"
+    app:cardElevation="4dp"
+    app:layout_constraintTop_toBottomOf="@id/locationSection">
+
+    <!-- Search content -->
+
+</com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

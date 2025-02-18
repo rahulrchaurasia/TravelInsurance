@@ -15,9 +15,6 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -25,17 +22,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
+import com.interstellar.travelInsurance.interfaces.AppBarConfig
+import com.interstellar.travelInsurance.interfaces.AppBarHandlerOld
 import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.interfaces.IHandleAppBar
-import com.interstellar.travelInsurance.interfaces.IHandleToolbar
+
 import com.interstellar.travelInsurance.utils.showSnackbar
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
@@ -53,54 +50,45 @@ abstract class BaseFragment<VB : ViewBinding>(
         get() = _binding as VB
 
     // Handling Appbar using Interface
-     var appBarHandler: IHandleAppBar? = null
+    protected var appBarHandlerOld: AppBarHandlerOld? = null
 
     //Note : Since using of abract every child has to implemt that field or methjod.
     // hee when we wan to force every fragment to implement and define appbar use below
    // abstract val appBarType: AppBarType
 
    // OR we can set Default ie it apply to all child Frag of Base Class
-    open val appBarType: AppBarType = AppBarType.Default
+    open val appBarTypeOld: AppBarType = AppBarType.DEFAULT
+
+
+
+    /////
+
+    protected var appBarHandler: IHandleAppBar? = null
+
+    // Default configuration - can be overridden by fragments
+    protected open val useCustomAppBar: Boolean = false
+    protected open val customAppBarLayoutId: Int? = null
+    protected open val screenTitle: String? = null
 
 
     protected val bottomView: View?
         get() = activity?.findViewById(R.id.bottomLayer)
 
-    // Base showSnackbar function that all fragments can use
-    protected fun showSnackbar(
-        msg: String?,
-        duration: Int = Snackbar.LENGTH_SHORT,
-        actionText: String? = null,
-        actionListener: View.OnClickListener? = null
-    ) {
-        requireContext().showSnackbar(
-            view = requireView(),
-            anchorView = bottomView,
-            msg = msg,
-            actionText = actionText,
-            actionListener = actionListener
-        )
-    }
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is IHandleAppBar) {
-            appBarHandler = context
 
-        }
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //Note :u can set here for apply default to all and override "appBarType" if wann  change : or manually set to each frag using appBarHandler?.setAppBar(appBarType)
        // appBarHandler?.setAppBar(appBarType)  (Optional : for Default set every fragment)
+
+        setupAppBar()
     }
 
     override fun onDetach() {
         super.onDetach()
-        appBarHandler = null
-
+        this.appBarHandlerOld = null
+        this.appBarHandler = null
     }
 
     //region lifecycle
@@ -113,13 +101,30 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     //endregion
 
-    protected fun setToolbarTitle(title: String) {
-        try {
-            (requireActivity() as? AppCompatActivity)?.supportActionBar?.title = title
-        } catch (e: Exception) {
-            e.printStackTrace()
+    private fun setupAppBar() {
+        appBarHandler?.let { handler ->
+            when {
+                // Custom header case
+                useCustomAppBar && customAppBarLayoutId != null -> {
+                    handler.showCustomAppBar(customAppBarLayoutId!!)
+                }
+                // Default toolbar with title
+                screenTitle != null -> {
+                    handler.showDefaultAppBar(screenTitle)
+                }
+                // Default toolbar without title
+                else -> {
+                    handler.showDefaultAppBar()
+                }
+            }
         }
     }
+
+
+    protected fun updateToolbarTitle(title: String) {
+        appBarHandler?.showDefaultAppBar(title)
+    }
+
     fun roundOffDecimal(number: Float): String {
         val df = DecimalFormat("#.##")
         //df.roundingMode = RoundingMode.FLOOR
@@ -168,6 +173,19 @@ abstract class BaseFragment<VB : ViewBinding>(
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IHandleAppBar) {
+            this.appBarHandler = context
+
+        }
+        if (context is AppBarHandlerOld) {
+            this.appBarHandlerOld = context
+        }
+
+    }
+
+
     open fun shouldShowCloseButton(): Boolean {
         return false
     }
@@ -202,6 +220,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     }
 
     //endregion
+
     private fun listenInternetConnectivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
@@ -318,6 +337,21 @@ abstract class BaseFragment<VB : ViewBinding>(
     }
 
 
+    // Base showSnackbar function that all fragments can use
+    protected fun showSnackbar(
+        msg: String?,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        actionText: String? = null,
+        actionListener: View.OnClickListener? = null
+    ) {
+        requireContext().showSnackbar(
+            view = requireView(),
+            anchorView = bottomView,
+            msg = msg,
+            actionText = actionText,
+            actionListener = actionListener
+        )
+    }
 
 
 }
