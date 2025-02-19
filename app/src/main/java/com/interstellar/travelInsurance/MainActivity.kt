@@ -130,30 +130,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         // Set initial colors
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = getColor(R.color.navigation_bar_color)
+        window.statusBarColor = Color.BLUE  //// Make status bar transparent
+        window.navigationBarColor = Color.TRANSPARENT // Make navigation bar transparent (optional)
 
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
-//            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-//
-//            // Apply padding to AppBar for status bar
-//            binding.appbar.setPadding(
-//                binding.appbar.paddingLeft,
-//                systemBars.top,
-//                binding.appbar.paddingRight,
-//                0  // 🔵 Remove bottom padding
-//            )
-//
-//            // Only apply bottom padding to the bottom navigation
-//            binding.bottomLayer?.setPadding(
-//                0,
-//                0,
-//                0,
-//                systemBars.bottom
-//            )
-//
-//            windowInsets
-//        }
+        //  window.navigationBarColor = getColor(R.color.navigation_bar_color)
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
             val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
