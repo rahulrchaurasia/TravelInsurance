@@ -62,26 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         ///region for Full Abar Bar handling
 
            enableEdgeToEdge()
-//
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//        window.navigationBarColor = getColor(R.color.navigation_bar_color)
-//        window.statusBarColor = getColor(R.color.navigation_bar_color)
-//
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
-//            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            binding.appbar.setPadding(0, systemBars.top, 0, 0)
-//            windowInsets
-//        }
 
-
-        //endregion
-
-// handle apbar from bottom
-//        window.navigationBarColor = ContextCompat.getColor(this, R.color.navigation_bar_color)
-
-
-       // setupSystemBars()
-        setupEdgeToEdge()
 
         setupNavigation()
 
@@ -126,57 +107,32 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
     }
 
 
-    private fun     setupEdgeToEdge() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        // Set initial colors
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = getColor(R.color.navigation_bar_color)
-
+    private fun setupEdgeToEdge() {
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+//
+//        // Set initial colors
+//        window.statusBarColor = Color.TRANSPARENT
+//        window.navigationBarColor = getColor(R.color.navigation_bar_color)
+//
+//
 //        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
 //            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 //
-//            // Apply padding to AppBar for status bar
 //            binding.appbar.setPadding(
 //                binding.appbar.paddingLeft,
 //                systemBars.top,
 //                binding.appbar.paddingRight,
-//                0  // 🔵 Remove bottom padding
+//                0
 //            )
 //
-//            // Only apply bottom padding to the bottom navigation
-//            binding.bottomLayer?.setPadding(
-//                0,
-//                0,
-//                0,
-//                systemBars.bottom
-//            )
+//            // Ensure bottomLayer (bottom navigation container) always respects system bars
+//
+//            binding.bottomLayer?.post {
+//                binding.bottomLayer.setPadding(0, 0, 0, systemBars.bottom)
+//            }
 //
 //            windowInsets
 //        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
-            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            binding.appbar.setPadding(
-                binding.appbar.paddingLeft,
-                systemBars.top,
-                binding.appbar.paddingRight,
-                0
-            )
-
-            // Ensure bottomLayer (bottom navigation container) always respects system bars
-
-            //we have two option handler amd post
-//            Handler(Looper.getMainLooper()).post {
-//                binding.bottomLayer?.setPadding(0, 0, 0, systemBars.bottom)
-//            }
-            binding.bottomLayer?.post {
-                binding.bottomLayer.setPadding(0, 0, 0, systemBars.bottom)
-            }
-
-            windowInsets
-        }
 
     }
 
@@ -245,13 +201,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                 //{contains the set of destination IDs that should show the navigation drawer (hamburger menu)
                 // instead of the back arrow. These are typically your app's top-level/root destinations.
                 destination.id in appBarConfiguration.topLevelDestinations -> {
-                    // showAppBar()
-//                    setAppBar(AppBarType.Default)
-//                    setupActionBarWithNavController(navController, appBarConfiguration)
-//                    showNavigationDrawer()
 
-                    //showDefaultAppBar()
-                    // Only handle navigation state
+                    showDefaultAppBar()
                     showNavigationDrawer()
                     showBottomNavigation()
                 }
@@ -260,6 +211,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                 destination.id in customToolbarDestinations -> {
                   //  showDefaultAppBar()
                     // Only handle navigation state
+
                     showNavigationDrawer()
                     hideBottomNavigation()
                 }
@@ -599,10 +551,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
             // Show default toolbar, hide custom container
             defaultToolbar.visibility = View.VISIBLE
-            customHeaderContainer.visibility = View.GONE
-
-            // Clear any custom views
-            customHeaderContainer.removeAllViews()
 
             // Set title if provided
             title?.let { supportActionBar?.title = it }
@@ -612,22 +560,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         }
     }
 
-    override fun showCustomAppBar(layoutResId: Int) {
-        binding.apply {
-            // Show AppBar if hidden
-            appbar.visibility = View.VISIBLE
 
-            // Hide default toolbar, show and setup custom container
-            defaultToolbar.visibility = View.GONE
-            customHeaderContainer.visibility = View.VISIBLE
-
-            // Clear any existing views
-            customHeaderContainer.removeAllViews()
-
-            // Inflate custom layout
-            layoutInflater.inflate(layoutResId, customHeaderContainer, true)
-        }
-    }
 
     override fun hideAppBar() {
         binding.appbar.visibility = View.GONE

@@ -14,7 +14,7 @@ interface IHandleAppBar {
     //fun setAppBarState(type: AppBarType, config: AppBarConfig? = null)
 
     fun showDefaultAppBar(title: String? = null)
-    fun showCustomAppBar(layoutResId: Int)
+   // fun showCustomAppBar(layoutResId: Int)
     fun hideAppBar()
 }
 

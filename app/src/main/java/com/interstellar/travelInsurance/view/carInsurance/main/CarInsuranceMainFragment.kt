@@ -24,15 +24,13 @@ class CarInsuranceMainFragment : BaseFragment<FragmentCarInsuranceBinding> (Frag
     private val headerBinding get() = _headerBinding!!
 
     // Override to use custom header
-
     override val useCustomAppBar: Boolean = true
-    override val customAppBarLayoutId: Int = R.layout.layout_car_header
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupCustomHeader()
 
         setupScrollBehavior()   // handle Scroll effect
 
@@ -47,40 +45,6 @@ class CarInsuranceMainFragment : BaseFragment<FragmentCarInsuranceBinding> (Frag
     }
 
 
-    private fun setupCustomHeader() {
-        // Get the custom header container
-        try {
-            val headerContainer = requireActivity().findViewById<FrameLayout>(R.id.customHeaderContainer)
-
-            // Inflate the custom header using ViewBinding
-            _headerBinding = LayoutCarHeaderBinding.inflate(
-                layoutInflater,
-                headerContainer,
-                true
-            )
-
-            // Setup header views using binding
-            headerBinding.apply {
-                // Setup navigation
-//                btnBack.setOnClickListener(this@CarFragment)
-//
-//                // Setup car details
-//                carModel.text = "Honda City"
-//                carNumber.text = "MH-02-AB-1234"
-//
-
-                // Update UI elements
-                txtLocationText.text = "Your Location"
-                txtLocationName.text = "Mumbai"
-//                // Setup other header views
-
-                garageButton.setOnClickListener(this@CarInsuranceMainFragment)
-                searchBar.setOnClickListener(this@CarInsuranceMainFragment)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     private fun setupScrollBehavior() {
         // Ensure proper nested scrolling
@@ -114,10 +78,9 @@ class CarInsuranceMainFragment : BaseFragment<FragmentCarInsuranceBinding> (Frag
 
     override fun onDestroyView() {
         // Clean up header binding
-        _headerBinding = null
-        // Remove header views
-        requireActivity().findViewById<FrameLayout>(R.id.customHeaderContainer)?.removeAllViews()
-        super.onDestroyView()    }
+                super.onDestroyView()
+
+    }
 
 }
 

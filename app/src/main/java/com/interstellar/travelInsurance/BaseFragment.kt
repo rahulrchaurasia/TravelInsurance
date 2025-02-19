@@ -27,7 +27,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
-import com.interstellar.travelInsurance.interfaces.AppBarConfig
+
 import com.interstellar.travelInsurance.interfaces.AppBarHandlerOld
 import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.interfaces.IHandleAppBar
@@ -49,15 +49,14 @@ abstract class BaseFragment<VB : ViewBinding>(
     val binding: VB
         get() = _binding as VB
 
-    // Handling Appbar using Interface
-    protected var appBarHandlerOld: AppBarHandlerOld? = null
+
 
     //Note : Since using of abract every child has to implemt that field or methjod.
     // hee when we wan to force every fragment to implement and define appbar use below
    // abstract val appBarType: AppBarType
 
    // OR we can set Default ie it apply to all child Frag of Base Class
-    open val appBarTypeOld: AppBarType = AppBarType.DEFAULT
+
 
 
 
@@ -65,10 +64,9 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     protected var appBarHandler: IHandleAppBar? = null
 
-    // Default configuration - can be overridden by fragments
-    protected open val useCustomAppBar: Boolean = false
-    protected open val customAppBarLayoutId: Int? = null
-    protected open val screenTitle: String? = null
+    // Default configuration - can be overridden by all fragments
+    protected open val useCustomAppBar: Boolean = false //// Default to using MainActivity's AppBar
+    protected open val screenTitle: String? = null // Default to no title
 
 
     protected val bottomView: View?
@@ -87,7 +85,7 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     override fun onDetach() {
         super.onDetach()
-        this.appBarHandlerOld = null
+
         this.appBarHandler = null
     }
 
@@ -103,26 +101,22 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     private fun setupAppBar() {
         appBarHandler?.let { handler ->
-            when {
-                // Custom header case
-                useCustomAppBar && customAppBarLayoutId != null -> {
-                    handler.showCustomAppBar(customAppBarLayoutId!!)
-                }
-                // Default toolbar with title
-                screenTitle != null -> {
-                    handler.showDefaultAppBar(screenTitle)
-                }
-                // Default toolbar without title
-                else -> {
-                    handler.showDefaultAppBar()
-                }
+
+            if (useCustomAppBar) {
+                handler.hideAppBar() // Hide MainActivity's AppBar
+            } else {
+                handler.showDefaultAppBar(screenTitle) // Show default AppBar ,// Use MainActivity's AppBar with optional title
             }
+
+
         }
     }
 
-
+    // Utility method to update toolbar title (only works with default AppBar)
     protected fun updateToolbarTitle(title: String) {
-        appBarHandler?.showDefaultAppBar(title)
+        if (!useCustomAppBar) {
+            appBarHandler?.showDefaultAppBar(title)
+        }
     }
 
     fun roundOffDecimal(number: Float): String {
@@ -179,9 +173,7 @@ abstract class BaseFragment<VB : ViewBinding>(
             this.appBarHandler = context
 
         }
-        if (context is AppBarHandlerOld) {
-            this.appBarHandlerOld = context
-        }
+
 
     }
 

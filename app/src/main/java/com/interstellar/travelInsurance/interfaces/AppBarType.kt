@@ -13,14 +13,3 @@ enum class AppBarType {
     NONE        // No toolbar (login, splash etc)
 }
 
-// Configuration class for AppBar settings
-data class AppBarConfig(
-    val title: String? = null,
-    val showBack: Boolean = false,
-    val customLayoutId: Int? = null
-)
-// Optional config class if needed
-data class CustomHeaderConfig(
-    val layoutResId: Int,
-    val onBackPressed: (() -> Unit)? = null
-)

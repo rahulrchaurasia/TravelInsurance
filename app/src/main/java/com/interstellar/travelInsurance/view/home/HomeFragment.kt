@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -59,10 +60,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
     OnClickListener {
 
         private val viewModel : HomeViewModel by viewModels()
+        private var isBottomNavVisible = true
+    private lateinit var bottomNavigationView: LinearLayout
 
 
     // Override to set screen title
     override val screenTitle: String = "Home"
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,6 +76,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
         binding.btnProduct.setOnClickListener(this)
 
         setupMenu()
+
+        setUpNestedScrllViewListnere()
 
         setupObservers()
 
@@ -151,6 +157,38 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
         }
     }
     //endregion
+
+    fun setUpNestedScrllViewListnere(){
+
+        bottomNavigationView = requireActivity().findViewById(R.id.bottomLayer)
+
+        binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+
+           if (scrollY > oldScrollY) {
+               // User is scrolling down, hide BottomNavigationView
+               if (isBottomNavVisible) {
+                   bottomNavigationView.animate()
+                       .translationY(bottomNavigationView.height.toFloat())
+                       .setDuration(200)
+                       .withEndAction {
+                           bottomNavigationView.visibility = View.GONE // Ensure it's completely gone
+                       }
+                       .start()
+                   isBottomNavVisible = false
+               }
+           } else if (scrollY < oldScrollY) {
+               // User is scrolling up, show BottomNavigationView
+               if (!isBottomNavVisible) {
+                   bottomNavigationView.visibility = View.VISIBLE // Ensure it's visible before animation
+                   bottomNavigationView.animate()
+                       .translationY(0f)
+                       .setDuration(200)
+                       .start()
+                   isBottomNavVisible = true
+               }
+           }
+       }
+    }
 
 
     //region Methods

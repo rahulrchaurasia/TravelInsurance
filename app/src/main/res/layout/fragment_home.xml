@@ -3,13 +3,15 @@
 <!--// Note Use @string/appbar_scrolling_view_behavior" for root layer and NestedScrollView always-->
 
 <!--  added bec bottom navigation handle:   android:paddingBottom="@dimen/_60dp"-->
-<androidx.core.widget.NestedScrollView android:id="@+id/nestedScrollView"
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:clipToPadding="false"
     android:fillViewport="true"
     android:contentDescription="@string/content_common"
-    android:paddingBottom="@dimen/_60dp"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
