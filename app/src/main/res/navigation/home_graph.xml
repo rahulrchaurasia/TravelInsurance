@@ -40,7 +40,7 @@
         />
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="com.interstellar.travelInsurance.view.TransactionFragment"
+        android:name="com.interstellar.travelInsurance.view.transaction.TransactionFragment"
         android:label=""
         tools:layout="@layout/fragment_transaction" />
     <fragment

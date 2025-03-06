@@ -17,6 +17,7 @@ class SharedPreferenceManager @Inject constructor(@ApplicationContext context: C
         private const val KEY_IS_LOGGED_IN = "is_logged_in"
         private const val KEY_USER_ID = "user_id"
         private const val INITIAL_PIN = "INITIAL_PIN"
+        private const val KEY_IS_FIRST_TIME = "is_first_time"  // Track first-time user
         // Add other keys as needed
     }
 
@@ -34,7 +35,7 @@ class SharedPreferenceManager @Inject constructor(@ApplicationContext context: C
             = sharedPref.getString(INITIAL_PIN, "")
 
     fun setLoggedIn(isLoggedIn: Boolean) {
-        getEditor().putBoolean(KEY_IS_LOGGED_IN ,isLoggedIn).apply()
+        getEditor().putBoolean(KEY_IS_LOGGED_IN ,isLoggedIn).commit()
         //getEditor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn).apply()
     }
 
@@ -43,6 +44,16 @@ class SharedPreferenceManager @Inject constructor(@ApplicationContext context: C
     fun clearData() {
         getEditor().clear().apply()
     }
+
+
+
+
+
+    fun setFirstTime(isFirstTime: Boolean) {
+        getEditor().putBoolean(KEY_IS_FIRST_TIME, isFirstTime).apply()
+    }
+
+    fun isFirstTime(): Boolean = sharedPref.getBoolean(KEY_IS_FIRST_TIME, true)
 
 
 }

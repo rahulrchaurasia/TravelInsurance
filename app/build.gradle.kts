@@ -95,6 +95,10 @@ dependencies {
 
     //Image Cropper
     implementation(libs.image.cropper)
+
+    //ViewPager Dot Indicator: com.tbuonomo:dotsindicator:5.0
+    implementation(libs.dots.indicator)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

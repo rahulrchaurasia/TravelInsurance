@@ -7,7 +7,30 @@
     <include app:graph="@navigation/auth_graph" />
     <include app:graph="@navigation/home_graph" />
 
+
+
+    <!-- Global action to home_graph -->
+    <action
+        android:id="@+id/action_global_to_home"
+        app:destination="@id/home_graph"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"/>
+
     <!-- Global action for logout -->
+    <!-- destination is login Frag of auth graph -->
+    <action
+        android:id="@+id/action_global_to_login"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"/>
+
+    <!-- Global action for logout -->
+    <!-- destination is auth graph hence default is WelcomeFrag show which'
+     is start destination of auth graph-->
     <action
         android:id="@+id/action_global_to_auth"
         app:destination="@id/auth_graph"

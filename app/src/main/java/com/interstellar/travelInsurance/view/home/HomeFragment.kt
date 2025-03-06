@@ -16,20 +16,24 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.MainActivity
 import com.interstellar.travelInsurance.R
+import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
 import com.interstellar.travelInsurance.core.viewmodel.HomeViewModel
 import com.interstellar.travelInsurance.databinding.FragmentHomeBinding
 import com.interstellar.travelInsurance.interfaces.AppBarType
+import com.interstellar.travelInsurance.utils.Constant
 import com.interstellar.travelInsurance.utils.hideKeyboard
 import com.interstellar.travelInsurance.utils.showSnackbar
 import com.interstellar.travelInsurance.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /****************************** Note **************************************************
 
@@ -60,6 +64,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
     OnClickListener {
 
         private val viewModel : HomeViewModel by viewModels()
+
+    @Inject
+   lateinit var preferenceManager : SharedPreferenceManager
         private var isBottomNavVisible = true
     private lateinit var bottomNavigationView: LinearLayout
 
@@ -97,9 +104,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
 
     //region setUp Menu
-    //Note : Home Menu Logout way
+
+    //Note : Home Toolbar Menu Logout way
     private fun setupMenu(){
 
+      //  Home Toolbar Menu not DrawerMenu
         // For Creating Menu
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider{
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -112,9 +121,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
                     R.id.logout ->{
 
+                        navigateToAuth()
 
-
-                        showLogoutConfirmation()
+                       // showLogoutConfirmation()
 
 
                     }
@@ -215,25 +224,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
     //Navigate to auth graph and remove all existing graph ie home_graph using setPopUpTo
 
     //Note : Home Menu Logout way { Not from Navigation View , for Navigation View use Main Activity bec its implement there
+
     private fun navigateToAuth() {
+
+        preferenceManager.clearData()
+        // Create bundle with flag
+        val args = Bundle().apply {
+            putBoolean(Constant.navigateToLogin, true)
+        }
         findNavController().navigate(
-            R.id.auth_graph,
-            null, // Bundle of args if needed
+            R.id.auth_graph, // Navigate  to auth_graph
+            args,
             NavOptions.Builder()
-                .setPopUpTo(R.id.home_graph, true)
-                // Optional animations
+                .setPopUpTo(R.id.home_graph, true) // Clears backstack up to home_graph
                 .setEnterAnim(R.anim.slide_in_right)
                 .setExitAnim(R.anim.slide_out_left)
                 .build()
         )
-    }
-
-    private fun navigateToAuth1() {
-
-
-        findNavController().navigate(R.id.action_global_to_auth)
 
     }
+
+
 
     //endregion
 

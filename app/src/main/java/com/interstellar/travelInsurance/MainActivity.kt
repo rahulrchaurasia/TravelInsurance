@@ -14,13 +14,16 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
 import com.interstellar.travelInsurance.databinding.ActivityMainBinding
 import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.interfaces.IHandleAppBar
@@ -28,6 +31,7 @@ import com.interstellar.travelInsurance.interfaces.IHandleAppBar
 import com.interstellar.travelInsurance.utils.Constant
 import com.interstellar.travelInsurance.view.home.ICustomBackNavigation
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /*
 Note :  enableEdgeToEdge() my System Bar {ie apps below  bootom bar} default color not chnge when apply on theme.
@@ -48,6 +52,9 @@ Note: The post method is used to schedule a runnable to be executed on the main 
 class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
 
+    @Inject
+    lateinit var preferenceManager: SharedPreferenceManager
+
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -58,6 +65,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Install splash screen before calling super.onCreate()
+       // val splashScreen = installSplashScreen()
 
         ///region for Full Abar Bar handling
 
@@ -108,31 +117,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
 
     private fun setupEdgeToEdge() {
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//
-//        // Set initial colors
-//        window.statusBarColor = Color.TRANSPARENT
-//        window.navigationBarColor = getColor(R.color.navigation_bar_color)
-//
-//
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
-//            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-//
-//            binding.appbar.setPadding(
-//                binding.appbar.paddingLeft,
-//                systemBars.top,
-//                binding.appbar.paddingRight,
-//                0
-//            )
-//
-//            // Ensure bottomLayer (bottom navigation container) always respects system bars
-//
-//            binding.bottomLayer?.post {
-//                binding.bottomLayer.setPadding(0, 0, 0, systemBars.bottom)
-//            }
-//
-//            windowInsets
-//        }
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Set initial colors
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = getColor(R.color.navigation_bar_color)
+
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            binding.appbar.setPadding(
+                binding.appbar.paddingLeft,
+                systemBars.top,
+                binding.appbar.paddingRight,
+                0
+            )
+
+            // Ensure bottomLayer (bottom navigation container) always respects system bars
+
+            binding.bottomLayer?.post {
+                binding.bottomLayer.setPadding(0, 0, 0, systemBars.bottom)
+            }
+
+            windowInsets
+        }
 
     }
 
@@ -149,11 +158,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
             .findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
+
+
+        // Set the start destination based on user state
+        setupStartDestination()
+
         // 3. Set up AppBarConfiguration
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.transactionFragment,
                 R.id.profileFragment,
                 R.id.reportsFragment,
                 R.id.settingFragment
@@ -180,19 +193,48 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
     }
 
+    private fun setupStartDestination() {
+        // Inflate the FULL navigation graph
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
+        if (preferenceManager.isLoggedIn()) {
+            // User is logged in, set home_graph as start destination
+            navGraph.setStartDestination(R.id.home_graph)
+        } else {
+            // User is not logged in, set auth_graph as start destination
+            navGraph.setStartDestination(R.id.auth_graph)
+
+            // Now configure the auth_graph's start destination
+            val authGraph = navGraph.findNode(R.id.auth_graph) as NavGraph
+
+            if (preferenceManager.isFirstTime()) {
+                // First time user, show welcome screen
+                authGraph.setStartDestination(R.id.welcomeFragment)
+            } else {
+                // Returning user, show login screen
+                authGraph.setStartDestination(R.id.loginFragment)
+            }
+        }
+
+        // Apply the configured navigation graph
+        navController.graph = navGraph
+    }
+
+
+    //Mark :MainActivity should only handle the navigation drawer and bottom navigation
     // navigation Change Listener
     private fun setupNavigationListener() {
         // Initially hide navigation
         hideNavigationDrawer()
 
-
+       // Mark :MainActivity should only handle the navigation drawer and bottom navigation
+        //while the AppBar control should be fully delegated to the fragments via BaseFragment.
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             when {
                 // Auth Graph - Hide AppBar and Drawer
                 destination.parent?.id == R.id.auth_graph -> {
                     // hideAppBar()
-                    hideAppBar()
                     hideNavigationDrawer()
                     hideBottomNavigation()
                 }
@@ -202,16 +244,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                 // instead of the back arrow. These are typically your app's top-level/root destinations.
                 destination.id in appBarConfiguration.topLevelDestinations -> {
 
-                    showDefaultAppBar()
+                   // showDefaultAppBar()
                     showNavigationDrawer()
                     showBottomNavigation()
                 }
 
                 // Fragments with CustomToolbar and Hide  bottomLayer
                 destination.id in customToolbarDestinations -> {
-                  //  showDefaultAppBar()
-                    // Only handle navigation state
 
+                    // Only handle navigation state
                     showNavigationDrawer()
                     hideBottomNavigation()
                 }
@@ -524,16 +565,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
     // refer from here: https://www.youtube.com/watch?v=1sgRsGUXrNU&list=PLj76U7gxVixTYE8n2X_z50nP3O8TqyBb3&index=12
     private fun navigateToAuth() {
+
+        preferenceManager.clearData()
+      // Create bundle with flag
+        val args = Bundle().apply {
+            putBoolean(Constant.navigateToLogin, true)
+        }
         navController.navigate(
-            R.id.auth_graph,
-            null, // Bundle of args if needed
+            R.id.auth_graph, // Navigate  to auth_graph
+            args,
             NavOptions.Builder()
-                .setPopUpTo(R.id.home_graph, true)
-                // Optional animations
+                .setPopUpTo(R.id.home_graph, true) // Clears backstack up to home_graph
                 .setEnterAnim(R.anim.slide_in_right)
                 .setExitAnim(R.anim.slide_out_left)
                 .build()
         )
+
     }
 
     //region get TopAppBar

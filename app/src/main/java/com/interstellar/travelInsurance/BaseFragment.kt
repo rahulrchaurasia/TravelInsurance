@@ -99,7 +99,29 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     //endregion
 
+    //  Mark :MainActivity should only handle the navigation drawer and bottom navigation
+    //while the AppBar control should be fully delegated to the fragments via BaseFragment.
+
     private fun setupAppBar() {
+        appBarHandler?.let { handler ->
+            when {
+
+                // Check if we're in the auth graph
+                findNavController().currentDestination?.parent?.id == R.id.auth_graph -> {
+                    handler.hideAppBar()
+                }
+                // For fragments that need custom toolbar
+                useCustomAppBar -> {
+                    handler.hideAppBar() // Fragment will show its own toolbar
+                }
+                // For fragments that use default toolbar
+                else -> {
+                    handler.showDefaultAppBar(screenTitle)
+                }
+            }
+        }
+    }
+    private fun setupAppBar1() {
         appBarHandler?.let { handler ->
 
             if (useCustomAppBar) {
@@ -128,25 +150,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         return String.format("%.2f", value)
     }
 
-    fun changeStatusColor(color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            var window: Window = requireActivity().window
-            window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window?.setStatusBarColor(ContextCompat.getColor(requireContext(), color))
-        }
-    }
 
-
-    fun buttonEnableDisable(isEnable: Boolean, btnToEnableDisable: Button) {
-
-        if (isEnable) {
-            btnToEnableDisable.alpha = 1.0f
-            btnToEnableDisable.isEnabled = true
-        } else {
-            btnToEnableDisable.alpha = 0.4f
-            btnToEnableDisable.isEnabled = false
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

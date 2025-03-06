@@ -50,6 +50,8 @@ fragment = "1.8.5"
 coil = "2.7.0"
 paging = "3.3.5"
 imageCropper = "4.6.0"
+dotsIndicator = "5.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -99,6 +101,8 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 # image-cropper
 image-cropper = { group = "com.vanniktech", name = "android-image-cropper", version.ref = "imageCropper" }
 
+#com.tbuonomo:dotsindicator
+dots-indicator = { group = "com.tbuonomo", name = "dotsindicator", version.ref = "dotsIndicator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

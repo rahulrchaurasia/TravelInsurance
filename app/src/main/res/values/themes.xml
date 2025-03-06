@@ -82,6 +82,26 @@
 
     <style name="Theme.TravelInsurance" parent="AppTheme" />
 
+
+
+    <!-- Splash Screen theme addition -->
+<!--    <style name="Theme.TravelInsurance.SplashScreen" parent="Theme.SplashScreen">-->
+<!--        &lt;!&ndash; Set the splash screen background color &ndash;&gt;-->
+<!--        <item name="android:windowSplashScreenBackground">@color/colorPrimaryDark</item>-->
+
+<!--        &lt;!&ndash; Use app logo as splash screen icon &ndash;&gt;-->
+<!--        <item name="windowSplashScreenAnimatedIcon">@drawable/app_logo</item>-->
+
+<!--        &lt;!&ndash; Set the animation duration &ndash;&gt;-->
+<!--        <item name="windowSplashScreenAnimationDuration">1000</item>-->
+
+<!--        &lt;!&ndash; Set the theme used after splash screen is shown &ndash;&gt;-->
+<!--        <item name="postSplashScreenTheme">@style/AppTheme</item>-->
+
+<!--        &lt;!&ndash; Optional brand text at bottom of splash screen (Android 12+) &ndash;&gt;-->
+<!--        <item name="windowSplashScreenBrandingImage" tools:targetApi="s">@drawable/splash_branding</item>-->
+<!--    </style>-->
+
 <!--    <style name="Theme.TravelInsurance.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 
 <!--    <style name="Theme.TravelInsurance.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
