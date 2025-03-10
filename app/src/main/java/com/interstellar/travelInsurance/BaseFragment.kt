@@ -2,7 +2,6 @@ package com.interstellar.travelInsurance
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -13,24 +12,24 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.view.WindowManager
-import android.widget.Button
-import androidx.core.content.ContextCompat
+import android.widget.LinearLayout
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
 
-import com.interstellar.travelInsurance.interfaces.AppBarHandlerOld
-import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.interfaces.IHandleAppBar
+import com.interstellar.travelInsurance.utils.BottomNavigationHelper
+
 
 import com.interstellar.travelInsurance.utils.showSnackbar
 import kotlinx.coroutines.launch
@@ -49,7 +48,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     val binding: VB
         get() = _binding as VB
 
-
+    protected lateinit var bottomNavigationView: LinearLayout
 
     //Note : Since using of abract every child has to implemt that field or methjod.
     // hee when we wan to force every fragment to implement and define appbar use below
@@ -77,11 +76,24 @@ abstract class BaseFragment<VB : ViewBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+        // Initialize the bottom navigation view
+        bottomNavigationView = requireActivity().findViewById(R.id.bottomLayer)
+
+        // Reset the bottom navigation bar to its default state (visible)
+        BottomNavigationHelper.resetBottomNavigationView(bottomNavigationView)
+
         //Note :u can set here for apply default to all and override "appBarType" if wann  change : or manually set to each frag using appBarHandler?.setAppBar(appBarType)
        // appBarHandler?.setAppBar(appBarType)  (Optional : for Default set every fragment)
 
         setupAppBar()
+
+
     }
+
+
+
 
     override fun onDetach() {
         super.onDetach()
@@ -99,6 +111,22 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     //endregion
 
+
+    /**
+     * Attach scroll listener to a NestedScrollView
+     */
+    protected fun attachToNestedScrollView(nestedScrollView: NestedScrollView) {
+        BottomNavigationHelper.attachToNestedScrollView(nestedScrollView, bottomNavigationView)
+    }
+
+    /**
+     * Attach scroll listener to a RecyclerView
+     */
+    protected fun attachToRecyclerView(recyclerView: RecyclerView) {
+        BottomNavigationHelper.attachToRecyclerView(recyclerView, bottomNavigationView)
+    }
+
+
     //  Mark :MainActivity should only handle the navigation drawer and bottom navigation
     //while the AppBar control should be fully delegated to the fragments via BaseFragment.
 
@@ -109,6 +137,9 @@ abstract class BaseFragment<VB : ViewBinding>(
                 // Check if we're in the auth graph
                 findNavController().currentDestination?.parent?.id == R.id.auth_graph -> {
                     handler.hideAppBar()
+                }
+                findNavController().currentDestination?.id == R.id.homeFragment -> {
+                    handler.showDefaultAppBar(screenTitle)
                 }
                 // For fragments that need custom toolbar
                 useCustomAppBar -> {

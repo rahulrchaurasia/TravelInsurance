@@ -1,229 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.transaction.TransactionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
+    <!-- ontentScrim="@color/white" Background color when collapsed -->
+    <!-- AppBar with collapsing toolbar -->
     <com.google.android.material.appbar.AppBarLayout
-
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:elevation="0dp"
         android:fitsSystemWindows="true">
-
-
-
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            style="@style/Widget.Material3.Toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-
-            android:background="@color/Teal"
-            android:contentInsetStart="0dp"
-            android:contentInsetEnd="0dp"
-            android:elevation="0dp"
-            android:visibility="visible"
-
-
-            app:subtitleTextColor="@color/white"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/white"
-
-            />
-
-
-        <!--                /// stard collpsing here-->
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:contentScrim="@color/colorPrimaryDark"
-            app:expandedTitleMarginEnd="16dp"
-            app:expandedTitleMarginStart="16dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:statusBarScrim="@color/colorPrimaryDark">
+            android:layout_height="180dp"
+            app:contentScrim="@color/white"
+            app:expandedTitleGravity="bottom|center_horizontal"
+            app:expandedTitleMarginBottom="56dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
+            app:title=""
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <!-- Expanded Content -->
-            <LinearLayout
-                android:id="@+id/expandedContent"
+            <!-- Expanded content (background) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                app:layout_collapseMode="parallax">
+                android:layout_height="match_parent"
+                android:background="@color/Teal">
 
-                <!-- Product Image -->
-                <ImageView
-                    android:id="@+id/productImage"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="?attr/actionBarSize"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_person_24" />
-
-                <!-- Product Title -->
+                <!-- You can add an image or graphic here if desired -->
                 <TextView
-                    android:id="@+id/expandedTitle"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvExpandedTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Steel Product"
-                    android:textColor="@android:color/white"
+                    android:text="Find Amazing events\nhappening around you."
+                    android:textColor="@color/white"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="80dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <!-- Price Layout -->
-                <LinearLayout
+                <!-- Search bar similar to the one in the image -->
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-                    <TextView
-                        android:id="@+id/expandedPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="20Rs"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_48dp">
 
-                    <TextView
-                        android:id="@+id/expandedOriginalPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:alpha="0.7"
-                        android:text="300"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/etSearch"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:hint="@string/search_for_event"
+                            android:paddingHorizontal="16dp"
 
-                    <TextView
-                        android:id="@+id/discountPercentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="40"
-                        android:textColor="@android:color/holo_green_light"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
+                            android:textSize="16sp"
+                            android:inputType="text"
+                            app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+                            app:layout_constraintStart_toStartOf="parent" />
 
-            <!-- Toolbar -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSearch"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:backgroundTint="@color/header_text"
+                            android:layout_marginEnd="4dp"
+                            android:insetLeft="0dp"
+                            android:insetTop="0dp"
+                            android:insetRight="0dp"
+                            android:insetBottom="0dp"
+                            app:cornerRadius="20dp"
+
+                            app:icon="@drawable/ic_search"
+                            app:iconGravity="textStart"
+                            app:iconPadding="0dp"
+                            android:contentDescription="serach"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/productToolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/transparent"
-                android:paddingTop="0dp"
-                app:layout_collapseMode="pin">
-
-                <!-- Collapsed Content -->
-                <!--   layout_height="match_parent" -->
-
-                <LinearLayout
-                    android:id="@+id/collapsedContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="false"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/productThumb"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginEnd="8dp"
-                        android:scaleType="centerCrop" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/collapsedTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="Collapse title"
-                            android:textColor="@android:color/white"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/collapsedPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="200Rs"
-                            android:textColor="@android:color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <!-- Action Buttons -->
-                    <ImageButton
-                        android:id="@+id/searchButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_search"
-                        app:tint="@color/white" />
-
-                    <ImageButton
-                        android:id="@+id/shareButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_share"
-                        app:tint="@color/white" />
-                </LinearLayout>
-
-            </com.google.android.material.appbar.MaterialToolbar>
-
+                android:background="@android:color/transparent"
+                app:titleTextColor="@color/white"
+                app:layout_collapseMode="pin"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <!--                /// End  collpsing here-->
-        <!--                Note : For static menu we can add from here also-->
-        <!--                app:navigationIcon="@drawable/ic_drawer_menu_24"-->
-        <!--                app:menu="@menu/logout_menu"-->
-
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- Content area that scrolls under the app bar -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:id="@+id/nestedScrollView"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8dp"
-            tools:context=".view.carInsurance.main.CarInsuranceMainFragment">
+            android:padding="@dimen/_8dp">
 
-            <!-- TODO: Update blank fragment layout -->
             <TextView
-
                 android:layout_marginTop="@dimen/_50dp"
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 style="@style/header_textview_24"
-
                 android:text="Transaction Journey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -232,33 +138,33 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCar"
                 android:layout_marginTop="20dp"
-
                 android:text="Start Journey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTitle"
                 style="@style/ButtonStyle.Secondary">
-
             </com.google.android.material.button.MaterialButton>
 
+            <TextView
+                android:id="@+id/tvPlaceholderContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/chunkdata"
+                android:textColor="#9E9E9E"
+                app:layout_constraintTop_toBottomOf="@+id/btnCar" />
+
+            <!-- Add more content to make scrolling possible -->
             <View
-                android:id="@+id/divider1"
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1dp"
-                android:layout_marginTop="@dimen/_220dp"
+                android:layout_marginTop="24dp"
                 android:background="@color/line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnCar"/>
-
-
-
-
-
-
+                app:layout_constraintTop_toBottomOf="@+id/tvPlaceholderContent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

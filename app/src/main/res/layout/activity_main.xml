@@ -89,6 +89,8 @@
                 app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
                 >
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/consLayoutBottomMsg"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -128,6 +130,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
+                    android:id="@+id/viewBottomMsg"
                     android:layout_width="match_parent"
 
                     android:layout_height="1.5dp"

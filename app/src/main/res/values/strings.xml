@@ -17,11 +17,16 @@
 
     <string name="retry">Retry</string>
 
-    <string name="content_desc" />
+    <string name="content_desc" > content_desc </string>
 
-    <string name="content_search"> serach description </string>
+    <string name="description">description</string>
+
+    <string name="content_search"> search description </string>
     <string name="content_share"> share description </string>
     <string name="content_common"> common description </string>
+
+    <string name="search_for_event">search for an event…</string>
+
 
     <!--    menu-->
     <string name="transaction_history">Transaction History</string>
@@ -143,5 +148,14 @@
     <string name="tid_param">TID: %1$s</string>
 
     <string name="title_activity_register">RegisterActivity</string>
+
+    <string name="overlay_help">Center text in box grrg rgjgo3j3\n 3jti3jiotj3io4trio3\n 3toih3tioh3iot htoi3ht
+    34t34t3k4pt3p4t 3t3t \n\n For nested scrollview  handle here. Above is same for collapsing toolbar with default layout.\n
+    1> take CollapsingToolbarLayout as main in AppBarLayout layout \n
+    2> Make two child a> Expanded Content and  2> material.appbar.MaterialToolbar
+    3> a> Expanded Content : use app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+    4> b> material.appbar.MaterialToolbar : user material toolbar with app:layout_collapseMode="pin"</string>
+
+    <string name="chunkdata">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Accumsan in nisl nisi scelerisque eu. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which donot look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnot anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</string>
 
 </resources>

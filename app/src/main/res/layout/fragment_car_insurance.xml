@@ -1,261 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    tools:context=".view.transaction.TransactionFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- AppBar with collapsing toolbar -->
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_8dp"
-        app:layout_collapseMode="pin"
-        tools:context=".view.carInsurance.main.CarInsuranceMainFragment">
+        android:fitsSystemWindows="true"
+        android:background="@color/colorPrimary"
+        app:liftOnScroll="true"
+        android:stateListAnimator="@null"
+        app:elevation="0dp">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-
-            android:layout_marginTop="@dimen/_50dp"
-            android:id="@+id/txtTitle"
+        <!-- Your  expanded content start here -->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:contentScrim="@color/Teal"
+            app:statusBarScrim="@color/Teal"
+            app:scrimAnimationDuration="300"
+            app:titleEnabled="false">
 
-            style="@style/header_textview_24"
-
-            android:text="Lets Start Car Journey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCar"
-            android:layout_marginTop="20dp"
-
-            android:text="Start Journey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
-            style="@style/ButtonStyle.Secondary">
-
-        </com.google.android.material.button.MaterialButton>
-
-        <View
-            android:id="@+id/divider1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1dp"
-            android:layout_marginTop="@dimen/_220dp"
-            android:background="@color/line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCar"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cvCar"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:cardCornerRadius="@dimen/_12dp"
-            app:cardElevation="@dimen/_8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:backgroundTint="@color/colorPrimary"
-
-            >
-
-            <!-- Use ConstraintLayout as container for better control -->
+            <!-- Expanded Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandedContent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingTop="?attr/actionBarSize"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="16dp"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7">
 
-                <!-- Image filling the card -->
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgCar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <ImageView
+                    android:id="@+id/productImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_car_24"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CornerSize12" />
-
-                <!-- Text at the bottom -->
-                <TextView
-                    android:id="@+id/txtdata"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Car"
-                    android:textColor="@color/blue"
-                    style="@style/semibold_primary_16"
-                    android:layout_marginBottom="@dimen/_2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1dp"
-            android:layout_marginTop="@dimen/_30dp"
-            android:background="@color/line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvCar"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cvTwoWheeler"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:cardCornerRadius="@dimen/_12dp"
-            android:backgroundTint="@color/colorPrimary"
-            app:cardElevation="@dimen/_8dp"
-            android:clickable="true"
-            android:focusable="true"
-
-           >
-
-            <!-- Use ConstraintLayout as container for better control -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <!-- Image filling the card -->
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgCar2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:padding="@dimen/_8dp"
-                    android:src="@drawable/ic_bike_24"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CornerSize12" />
-
-                <!-- Text at the bottom -->
                 <TextView
-                    android:id="@+id/txtdata2"
-                    android:layout_width="match_parent"
+                    android:id="@+id/expandedTitle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Two Wheeler"
-                    android:textColor="@color/blue"
-                    style="@style/semibold_primary_16"
-                    android:layout_marginBottom="@dimen/_2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1dp"
-            android:layout_marginTop="@dimen/_20dp"
-            android:background="@color/line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvTwoWheeler"/>
-
-        <TextView
-
-            android:layout_marginTop="@dimen/_50dp"
-            android:id="@+id/txtfooter"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            style="@style/semibold_primary_16"
-
-            android:text="End of Insurance\ Pls verify your details\n\n End Data"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider3" />
-
-        <TextView
-
-            android:layout_marginTop="@dimen/_50dp"
-            android:id="@+id/txtfooter1"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            style="@style/semibold_primary_16"
-
-            android:text="test data ada "
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtfooter" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cvdata"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="@dimen/_20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardCornerRadius="@dimen/_12dp"
-            app:cardElevation="@dimen/_8dp"
-
-
-            app:layout_constraintEnd_toStartOf="@+id/txtTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtfooter1"
-            >
-
-            <!-- Use ConstraintLayout as container for better control -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <!-- Image filling the card -->
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imgCar3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_8dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_person_24"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CornerSize12" />
-
-                <!-- Text at the bottom -->
-                <TextView
-                    android:id="@+id/txtdata3"
-                    style="@style/semibold_primary_16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_2dp"
-                    android:gravity="center"
-                    android:text="Two Wheeler"
-                    android:textColor="@color/blue"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/productImage"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/productImage"/>
 
+                <TextView
+                    android:id="@+id/expandedPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/expandedTitle"
+                    app:layout_constraintTop_toBottomOf="@id/expandedTitle"/>
+
+                <TextView
+                    android:id="@+id/expandedOriginalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:alpha="0.7"
+                    app:layout_constraintStart_toEndOf="@id/expandedPrice"
+                    app:layout_constraintBaseline_toBaselineOf="@id/expandedPrice"/>
+
+                <TextView
+                    android:id="@+id/discountBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_discount_badge"
+                    app:layout_constraintStart_toEndOf="@id/expandedOriginalPrice"
+                    app:layout_constraintBaseline_toBaselineOf="@id/expandedPrice"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:title=""
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back_24"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                >
+
+                <LinearLayout
+                    android:id="@+id/collapsedContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/productThumb"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/collapsedTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:ellipsize="end"
+                            android:maxLines="1"/>
+
+                        <TextView
+                            android:id="@+id/collapsedPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/searchButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="@string/description"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/white"/>
+
+                    <ImageButton
+                        android:id="@+id/shareButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_share"
+                        app:tint="@color/white"/>
+                </LinearLayout>
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <!-- Your existing expanded content here -->
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content area that scrolls under the app bar -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <!-- the one root layout ie LinearLayoutCompat only bec to set logic of pin  -->
+        <!-- before  NestedScrollView those are wet it is pin to the screen bec we added app:layout_behavior="@string/appbar_scrolling_view_behavior -->
+
+        <TextView
+            android:id="@+id/pinnedItem"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:background="@drawable/selected_tab"
+            android:padding="8dp"
+            android:text="Get 40% DISCOUNT"
+            android:textColor="@android:color/white"
+            />
+
+        <!-- Your  NestedScrollView content -->
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    style="@style/header_textview_24"
+
+                    android:text="Lets Start Car Journey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCar"
+                    android:layout_marginTop="20dp"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:text="Start Journey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+                    style="@style/ButtonStyle.Secondary"/>
 
-</androidx.core.widget.NestedScrollView>
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/padding_100"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintTop_toBottomOf="@id/btnCar"/>
+
+                <TextView
+                    android:id="@+id/txtFooter1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="150dp"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="@color/blue"
+                    android:text="Footer 1 Start"
+                    app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+                <TextView
+                    android:id="@+id/txtFooter2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="200dp"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="@color/Black"
+                    android:text="Footer 2 Start"
+                    app:layout_constraintTop_toBottomOf="@id/txtFooter1"/>
+
+                <TextView
+                    android:id="@+id/txtFooter3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Footer 3 Start \n\n End OF Footer3"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="@color/Brown"
+                    app:layout_constraintTop_toBottomOf="@id/txtFooter2"/>
+                <TextView
+                    android:id="@+id/txtFooter4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/overlay_help"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="@color/Green"
+                    app:layout_constraintTop_toBottomOf="@id/txtFooter3"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

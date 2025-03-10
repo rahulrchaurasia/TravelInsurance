@@ -1,13 +1,13 @@
 package com.interstellar.travelInsurance
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
@@ -30,6 +29,7 @@ import com.interstellar.travelInsurance.interfaces.IHandleAppBar
 
 import com.interstellar.travelInsurance.utils.Constant
 import com.interstellar.travelInsurance.view.home.ICustomBackNavigation
+import com.interstellar.travelInsurance.view.notification.NotificationBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,6 +48,18 @@ android:fitsSystemWindows="false" // for enableEdgeToEdge()
 Note: The post method is used to schedule a runnable to be executed on the main (UI) thread after the view is attached.
  */
 
+/*
+For Color:
+Deprecated Attributes:
+colorPrimaryVariant and colorSecondary are deprecated in Material 3. Use colorPrimaryContainer and colorSecondaryContainer instead.
+
+colorAccent is deprecated. Use colorPrimary or colorSecondary for accent colors.
+
+colorSurface :is for backgrounds of surfaces (e.g., cards, dialogs).
+
+colorOnSurface : is for content on surfaces (e.g., text, icons).
+ */
+
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
@@ -59,6 +71,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private var currentAppBarType: AppBarType = AppBarType.NONE
+
+    private  var notifyBottomSheet: NotificationBottomSheet? = null
 
    // private var isToolbarCollapsed = false
 
@@ -72,6 +86,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
            enableEdgeToEdge()
 
+        //not woking
+        setStatusBarColor(ContextCompat.getColor(this, R.color.green_status), lightStatusBar = true)
+
+        // If you want to ensure the navigation bar (bottom) has a different color:
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.navigation_bar_color)
 
         setupNavigation()
 
@@ -85,6 +104,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         //Menu Listener which was not set in graph {ex Logout }
         menuNavigationListner()
 
+        //bottomNavigation Listener
+        bottomNavigationListener()
+
         // Back Press Handling
         setupBackPressedDispatcher()
 
@@ -93,6 +115,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         // setupCollapsingToolbar()
     }
 
+
+     //not working
+    private fun setStatusBarColor(color: Int, lightStatusBar: Boolean) {
+        // Set status bar color (top of screen)
+        window.statusBarColor = color
+
+        // Set status bar icon color (light or dark)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+ (API 30+)
+            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = lightStatusBar
+        } else {
+            @Suppress("DEPRECATION")
+            val flags = window.decorView.systemUiVisibility
+            window.decorView.systemUiVisibility = if (lightStatusBar) {
+                flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            } else {
+                flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            }
+        }
+    }
+    //Not in used
     private fun setupSystemBars() {
         // Enable edge-to-edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -115,7 +158,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         }
     }
 
-
+    //Not in used
     private fun setupEdgeToEdge() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -169,7 +212,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                 R.id.homeFragment,
                 R.id.profileFragment,
                 R.id.reportsFragment,
-                R.id.settingFragment
+                R.id.settingFragment,
+                R.id.transactionFragment
 
 
             ),
@@ -226,6 +270,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
     private fun setupNavigationListener() {
         // Initially hide navigation
         hideNavigationDrawer()
+        hidebottomMessageLayout()
 
        // Mark :MainActivity should only handle the navigation drawer and bottom navigation
         //while the AppBar control should be fully delegated to the fragments via BaseFragment.
@@ -237,6 +282,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                     // hideAppBar()
                     hideNavigationDrawer()
                     hideBottomNavigation()
+
+
                 }
 
                 // Fragments with Navigation Drawer
@@ -247,6 +294,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                    // showDefaultAppBar()
                     showNavigationDrawer()
                     showBottomNavigation()
+
+                    if(destination.id == R.id.homeFragment){
+                        showbottomMessageLayout()
+                    }else{
+                        hidebottomMessageLayout()
+                    }
                 }
 
                 // Fragments with CustomToolbar and Hide  bottomLayer
@@ -255,6 +308,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                     // Only handle navigation state
                     showNavigationDrawer()
                     hideBottomNavigation()
+
                 }
 
                 // All other cases - Default to hiding Drawer and AppBar
@@ -263,6 +317,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                     // Only handle drawer and bottom nav
                     hideNavigationDrawer()
                     hideBottomNavigation()
+
 
                     //Note :  AppBar will be handled by fragment individually when they are not top level and not in customToolbarDestinations
                 }
@@ -280,6 +335,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
         // Add other fragments that need custom toolbars
     )
+    //endregion
+
+
+    //region show and hide bottom Message Layout
+
+    private fun hidebottomMessageLayout() {
+        binding.apply {
+            consLayoutBottomMsg.visibility = View.GONE
+            viewBottomMsg.visibility = View.GONE
+
+        }
+    }
+    private fun showbottomMessageLayout() {
+        binding.apply {
+            consLayoutBottomMsg.visibility = View.VISIBLE
+            viewBottomMsg.visibility = View.VISIBLE
+
+        }
+    }
+
     //endregion
 
     //region show and hide navigation drawer
@@ -300,62 +375,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
     //endregion
 
 
-    // region comment
-
-//
-//    fun handleToolbarState(percentage: Float) {
-//        binding.apply {
-//            when {
-//                percentage > 0.9f -> {
-//                    toolbar.isVisible = false
-//                    collapsingToolbar.isVisible = true
-//                }
-//                percentage < 0.1f -> {
-//                    toolbar.isVisible = true
-//                    collapsingToolbar.isVisible = false
-//                }
-//                else -> {
-//                    toolbar.alpha = 1 - percentage
-//                    collapsingToolbar.alpha = percentage
-//                }
-//            }
-//        }
-//    }
-
-//    fun showCollapsingToolbar() {
-//        binding.collapsingToolbar.visibility = View.VISIBLE
-//        binding.toolbar.visibility = View.GONE
-//    }
-//
-//    fun showincludeDefaultToolbar() {
-//        binding.collapsingToolbar.visibility = View.GONE
-//        binding.toolbar.visibility = View.VISIBLE
-//    }
-
-    //endregion
 
 
-    //    private fun setupCollapsingToolbar() {
-//        // Setup AppBar scroll listener
-//        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-//            val scrollRange = appBarLayout.totalScrollRange
-//            val percentage = abs(verticalOffset).toFloat() / scrollRange.toFloat()
-//
-//            // Toggle between expanded and collapsed layouts
-//            if (percentage > 0.8f && !isToolbarCollapsed) {
-//                isToolbarCollapsed = true
-//                binding.collapsedContent.visibility = View.VISIBLE
-//                binding.expandedContent.alpha = 0f
-//            } else if (percentage < 0.8f && isToolbarCollapsed) {
-//                isToolbarCollapsed = false
-//                binding.collapsedContent.visibility = View.GONE
-//                binding.expandedContent.alpha = 1f
-//            }
-//
-//            // Fade expanded content
-//            binding.expandedContent.alpha = 1f - percentage
-//        })
-//    }
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
 
@@ -426,6 +447,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
     }
     //endregion
 
+    private fun bottomNavigationListener(){
+
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.notificationFragment -> {
+                    handleNotifyBottomDialog()
+                    true
+                }
+                else -> {
+                    navController.navigate(menuItem.itemId)
+                    true
+                }
+            }
+        }
+
+    }
 
     //region handle menu item click
     private fun menuNavigationListner() {
@@ -556,6 +593,44 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         }
     }
 
+    private fun handleNotifyBottomDialog(){
+
+        // region Open OTP BottomSheet Dialog
+
+        notifyBottomSheet = NotificationBottomSheet(
+            onVerifyAction =  ::handleNotifyAction)
+
+
+        notifyBottomSheet?.let { dialog  ->
+
+            if (!dialog.isAdded) {
+
+
+                dialog.show(supportFragmentManager, NotificationBottomSheet.TAG)
+
+                dialog.isCancelable = false
+            }
+
+        }
+
+
+        // endregion
+    }
+
+    private fun handleNotifyAction() {
+
+        if (notifyBottomSheet!= null) {
+
+            notifyBottomSheet?.dismiss()
+
+
+          showAlert("Action done!!..")
+
+        }
+
+
+    }
+
     private fun handleLogOut() {
 
         // viewModel.logout()
@@ -622,33 +697,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
 
 
-//
-//    fun handleToolbarState(percentage: Float) {
-//        binding.apply {
-//            when {
-//                percentage > 0.9f -> {
-//                    toolbar.isVisible = false
-//                    collapsingToolbar.isVisible = true
-//                }
-//                percentage < 0.1f -> {
-//                    toolbar.isVisible = true
-//                    collapsingToolbar.isVisible = false
-//                }
-//                else -> {
-//                    toolbar.alpha = 1 - percentage
-//                    collapsingToolbar.alpha = percentage
-//                }
-//            }
-//        }
-//    }
-
-//    fun showCollapsingToolbar() {
-//        binding.collapsingToolbar.visibility = View.VISIBLE
-//        binding.toolbar.visibility = View.GONE
-//    }
-//
-//    fun showDefaultToolbar() {
-//        binding.collapsingToolbar.visibility = View.GONE
-//        binding.toolbar.visibility = View.VISIBLE
-//    }
 
