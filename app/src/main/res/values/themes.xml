@@ -265,12 +265,13 @@
         <!-- Common properties for all buttons -->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item> <!-- Standard button height -->
-        <item name="android:minHeight">48dp</item>
+        <item name="android:minHeight">52dp</item>
         <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/poppinsmedium</item>
         <item name="android:letterSpacing">0.05</item>
+        <item name="strokeColor">@color/colorPrimaryDark</item>
         <item name="cornerFamily">rounded</item>
 
     </style>
@@ -343,7 +344,7 @@
     </style>
 
 
-
+<!--    CustomDialog-->
     <style name="CustomDialog" parent="Theme.Material3.Light.Dialog">
 
         <item name="android:windowIsTranslucent">true</item>
@@ -364,6 +365,16 @@
 
     </style>
 
+<!--    FullScreenDialogStyle-->
+    <!-- Use a Material3 Dialog Theme -->
+
+
+    <style name="CustomMaterial3Dialog" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="materialThemeOverlay">

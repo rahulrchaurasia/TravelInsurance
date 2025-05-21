@@ -15,6 +15,7 @@ import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
 import com.interstellar.travelInsurance.databinding.FragmentLoginBinding
+import com.interstellar.travelInsurance.utils.BiometricHelper
 import com.interstellar.travelInsurance.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -39,6 +40,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     @Inject
     lateinit var preferenceManager: SharedPreferenceManager
 
+    private lateinit var biometricHelper: BiometricHelper
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,6 +58,32 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.btnLogin.setOnClickListener(this)
         binding.btnRegister.setOnClickListener(this)
+
+        biometricHelper = BiometricHelper(requireActivity())
+
+        // Trigger biometric authentication
+
+    }
+
+    private fun authenticateWithBiometrics() {
+
+        biometricHelper.showBiometricPrompt(
+            activity = requireActivity(),
+            title = "Biometric Login",
+            description = "Confirm your identity to continue",
+            negativeButtonText = "Use Password",
+            onSuccess = {
+                // Handle successful authentication
+
+                showAlert("Authentication succeeded!")
+            },
+            onError = { errorMessage ->
+                // Handle authentication error
+
+                showAlert("Failed: $errorMessage")
+            }
+        )
+
     }
 
     override fun onClick(view: View?) {
@@ -105,8 +134,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
             binding.btnRegister.id -> {
 
-                    val action =   LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-                    findNavController().navigate(action)
+//                    val action =   LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+//                    findNavController().navigate(action)
+                authenticateWithBiometrics()
                 }
             }
         }

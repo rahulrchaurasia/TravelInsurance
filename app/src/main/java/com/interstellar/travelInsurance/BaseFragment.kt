@@ -21,6 +21,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.RecyclerView
 
 import androidx.viewbinding.ViewBinding
@@ -81,13 +82,14 @@ abstract class BaseFragment<VB : ViewBinding>(
         // Initialize the bottom navigation view
         bottomNavigationView = requireActivity().findViewById(R.id.bottomLayer)
 
-        // Reset the bottom navigation bar to its default state (visible)
-        BottomNavigationHelper.resetBottomNavigationView(bottomNavigationView)
+
 
         //Note :u can set here for apply default to all and override "appBarType" if wann  change : or manually set to each frag using appBarHandler?.setAppBar(appBarType)
        // appBarHandler?.setAppBar(appBarType)  (Optional : for Default set every fragment)
 
         setupAppBar()
+
+        resetBottomViewLayer()
 
 
     }
@@ -152,18 +154,31 @@ abstract class BaseFragment<VB : ViewBinding>(
             }
         }
     }
-    private fun setupAppBar1() {
-        appBarHandler?.let { handler ->
 
-            if (useCustomAppBar) {
-                handler.hideAppBar() // Hide MainActivity's AppBar
-            } else {
-                handler.showDefaultAppBar(screenTitle) // Show default AppBar ,// Use MainActivity's AppBar with optional title
-            }
+    //Mark: reset BottomViewLayer only for bottom View Fragment that is homeFragment,cartFragment,transactionFragment
+    // we reset it bec navigation BottomView has hide and show according to nestedScrollview
+    // so we have  make it common and reset before access by another fragment
+    private fun resetBottomViewLayer() {
 
 
+        val bottomNavFragments = setOf(
+            R.id.homeFragment,
+            R.id.carInsuranceMainFragment,
+            R.id.transactionFragment
+        )
+        // Check if we're in the home graph
+
+        if( findNavController().currentDestination?.id  in bottomNavFragments) {
+            BottomNavigationHelper.resetBottomNavigationView(bottomNavigationView)
         }
+
     }
+
+
+
+
+
+
 
     // Utility method to update toolbar title (only works with default AppBar)
     protected fun updateToolbarTitle(title: String) {

@@ -2,21 +2,26 @@ package com.interstellar.travelInsurance.view.transaction
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.OnClickListener
+import android.view.animation.AlphaAnimation
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.databinding.FragmentTransactionBinding
+import com.interstellar.travelInsurance.utils.hideKeyboard
+import com.interstellar.travelInsurance.view.home.HomeFragmentDirections
 import kotlin.math.abs
 
 
-class TransactionFragment : BaseFragment<FragmentTransactionBinding>(FragmentTransactionBinding::inflate)
-{
+class TransactionFragment :
+    BaseFragment<FragmentTransactionBinding>(FragmentTransactionBinding::inflate), OnClickListener {
 
     //region decleration
     // Override to use custom header
@@ -42,16 +47,13 @@ class TransactionFragment : BaseFragment<FragmentTransactionBinding>(FragmentTra
         //MARK : Handle bottom Navigation View hide and show according to nestedScrollview
         attachToNestedScrollView(binding.nestedScrollView)
 
-        // Setup nested scroll listener for bottom navigation bar
-       // setUpNestedScrollViewListener()
+
     }
 
     //region handle collapsing toolbar setuo
     private fun setupViews() {
         // Setup your buttons and other UI elements
-        binding.btnCar.setOnClickListener {
-            // Handle button click
-        }
+        binding.btnCar.setOnClickListener(this)
     }
 
     private fun setupCollapsingToolbar() {
@@ -116,6 +118,21 @@ class TransactionFragment : BaseFragment<FragmentTransactionBinding>(FragmentTra
     //endregion
 
 
+
+    override fun onClick(view: View?) {
+
+        requireContext().hideKeyboard(binding.root)
+
+        when(view?.id){
+
+            binding.btnCar.id -> {
+
+                val  action = TransactionFragmentDirections.actionTransactionFragmentToTransactionDetailFragment()
+                findNavController().navigate(action)
+
+            }
+        }
+    }
 
 
 }

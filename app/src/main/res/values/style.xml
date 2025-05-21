@@ -31,6 +31,12 @@
         <item name="fontFamily">@font/poppinsmedium</item>
     </style>
 
+<!--    <style name="ToolbarTitleStyle" parent="TextAppearance.Material3.TitleLarge">-->
+<!--        <item name="android:fontFamily">@font/poppinsbold</item> &lt;!&ndash; Use custom font &ndash;&gt;-->
+<!--        <item name="android:textStyle">bold</item> &lt;!&ndash; Make text bold &ndash;&gt;-->
+<!--        <item name="android:textSize">20sp</item> &lt;!&ndash; Adjust size if needed &ndash;&gt;-->
+<!--    </style>-->
+
     <!-- actionBar specific styling -->
     <style name="Widget.App.ActionBar" parent="Widget.Material3.ActionBar.Solid">
     <!-- Used when using ActionBar instead of Toolbar -->
@@ -533,8 +539,9 @@
     </style>
     <!--******************** End  Text and Button Style  End ********************************* -->
 
+    <!--******************** Style For Expanded and Collapsed Text ********************************* -->
 
-
+    <!-- style 1-->
     <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">24sp</item>
@@ -547,6 +554,21 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- style 2-->
+    <style name="ExpandedTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:alpha">1.0</item> <!-- Fully visible when expanded -->
+
+    </style>
+
+    <style name="CollapsedTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:alpha">0.0</item> <!-- Fully transparent when collapsed -->
+    </style>
+
+    <!--******************** End  Text and Button Style  End ********************************* -->
 
 
 </resources>

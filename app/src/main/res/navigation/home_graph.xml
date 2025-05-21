@@ -42,7 +42,11 @@
         android:id="@+id/transactionFragment"
         android:name="com.interstellar.travelInsurance.view.transaction.TransactionFragment"
         android:label=""
-        tools:layout="@layout/fragment_transaction" />
+        tools:layout="@layout/fragment_transaction" >
+        <action
+            android:id="@+id/action_transactionFragment_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reportsFragment"
         android:name="com.interstellar.travelInsurance.view.home.reports.ReportsFragment"
@@ -121,6 +125,29 @@
             android:label="Car Insurance Details"
             tools:layout="@layout/fragment_car_detail" />
     </navigation>
+    <fragment
+        android:id="@+id/transactionDetailFragment"
+        android:name="com.interstellar.travelInsurance.view.transaction.TransactionDetailFragment"
+        android:label="fragment_transaction_detail"
+        tools:layout="@layout/fragment_transaction_detail" >
+        <action
+            android:id="@+id/action_transactionDetailFragment_to_transactionVerifyFragment"
+            app:destination="@id/transactionVerifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionVerifyFragment"
+        android:name="com.interstellar.travelInsurance.view.transaction.TransactionVerifyFragment"
+        android:label="Verify Transaction"
+        tools:layout="@layout/fragment_transaction_verify" >
+        <action
+            android:id="@+id/action_transactionVerifyFragment_to_transactionReportsFragment"
+            app:destination="@id/transactionReportsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionReportsFragment"
+        android:name="com.interstellar.travelInsurance.view.transaction.TransactionReportsFragment"
+        android:label="fragment_transaction_reports"
+        tools:layout="@layout/fragment_transaction_reports" />
 
 
 </navigation>

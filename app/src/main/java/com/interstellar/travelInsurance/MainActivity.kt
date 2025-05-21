@@ -3,6 +3,8 @@ package com.interstellar.travelInsurance
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -14,6 +16,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
@@ -22,6 +25,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
 import com.interstellar.travelInsurance.databinding.ActivityMainBinding
 import com.interstellar.travelInsurance.interfaces.AppBarType
@@ -75,6 +79,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
     private  var notifyBottomSheet: NotificationBottomSheet? = null
 
    // private var isToolbarCollapsed = false
+
+    private var previousItemId: Int = R.id.homeFragment // Default to Home
+    private var currentItemId: Int = R.id.homeFragment  // Initially, Home is selected
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -295,11 +303,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                     showNavigationDrawer()
                     showBottomNavigation()
 
-                    if(destination.id == R.id.homeFragment){
-                        showbottomMessageLayout()
-                    }else{
-                        hidebottomMessageLayout()
-                    }
+                    //Note : Optional we added message above bottom nav.
+                    // here we showing that message only on JomeFrag
+                    handleMessageTopAboveBottomNavigation(destination)
+
                 }
 
                 // Fragments with CustomToolbar and Hide  bottomLayer
@@ -328,6 +335,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
     }
 
+
+    private fun handleMessageTopAboveBottomNavigation(_destination: NavDestination){
+
+        if(_destination.id == R.id.homeFragment){
+            showbottomMessageLayout()
+        }else{
+            hidebottomMessageLayout()
+        }
+    }
 
     private val customToolbarDestinations = setOf(
         R.id.paymentFragment
@@ -395,13 +411,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
 
-                //region comment previous
-//                if (!handleCustomBackNavigation()) {
-//                    isEnabled = false
-//                    onBackPressedDispatcher.onBackPressed()
-//                    isEnabled = true
-//                }
-                //endregion
+
 
                 // 1. First check if drawer is open
                 if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -409,27 +419,84 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
                     return
                 }
 
+                // region Optional :  Check if bottom sheet is open
+//                notifyBottomSheet?.let { dialog ->
+//                    if (dialog.isAdded) {
+//                        dialog.dismiss()
+//                        updateBottomNavigationSelection()
+//                        return
+//                    }
+//                }
+                //endregion
+
                 //2. Check if custom navigation not  handling it
                 if (!handleCustomBackNavigation()) {
 
-                    //3. Check if we're at the home fragment (start of home_graph)
-                    // If we're at start destination
-                    if (isAtHomeFragment()) {
-                        showExitConfirmationDialog()
-                    } else {
-                        // Default back navigation
+                    // Check if the current destination is the root of the bottom navigation item
+                    if (isAtRootDestination()) {
+                        // If at the root, navigate to HomeFragment or show exit confirmation
+                        //3. Check if we're at the home fragment (start of home_graph)
+                        if (isAtHomeFragment()) {
+                            showExitConfirmationDialog()
+                        } else {
+                            navigateToHomeFragment()
+                        }
+                    }else{
+                        //Mark: ******* Default back navigation***************
                         isEnabled = false
                         onBackPressedDispatcher.onBackPressed()
                         isEnabled = true
+                        //******* Default back navigation***************
                     }
+
+                    //region Commented: Use below code  when there is no bottomFrag on bottomNavgation menu
+                    //3. Check if we're at the home fragment (start of home_graph)
+                    // If we're at start destination
+//                    if (isAtHomeFragment()) {
+//                        showExitConfirmationDialog()
+//                    } else {
+//                        // Default back navigation
+//                        isEnabled = false
+//                        onBackPressedDispatcher.onBackPressed()
+//                        isEnabled = true
+//                    }
+                    //endregion
                 }
             }
         })
     }
 
+    private fun navigateToHomeFragment() {
+
+        navController.navigate(R.id.action_global_homeFragment)
+    }
+
     private fun isAtHomeFragment(): Boolean {
         return navController.currentDestination?.id == R.id.homeFragment &&
                 navController.currentDestination?.parent?.id == R.id.home_graph
+    }
+
+
+    private fun isAtRootDestination(): Boolean {
+
+
+        //Note: we used nested grph in Car menu hence used Retrieve the start destination of the car insurance nested graph dynamically.
+     //   val carInsuranceGraph = navController.graph.findNode(R.id.carInsurance_nested_graph) as? NavGraph
+       // val carInsuranceStartDestination = carInsuranceGraph?.startDestinationId
+
+//        val currentDestination = navController.currentDestination?.id
+//
+//        if(currentDestination == R.id.carInsuranceMainFragment){
+//
+//            Log.d(Constant.TAG, "carInsuranceStartDestination is triggered")
+//        }
+
+        val currentDestination = navController.currentDestination?.id
+        return currentDestination == R.id.homeFragment ||
+                currentDestination == R.id.transactionFragment ||
+                currentDestination == R.id.carInsuranceMainFragment
+
+        // currentDestination == R.id.notificationFragment
     }
 
     private fun handleCustomBackNavigation(): Boolean {
@@ -453,11 +520,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
             when (menuItem.itemId) {
                 R.id.notificationFragment -> {
                     handleNotifyBottomDialog()
-                    true
+                    return@setOnItemSelectedListener true
                 }
                 else -> {
+
+                    //region Extra point only related to BottomSheetDialog handle with previous selection refer : " noteExtra " below written
+                    // Save current valid selection as previous before updating
+                    previousItemId = currentItemId
+                    // Update current selection to the new item
+                    currentItemId = menuItem.itemId
+
+                    // Navigate to the selected item
                     navController.navigate(menuItem.itemId)
-                    true
+                    return@setOnItemSelectedListener true   // Return true to allow selection change
                 }
             }
         }
@@ -579,6 +654,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
         }
     }
 
+
+
+
     //endregion
 
 
@@ -623,6 +701,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
             notifyBottomSheet?.dismiss()
 
+            // Restore previous selection
+            binding.bottomNavigationView.selectedItemId = previousItemId
 
           showAlert("Action done!!..")
 
@@ -690,6 +770,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), IHandleAppBar {
 
     //endregion
 }
+
+// region noteExtra
+/*
+
+Key Points:
+
+Initialization:
+At the start, both previousItemId and currentItemId are set to the default (e.g., Home).
+
+When a non-notification tab is tapped:
+
+We first assign the current value of currentItemId to previousItemId.
+Then update currentItemId with the new menu item's ID.
+When Notification is tapped:
+
+We open the notification dialog without updating the selection, so that the previously selected tab remains stored and can be restored later.
+
+ */
+//endregion
 
 
 

@@ -1,6 +1,7 @@
 package com.interstellar.travelInsurance.view.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -30,6 +31,7 @@ import com.interstellar.travelInsurance.utils.Constant
 import com.interstellar.travelInsurance.utils.hideKeyboard
 import com.interstellar.travelInsurance.utils.showSnackbar
 import com.interstellar.travelInsurance.utils.showToast
+import com.interstellar.travelInsurance.view.shareProduct.ShareDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -63,31 +65,33 @@ import javax.inject.Inject
 class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::inflate) ,
     OnClickListener {
 
-        private val viewModel : HomeViewModel by viewModels()
+
+   private val viewModel : HomeViewModel by viewModels()
 
     @Inject
    lateinit var preferenceManager : SharedPreferenceManager
-
-
-
-       // private var isBottomNavVisible = true
-       // private lateinit var bottomNavigationView: LinearLayout
 
 
     // Override to set screen title
     override val screenTitle: String = "Home"
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        Log.d(Constant.TAG,"Home is loaded")
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-
+        Log.d(Constant.TAG,"Home view is created")
         binding.btnProduct.setOnClickListener(this)
+        binding.btnShare.setOnClickListener(this)
 
         setupMenu()
-
-       // setUpNestedScrllViewListnere()
 
         // Attach scroll listener to the NestedScrollView
         attachToNestedScrollView(binding.nestedScrollView)
@@ -99,7 +103,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 //            anchorView = (activity as? MainActivity)?.findViewById(R.id.bottomNavigationView),
 //            msg = "Home Fragment Loaded")
 
-        showSnackbar(msg = "Home Fragment Loaded")
+      //  showSnackbar(msg = "Home Fragment Loaded")
+
+
+
 
        // viewModel.getData()
 
@@ -117,7 +124,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
       //  Home Toolbar Menu not DrawerMenu
         // For Creating Menu
-        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider{
+
+        val menuHost = requireActivity() as MenuHost
+
+        // Ensure no duplicate MenuProviders
+        menuHost.invalidateMenu() // ✅ Ensures a fresh menu setup
+
+
+        menuHost.addMenuProvider(object : MenuProvider{
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.logout_menu, menu)
             }
@@ -128,9 +142,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
                     R.id.logout ->{
 
-                        navigateToAuth()
-
-                       // showLogoutConfirmation()
+                        showLogoutConfirmation()
 
 
                     }
@@ -174,37 +186,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
     }
     //endregion
 
-//    private fun setUpNestedScrllViewListnere(){
-//
-//        bottomNavigationView = requireActivity().findViewById(R.id.bottomLayer)
-//
-//        binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-//
-//           if (scrollY > oldScrollY) {
-//               // User is scrolling down, hide BottomNavigationView
-//               if (isBottomNavVisible) {
-//                   bottomNavigationView.animate()
-//                       .translationY(bottomNavigationView.height.toFloat())
-//                       .setDuration(200)
-//                       .withEndAction {
-//                           bottomNavigationView.visibility = View.GONE // Ensure it's completely gone
-//                       }
-//                       .start()
-//                   isBottomNavVisible = false
-//               }
-//           } else if (scrollY < oldScrollY) {
-//               // User is scrolling up, show BottomNavigationView
-//               if (!isBottomNavVisible) {
-//                   bottomNavigationView.visibility = View.VISIBLE // Ensure it's visible before animation
-//                   bottomNavigationView.animate()
-//                       .translationY(0f)
-//                       .setDuration(200)
-//                       .start()
-//                   isBottomNavVisible = true
-//               }
-//           }
-//       }
-//    }
+
 
 
     //region Methods
@@ -233,6 +215,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
     //Note : Home Menu Logout way { Not from Navigation View , for Navigation View use Main Activity bec its implement there
 
     private fun navigateToAuth() {
+
+
 
         preferenceManager.clearData()
         // Create bundle with flag
@@ -267,6 +251,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
                 val action =
                     HomeFragmentDirections.actionHomeFragmentToProductDtlFragment()
                 findNavController().navigate(action)
+
+            }
+
+            binding.btnShare.id -> {
+
+                val dialog = ShareDialogFragment()
+                dialog.show(parentFragmentManager, "ShareDialog")
 
             }
         }

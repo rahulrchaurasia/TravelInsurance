@@ -10,6 +10,11 @@
 
 
     <string name="profile_image">profile_image</string>
+    <string name="trans_verify">Transaction Verification</string>
+    <string name="trans_details">Transaction Details</string>
+    <string name="trans_report">Transaction Report</string>
+
+
     <string name="Note"><i>Note: Please verify the serial number.</i></string>
     <string name="forgot_user_id"><u>Forgot User ID</u></string>
 
@@ -17,9 +22,11 @@
 
     <string name="retry">Retry</string>
 
-    <string name="content_desc" > content_desc </string>
+    <string name="content_desc"> content_desc </string>
 
     <string name="description">description</string>
+    <string name="submit">submit</string>
+
 
     <string name="content_search"> search description </string>
     <string name="content_share"> share description </string>

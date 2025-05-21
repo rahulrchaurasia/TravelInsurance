@@ -21,7 +21,7 @@ object Constant {
     val ErrorMessage : String = "Error occurred,Please try Again!"
     val Fail : String = "Failed"
     var DEMO_MESSAGE = "demo_message"
-    var TAG = "ATMMGo"
+    var TAG = "TRAVEL_INSURANCE"
 
     const val APP_DATABASE = "atmmgo_database"
     const val USER_TABLE = "user_table"

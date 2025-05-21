@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Book</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm;
+        }
+
+        body {
+            font-family: Calibri;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: #000;
+            margin: 0;
+            padding: 25mm;
+            box-sizing: border-box;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-color: black;
+        }
+
+        /* table-desc, td-desc {
+            border: none;
+        }*/
+
+        div {
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title" style="text-align:center">
+        <h3>ORDER BOOK</h3>
+    </div>
+
+    <div style="text-align:center">
+        <h1>ASHOK APPARELS</h1>
+    </div>
+
+    <div style="text-align: center; height: 50px; vertical-align: middle;">
+        UNIT NO. 101, PARAS GOPAL INDUSTRIES, V.S. MATKAR MARG, OPP. BHOOMI PLAZA, DADAR (WEST), Mumbai-400 028
+        <br />Cell: +91 9819447170
+    </div>
+
+    <table style="width:100%">
+        <tbody>
+            <tr style="height:50px">
+                <td style="width:60%">
+                    Customer Name : <b><span id="CustomerName"></span></b>
+                </td>
+                <td style="width:20%; text-align:center">
+                    Order No : <b><span id="OrderNo"></span></b>
+                </td>
+                <td style="width: 20%; text-align: center">
+                    Date : <b><span id="Date"></span></b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table id="tblOrderDetails" style="width:100%">
+        <thead>
+            <tr class="text-center" style="height:30px">
+                <th class="border border-dark bg-info bg-gradient text-white" style="width:10%;">PRODUCT</th>
+                <th class="border border-dark bg-info bg-gradient text-white" style="width:5%;"></th>
+                <th class="border border-dark bg-info bg-gradient text-white">DESCRIPTION</th>
+                <th class="border border-dark bg-info bg-gradient text-white" style="width:5%;">QTY</th>
+                <th class="border border-dark bg-info bg-gradient text-white" style="width:10%;">AMOUNT</th>
+            </tr>
+        </thead>
+        <tbody id="tBody" class="bg-light">
+           
+        </tbody>
+        <tfoot>
+            <tr class="text-center" style="height:30px">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;">
+                    <b><span id="spnTotalQty"></span></b>
+                </td>
+                <td style="text-align: right; padding-right:10px">
+                    <b>0.00</b>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div style="text-align:right; padding-right:10px">
+        <p>For <b>ASHOK APPARELS</b></p>
+        <br /><br />
+        <p><strong>Authorised Signatory</strong></p>
+    </div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    populateFields(
+      "[{"image":"","isSelected":false,"productColorID":10,"productColorImage":"C:\\Users\\Dev\\Downloads\\Black.jpg","productColorName":"BLACK","productDesc":"SETS","productGuid":"3b6f6fdb-2a43-431c-8a1f-f9b2faa48aa2","productID":73884,"productImageID":0,"productNo":"1848a","productParts":[{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"M","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":2,"productSalePrice":2345,"productToProductID":190238,"productType":0},{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"XL","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":3,"productSalePrice":2345,"productToProductID":190240,"productType":0}]},{"image":"","isSelected":false,"productColorID":8,"productColorImage":"C:\\Users\\Dev\\Downloads\\Mustard.jpg","productColorName":"MUSTARD","productDesc":"SETS","productGuid":"b6d91743-b69f-46f1-be5f-9d6087b1e420","productID":73884,"productImageID":0,"productNo":"1848a","productParts":[{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"L","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":4,"productSalePrice":2345,"productToProductID":190239,"productType":0}]},{"image":"","isSelected":true,"productColorID":30,"productColorImage":"C:\\Users\\Dev\\Downloads\\Red.jpg","productColorName":"RED","productDesc":"SETS","productGuid":"4e4ecbcc-0f1c-44da-8ff7-537c9bde94bb","productID":73884,"productImageID":0,"productNo":"1848a","productParts":[{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"M","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":1,"productSalePrice":2345,"productToProductID":190238,"productType":0},{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"L","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":1,"productSalePrice":2345,"productToProductID":190239,"productType":0},{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"XL","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":1,"productSalePrice":2345,"productToProductID":190240,"productType":0}]}]",
+      "ASHOK APPARELS",
+      "ORD001"
+    );
+  });
+</script>
+
+</body>
+
+<script>
+    var strdata = '[{"isSelected":false,"productColorID":10,"productColorImage":"","productColorName":"BLACK","productDesc":"SETS","productGuid":"3b6f6fdb-2a43-431c-8a1f-f9b2faa48aa2","productID":73884,"productImageID":0,"productNo":"1848a","productParts":[{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"M","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":2,"productSalePrice":2345,"productToProductID":190238,"productType":0},{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"XL","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":3,"productSalePrice":2345,"productToProductID":190240,"productType":0}]},{"isSelected":false,"productColorID":8,"productColorImage":"","productColorName":"MUSTARD","productDesc":"SETS","productGuid":"b6d91743-b69f-46f1-be5f-9d6087b1e420","productID":73884,"productImageID":0,"productNo":"1848a","productParts":[{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"L","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":4,"productSalePrice":2345,"productToProductID":190239,"productType":0}]},{"isSelected":true,"productColorID":30,"productColorImage":"","productColorName":"RED","productDesc":"SETS","productGuid":"4e4ecbcc-0f1c-44da-8ff7-537c9bde94bb","productID":73884,"productImageID":0,"productNo":"1848a","productParts":[{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"M","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":1,"productSalePrice":2345,"productToProductID":190238,"productType":0},{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"L","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":1,"productSalePrice":2345,"productToProductID":190239,"productType":0},{"productCostPrice":0,"productDescription":"","productID":0,"productLength":"XL","productMRP":3975,"productOpeningQuantity":0,"productPartID":0,"productQty":1,"productSalePrice":2345,"productToProductID":190240,"productType":0}]}]';
+    var jsonData = JSON.parse(strdata);
+    console.log(jsonData);
+    const tableBody = document.querySelector("#tblOrderDetails tbody");
+
+    jsonData.forEach(comp => {
+        document.getElementById("CustomerName").innerHTML = comp.customerName;
+        document.getElementById("OrderNo").innerHTML = comp.orderNo;
+        document.getElementById("Date").innerHTML = formatDate(new Date());
+    })
+    var TotalQty = 0;
+
+    jsonData.forEach(item => {
+        const row = document.createElement("tr");
+        var strdata =
+            '<td><b>' + item.productID + '</b><br>' + item.productDesc + '<br>' + item.productColorName + '</td>' +
+            '<td>SIZE<br>QTY<br>PRICE</td>' +
+            '<td>' +
+            '<table class="table-desc" style="width:100%; border:none;"> <tbody>' +
+            '<tr style="text-align: center; border: none;">';
+        var Qty = 0;
+        var strInnerRow = '';
+                   if (item.productParts.length > 0) {
+            for (let t = 0; t < item.productParts.length; t++) {
+
+                strInnerRow += '<td class="td-desc" style="width: 6.25%; border: none;">' +
+                    item.productParts[t].productLength + '<br />' +
+                    item.productParts[t].productQty + '<br /><br/></td > ';
+
+                Qty = Qty + item.productParts[t].productQty;
+                TotalQty = TotalQty + item.productParts[t].productQty;
+            }
+        } 
+        strInnerRow += '<td class="td-desc" style="width:' + (100 - (6.25 * item.productParts.length)) + '%; border: none;">';
+        strInnerRow +=
+            '</tr> </tbody></table></td><td style="text-align:center;">' + Qty + '</td><td style="text-align:right; padding-right:10px;">' + '' + '</td>';
+          
+        console.log(strdata + strInnerRow);
+        row.innerHTML = strdata + strInnerRow;
+        document.getElementById("spnTotalQty").innerHTML = TotalQty;
+
+        tableBody.appendChild(row);
+    });
+
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+        const year = date.getFullYear();
+
+        return `${day}/${month}/${year}`;
+    }
+
+</script>
+
+</html>
