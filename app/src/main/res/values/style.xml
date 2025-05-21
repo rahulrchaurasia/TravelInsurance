@@ -31,6 +31,12 @@
         <item name="fontFamily">@font/poppinsmedium</item>
     </style>
 
+<!--    <style name="ToolbarTitleStyle" parent="TextAppearance.Material3.TitleLarge">-->
+<!--        <item name="android:fontFamily">@font/poppinsbold</item> &lt;!&ndash; Use custom font &ndash;&gt;-->
+<!--        <item name="android:textStyle">bold</item> &lt;!&ndash; Make text bold &ndash;&gt;-->
+<!--        <item name="android:textSize">20sp</item> &lt;!&ndash; Adjust size if needed &ndash;&gt;-->
+<!--    </style>-->
+
     <!-- actionBar specific styling -->
     <style name="Widget.App.ActionBar" parent="Widget.Material3.ActionBar.Solid">
     <!-- Used when using ActionBar instead of Toolbar -->
@@ -295,6 +301,40 @@
     </style>
 
 
+
+    <!-- bottomSheetDialog style -->
+    <style name="bottomSheetDialog" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <!--        <item name="behavior_peekHeight">550dp</item>-->
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_dialog</item>
+    </style>
+<!--    // CustomBottomSheet-->
+    <style name="CustomBottomSheet" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.BottomSheet</item>
+        <item name="backgroundTint">@color/white</item> <!-- Ensure correct background color -->
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.BottomSheet" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+
+    </style>
+    <!-- ************************** -->
+
+
+
     <!-- profiel TextView style -->
     <style name="profileTextViewLabel">
         <item name="android:layout_width">wrap_content</item>
@@ -498,5 +538,37 @@
         <item name="textAllCaps">true</item>
     </style>
     <!--******************** End  Text and Button Style  End ********************************* -->
+
+    <!--******************** Style For Expanded and Collapsed Text ********************************* -->
+
+    <!-- style 1-->
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- style 2-->
+    <style name="ExpandedTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:alpha">1.0</item> <!-- Fully visible when expanded -->
+
+    </style>
+
+    <style name="CollapsedTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:alpha">0.0</item> <!-- Fully transparent when collapsed -->
+    </style>
+
+    <!--******************** End  Text and Button Style  End ********************************* -->
+
 
 </resources>

@@ -19,13 +19,7 @@
             />
 
 
-        <item
-            android:id="@id/transactionFragment"
-            android:iconTint="@color/black"
-            android:title="Transaction"
-            android:icon="@drawable/ic_report_24"
-            android:orderInCategory="3"
-            />
+
         <item
             android:id="@id/reportsFragment"
             android:iconTint="@color/black"

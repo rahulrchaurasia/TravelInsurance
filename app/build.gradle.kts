@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.biometric.ktx)
     ksp(libs.androidx.room.compiler)
 
     // Coroutines
@@ -95,6 +96,13 @@ dependencies {
 
     //Image Cropper
     implementation(libs.image.cropper)
+
+    //ViewPager Dot Indicator: com.tbuonomo:dotsindicator:5.0
+    implementation(libs.dots.indicator)
+
+    //biometric
+    implementation(libs.androidx.biometric)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

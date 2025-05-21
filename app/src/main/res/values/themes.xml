@@ -77,11 +77,40 @@
         <item name="android:windowTranslucentNavigation">false</item>
 
 
+<!--        &lt;!&ndash; Light theme &ndash;&gt;-->
+<!--        <item name="colorSurface">@color/white_light</item> &lt;!&ndash; White &ndash;&gt;-->
+<!--        <item name="colorOnSurface">@color/light_colorOnSurface</item> &lt;!&ndash; Black &ndash;&gt;-->
+
+<!--        &lt;!&ndash; Dark theme &ndash;&gt;-->
+<!--        <item name="colorSurface">@color/dark_colorSurface</item> &lt;!&ndash; Dark gray &ndash;&gt;-->
+<!--        <item name="colorOnSurface">@color/dark_colorOnSurface</item> &lt;!&ndash; White &ndash;&gt;-->
+
+
 
     </style>
 
 
     <style name="Theme.TravelInsurance" parent="AppTheme" />
+
+
+
+    <!-- Splash Screen theme addition -->
+<!--    <style name="Theme.TravelInsurance.SplashScreen" parent="Theme.SplashScreen">-->
+<!--        &lt;!&ndash; Set the splash screen background color &ndash;&gt;-->
+<!--        <item name="android:windowSplashScreenBackground">@color/colorPrimaryDark</item>-->
+
+<!--        &lt;!&ndash; Use app logo as splash screen icon &ndash;&gt;-->
+<!--        <item name="windowSplashScreenAnimatedIcon">@drawable/app_logo</item>-->
+
+<!--        &lt;!&ndash; Set the animation duration &ndash;&gt;-->
+<!--        <item name="windowSplashScreenAnimationDuration">1000</item>-->
+
+<!--        &lt;!&ndash; Set the theme used after splash screen is shown &ndash;&gt;-->
+<!--        <item name="postSplashScreenTheme">@style/AppTheme</item>-->
+
+<!--        &lt;!&ndash; Optional brand text at bottom of splash screen (Android 12+) &ndash;&gt;-->
+<!--        <item name="windowSplashScreenBrandingImage" tools:targetApi="s">@drawable/splash_branding</item>-->
+<!--    </style>-->
 
 <!--    <style name="Theme.TravelInsurance.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 
@@ -237,12 +266,13 @@
         <!-- Common properties for all buttons -->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item> <!-- Standard button height -->
-        <item name="android:minHeight">48dp</item>
+        <item name="android:minHeight">52dp</item>
         <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/poppinsmedium</item>
         <item name="android:letterSpacing">0.05</item>
+        <item name="strokeColor">@color/colorPrimaryDark</item>
         <item name="cornerFamily">rounded</item>
 
     </style>
@@ -272,10 +302,7 @@
     </style>
 
 
-    <style name="AppModalStyle"
-        parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/rounded_dialog</item>
-    </style>
+
     <style name="AlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:buttonTint">@color/colorAccent</item>
@@ -318,7 +345,7 @@
     </style>
 
 
-
+<!--    CustomDialog-->
     <style name="CustomDialog" parent="Theme.Material3.Light.Dialog">
 
         <item name="android:windowIsTranslucent">true</item>
@@ -339,6 +366,16 @@
 
     </style>
 
+<!--    FullScreenDialogStyle-->
+    <!-- Use a Material3 Dialog Theme -->
+
+
+    <style name="CustomMaterial3Dialog" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="materialThemeOverlay">

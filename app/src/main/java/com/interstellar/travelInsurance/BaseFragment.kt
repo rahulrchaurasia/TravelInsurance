@@ -2,7 +2,6 @@ package com.interstellar.travelInsurance
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -13,24 +12,25 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.view.WindowManager
-import android.widget.Button
-import androidx.core.content.ContextCompat
+import android.widget.LinearLayout
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.recyclerview.widget.RecyclerView
 
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
-import com.interstellar.travelInsurance.interfaces.AppBarConfig
-import com.interstellar.travelInsurance.interfaces.AppBarHandlerOld
-import com.interstellar.travelInsurance.interfaces.AppBarType
+
 import com.interstellar.travelInsurance.interfaces.IHandleAppBar
+import com.interstellar.travelInsurance.utils.BottomNavigationHelper
+
 
 import com.interstellar.travelInsurance.utils.showSnackbar
 import kotlinx.coroutines.launch
@@ -49,15 +49,14 @@ abstract class BaseFragment<VB : ViewBinding>(
     val binding: VB
         get() = _binding as VB
 
-    // Handling Appbar using Interface
-    protected var appBarHandlerOld: AppBarHandlerOld? = null
+    protected lateinit var bottomNavigationView: LinearLayout
 
     //Note : Since using of abract every child has to implemt that field or methjod.
     // hee when we wan to force every fragment to implement and define appbar use below
    // abstract val appBarType: AppBarType
 
    // OR we can set Default ie it apply to all child Frag of Base Class
-    open val appBarTypeOld: AppBarType = AppBarType.DEFAULT
+
 
 
 
@@ -65,10 +64,9 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     protected var appBarHandler: IHandleAppBar? = null
 
-    // Default configuration - can be overridden by fragments
-    protected open val useCustomAppBar: Boolean = false
-    protected open val customAppBarLayoutId: Int? = null
-    protected open val screenTitle: String? = null
+    // Default configuration - can be overridden by all fragments
+    protected open val useCustomAppBar: Boolean = false //// Default to using MainActivity's AppBar
+    protected open val screenTitle: String? = null // Default to no title
 
 
     protected val bottomView: View?
@@ -79,15 +77,29 @@ abstract class BaseFragment<VB : ViewBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+        // Initialize the bottom navigation view
+        bottomNavigationView = requireActivity().findViewById(R.id.bottomLayer)
+
+
+
         //Note :u can set here for apply default to all and override "appBarType" if wann  change : or manually set to each frag using appBarHandler?.setAppBar(appBarType)
        // appBarHandler?.setAppBar(appBarType)  (Optional : for Default set every fragment)
 
         setupAppBar()
+
+        resetBottomViewLayer()
+
+
     }
+
+
+
 
     override fun onDetach() {
         super.onDetach()
-        this.appBarHandlerOld = null
+
         this.appBarHandler = null
     }
 
@@ -101,28 +113,78 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     //endregion
 
+
+    /**
+     * Attach scroll listener to a NestedScrollView
+     */
+    protected fun attachToNestedScrollView(nestedScrollView: NestedScrollView) {
+        BottomNavigationHelper.attachToNestedScrollView(nestedScrollView, bottomNavigationView)
+    }
+
+    /**
+     * Attach scroll listener to a RecyclerView
+     */
+    protected fun attachToRecyclerView(recyclerView: RecyclerView) {
+        BottomNavigationHelper.attachToRecyclerView(recyclerView, bottomNavigationView)
+    }
+
+
+    //  Mark :MainActivity should only handle the navigation drawer and bottom navigation
+    //while the AppBar control should be fully delegated to the fragments via BaseFragment.
+
     private fun setupAppBar() {
         appBarHandler?.let { handler ->
             when {
-                // Custom header case
-                useCustomAppBar && customAppBarLayoutId != null -> {
-                    handler.showCustomAppBar(customAppBarLayoutId!!)
+
+                // Check if we're in the auth graph
+                findNavController().currentDestination?.parent?.id == R.id.auth_graph -> {
+                    handler.hideAppBar()
                 }
-                // Default toolbar with title
-                screenTitle != null -> {
+                findNavController().currentDestination?.id == R.id.homeFragment -> {
                     handler.showDefaultAppBar(screenTitle)
                 }
-                // Default toolbar without title
+                // For fragments that need custom toolbar
+                useCustomAppBar -> {
+                    handler.hideAppBar() // Fragment will show its own toolbar
+                }
+                // For fragments that use default toolbar
                 else -> {
-                    handler.showDefaultAppBar()
+                    handler.showDefaultAppBar(screenTitle)
                 }
             }
         }
     }
 
+    //Mark: reset BottomViewLayer only for bottom View Fragment that is homeFragment,cartFragment,transactionFragment
+    // we reset it bec navigation BottomView has hide and show according to nestedScrollview
+    // so we have  make it common and reset before access by another fragment
+    private fun resetBottomViewLayer() {
 
+
+        val bottomNavFragments = setOf(
+            R.id.homeFragment,
+            R.id.carInsuranceMainFragment,
+            R.id.transactionFragment
+        )
+        // Check if we're in the home graph
+
+        if( findNavController().currentDestination?.id  in bottomNavFragments) {
+            BottomNavigationHelper.resetBottomNavigationView(bottomNavigationView)
+        }
+
+    }
+
+
+
+
+
+
+
+    // Utility method to update toolbar title (only works with default AppBar)
     protected fun updateToolbarTitle(title: String) {
-        appBarHandler?.showDefaultAppBar(title)
+        if (!useCustomAppBar) {
+            appBarHandler?.showDefaultAppBar(title)
+        }
     }
 
     fun roundOffDecimal(number: Float): String {
@@ -134,25 +196,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         return String.format("%.2f", value)
     }
 
-    fun changeStatusColor(color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            var window: Window = requireActivity().window
-            window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window?.setStatusBarColor(ContextCompat.getColor(requireContext(), color))
-        }
-    }
 
-
-    fun buttonEnableDisable(isEnable: Boolean, btnToEnableDisable: Button) {
-
-        if (isEnable) {
-            btnToEnableDisable.alpha = 1.0f
-            btnToEnableDisable.isEnabled = true
-        } else {
-            btnToEnableDisable.alpha = 0.4f
-            btnToEnableDisable.isEnabled = false
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -179,9 +223,7 @@ abstract class BaseFragment<VB : ViewBinding>(
             this.appBarHandler = context
 
         }
-        if (context is AppBarHandlerOld) {
-            this.appBarHandlerOld = context
-        }
+
 
     }
 

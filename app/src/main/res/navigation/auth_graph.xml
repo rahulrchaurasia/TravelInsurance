@@ -3,18 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <action
-        android:id="@+id/action_global_homeFragment"
+        android:id="@+id/action_global_to_home_graph"
         app:destination="@+id/home_graph"
 
         app:popUpTo="@id/auth_graph"
         app:popUpToInclusive="true"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
-        />
 
+        />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.interstellar.travelInsurance.view.welcome.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcome_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
@@ -23,14 +37,16 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.interstellar.travelInsurance.view.login.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
-
 
 
 

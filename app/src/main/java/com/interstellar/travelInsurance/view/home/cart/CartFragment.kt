@@ -17,10 +17,7 @@ import com.interstellar.travelInsurance.view.login.LoginFragmentDirections
 class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate), OnClickListener {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

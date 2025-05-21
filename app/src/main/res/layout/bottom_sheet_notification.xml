@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+
+android:padding="16dp"
+    android:layout_marginHorizontal="@dimen/_20dp"
+
+    android:background="@drawable/rounded_dialog"
+
+
+    android:backgroundTint="@color/white"
+
+    >
+
+<TextView
+    android:id="@+id/txtNotificationTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Title"
+    android:textAppearance="?attr/textAppearanceHeadline6"
+    android:paddingBottom="8dp"/>
+
+<TextView
+    android:id="@+id/txtNotificationContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Content"
+    android:textAppearance="?attr/textAppearanceBody1"/>
+
+<com.google.android.material.button.MaterialButton
+    android:id="@+id/btnSubmit"
+    style="@style/ButtonStyle.Secondary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Close"
+    android:layout_gravity="end"
+    android:paddingTop="16dp"/>
+</LinearLayout>
