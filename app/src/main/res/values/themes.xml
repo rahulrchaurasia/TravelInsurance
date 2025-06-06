@@ -1,4 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--    Attribute	  :    Purpose / Where it's Used-->
+    <!--    colorPrimary   :   Primary branding color — toolbar, FAB, buttons, etc.-->
+    <!--    colorOnPrimary	:    Foreground content (text/icon) shown on top of colorPrimary-->
+    <!--    colorPrimaryContainer: 	Used in elevated containers (like Cards, Dialogs)-->
+    <!--    colorOnPrimaryContainer :	Text/icons shown on colorPrimaryContainer-->
+    <!--    colorSurface	:  Background of surfaces like cards, sheets, app bar-->
+    <!--    colorOnSurface	:  Text/icons shown on top of surface-->
+    <!--    colorSurfaceVariant :	Alternative surface background (like elevated cards)-->
+    <!--    colorOnSurfaceVariant:	Text/icons on colorSurfaceVariant-->
+    <!--    android:colorBackground :	Base background of activity/window-->
+    <!--    colorOnBackground :	Text on top of background-->
+    <!--    android:statusBarColor:	Status bar background color-->
+    <!--    android:windowLightStatusBar:	Whether status bar uses light (black) icons-->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -16,7 +30,7 @@
 <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
 
 
-        <!-- depricated colors -->
+        <!-- deprecated colors -->
         <item name="colorAccent">@color/colorAccent</item>
 
         <!-- Control colors -->

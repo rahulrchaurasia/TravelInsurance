@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +26,7 @@ import com.interstellar.travelInsurance.MainActivity
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
 import com.interstellar.travelInsurance.core.viewmodel.HomeViewModel
+import com.interstellar.travelInsurance.core.viewmodel.SharedViewModel
 import com.interstellar.travelInsurance.databinding.FragmentHomeBinding
 import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.utils.Constant
@@ -67,6 +69,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
 
    private val viewModel : HomeViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     @Inject
    lateinit var preferenceManager : SharedPreferenceManager
@@ -98,6 +101,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 
 
         setupObservers()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                sharedViewModel.userName.collect{
+                    binding.txtDes.text = "Welcome $it"
+                }
+            }
+
+
+        }
 
 //        requireContext().showSnackbar(view = binding.root,
 //            anchorView = (activity as? MainActivity)?.findViewById(R.id.bottomNavigationView),
@@ -175,6 +188,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding> (FragmentHomeBinding ::in
 //                    }
 //                }
 
+                launch {
+                    sharedViewModel.userName.collect{
+                        binding.txtDes.text = "Welcome $it"
+                    }
+                }
                 // Observe logout events
                 launch {
                     viewModel.logoutEvent.collect {
