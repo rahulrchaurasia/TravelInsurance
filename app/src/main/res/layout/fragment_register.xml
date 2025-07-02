@@ -1,198 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="16dp"
+
     android:scrollIndicators="none"
     tools:context=".view.login.RegisterFragment">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16dp"
         android:orientation="vertical">
 
 
-    <!-- TODO: Update blank fragment layout -->
+        <!-- TODO: Update blank fragment layout -->
         <TextView
+            style="@style/header_textview_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_40dp"
             android:gravity="center"
+            android:text="Register"
+            android:textSize="22sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFullName"
+            style="@style/textInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            style="@style/header_textview_24"
-            android:text="Register" />
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="User Name"
+            app:errorEnabled="true"
+            >
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etFullName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="User Name"
-        android:paddingBottom="0dp"
-        android:imeOptions="actionNext"
-        style="@style/textInputLayoutStyle"
-        >
+            <com.google.android.material.textfield.TextInputEditText
 
-        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tieFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-            android:id="@+id/tieFullName"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                android:imeOptions="actionNext"
+                android:inputType="text|textPersonName"
+
+                android:maxLength="50"
+
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilMobile"
+            style="@style/textInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="Mobile Number"
 
-            android:maxLength="50"
-            android:inputType="text|textPersonName"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            android:paddingBottom="0dp">
 
-        android:imeOptions="actionNext"
-            android:nextFocusDown="@+id/etMobile"
+            <com.google.android.material.textfield.TextInputEditText
 
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+                android:id="@+id/tieMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789"
+                android:ems="10"
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etMobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="Mobile Number"
-        android:paddingBottom="0dp"
+                android:imeOptions="actionNext"
 
-        style="@style/textInputLayoutStyle"
-        >
+                android:inputType="phone"
+                android:maxLength="10"
+                android:nextFocusDown="@+id/etAddress"
+                android:singleLine="true"
 
-        <com.google.android.material.textfield.TextInputEditText
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            android:id="@+id/tieMobile"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddress"
+            style="@style/textInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:nextFocusDown="@+id/etAddress"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="Address"
+            >
 
-            android:maxLength="10"
+            <com.google.android.material.textfield.TextInputEditText
 
-            android:inputType="phone"
-            android:digits="0123456789"
-            android:singleLine="true"
-            android:ems="10"
+                android:id="@+id/tieAddresse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:maxLength="150"
+                android:minLines="3"
+                android:scrollbars="vertical"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/editTextDateOfBirth"
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="Address"
-        android:paddingBottom="0dp"
-        android:imeOptions="actionNext"
-        style="@style/textInputLayoutStyle"
-        >
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-
-            android:id="@+id/tieAddresse"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutDateOfBirth"
+            style="@style/textInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="Date of Birth"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_calendar">
 
-            android:inputType="textMultiLine"
-            android:lines="3"
-            android:minLines="3"
-            android:gravity="start|top"
-            android:scrollbars="vertical"
-            android:maxLength="150"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+                android:digits="0123456789"
+                android:hint="DD-MM-YYYY"
+                android:imeOptions="actionNext"
+                android:maxLength="10"
+                android:nextFocusDown="@+id/autoCompleteOccupationType"
+                tools:ignore="TextFieldWithShortText" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:orientation="horizontal">
+
+<!--            <com.redmadrobot.inputmask.widget.MaskedTextInputEditText-->
+<!--                android:id="@+id/editTextDateOfBirth"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="DD-MM-YYYY"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="10"-->
+<!--                app:mask="[00]{-}[00]{-}[0000}"-->
+<!--                android:digits="0123456789"-->
+<!--                android:imeOptions="actionNext"-->
+
+<!--                android:nextFocusDown="@+id/autoCompleteOccupationType" />-->
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvGenderLabel"
+                style="@style/regular_primary_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="8dp"
+
+                android:fontFamily="@font/poppinsregular"
+                android:text="Select Gender" />
+
+            <!-- RadioGroup for Gender -->
+            <RadioGroup
+                android:id="@+id/rgGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_16dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <!-- Male Radio Button -->
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbMale"
+                    style="@style/semibold_primary_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+
+                    android:button="@drawable/radio_selector"
+                    android:checked="true"
+                    android:paddingLeft="@dimen/_8dp"
+                    android:text="Male"
+                    android:textColor="@color/black" />
+
+                <!-- Female Radio Button -->
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbFemale"
+                    style="@style/semibold_primary_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/radio_selector"
+                    android:paddingLeft="@dimen/_8dp"
+                    android:text="Female" />
+            </RadioGroup>
+
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvGenderLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Gender"
-
-            android:layout_marginTop="8dp"
-
-            style="@style/regular_primary_16"
-            android:fontFamily="@font/poppinsregular" />
-
-        <!-- RadioGroup for Gender -->
-        <RadioGroup
-            android:id="@+id/rgGender"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/_16dp"
-            android:gravity="left">
-
-            <!-- Male Radio Button -->
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/rbMale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Male"
-                android:button="@drawable/radio_selector"
-
-                android:textColor="@color/black"
-                android:layout_marginEnd="16dp"
-                android:checked="true"
-                android:paddingLeft="@dimen/_8dp"
-                style="@style/semibold_primary_16" />
-
-            <!-- Female Radio Button -->
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/rbFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/_8dp"
-                android:text="Female"
-                android:button="@drawable/radio_selector"
-                style="@style/semibold_primary_16"
-                />
-        </RadioGroup>
-
-
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/customerSpinnerLayout"
-
-        style="@style/dropdownInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-
-        android:hint="Occupation Type">
-
-        <!-- Use MaterialAutoCompleteTextView for full Material Design compatibility -->
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/autoComplete"
+            android:id="@+id/tvGenderError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:importantForAccessibility="yes"
-            android:focusable="true"
-            android:inputType="none"
-            tools:ignore="KeyboardInaccessibleWidget,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="@color/design_default_color_error"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="Please select a gender." />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilOccupationType"
+
+            style="@style/dropdownInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+
+            android:hint="Occupation Type">
+
+            <!-- Use MaterialAutoCompleteTextView for full Material Design compatibility -->
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/autoCompleteOccupationType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:importantForAccessibility="yes"
+                android:inputType="none"
+                tools:ignore="KeyboardInaccessibleWidget,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_marginTop="@dimen/_16dp"
-        android:text="Register"
-        style="@style/ButtonStyle.Secondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            style="@style/ButtonStyle.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:text="Register">
 
-    </com.google.android.material.button.MaterialButton>
+        </com.google.android.material.button.MaterialButton>
     </LinearLayout>
 </ScrollView>

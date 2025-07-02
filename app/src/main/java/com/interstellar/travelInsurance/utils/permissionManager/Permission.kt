@@ -1,6 +1,5 @@
-package com.interstellar.travelInsurance.utils
+package com.interstellar.travelInsurance.utils.permissionManager
 
-import android.Manifest
 import android.Manifest.permission.*
 import android.os.Build
 import androidx.annotation.RequiresApi

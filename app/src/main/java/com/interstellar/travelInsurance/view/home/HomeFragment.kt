@@ -2,15 +2,11 @@ package com.interstellar.travelInsurance.view.home
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
@@ -18,24 +14,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.interstellar.travelInsurance.BaseFragment
-import com.interstellar.travelInsurance.MainActivity
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
-import com.interstellar.travelInsurance.core.viewmodel.HomeViewModel
-import com.interstellar.travelInsurance.core.viewmodel.SharedViewModel
+import com.interstellar.travelInsurance.core.viewmodel.home.HomeViewModel
+import com.interstellar.travelInsurance.core.viewmodel.shareViewModel.SharedViewModel
 import com.interstellar.travelInsurance.databinding.FragmentHomeBinding
-import com.interstellar.travelInsurance.interfaces.AppBarType
 import com.interstellar.travelInsurance.utils.Constant
 import com.interstellar.travelInsurance.utils.hideKeyboard
-import com.interstellar.travelInsurance.utils.showSnackbar
-import com.interstellar.travelInsurance.utils.showToast
 import com.interstellar.travelInsurance.view.shareProduct.ShareDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -4,11 +4,8 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,28 +18,18 @@ import com.interstellar.travelInsurance.databinding.FragmentShareDialogBinding
 import java.io.File
 
 
-import android.print.PrintAttributes
-import android.print.PrintDocumentAdapter
-import android.print.PrintManager
-import android.view.Window
-
-
 import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 
-import androidx.navigation.fragment.findNavController
-import com.interstellar.travelInsurance.utils.PdfUtils
+import com.interstellar.travelInsurance.utils.pdfFromWebView.PdfUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
-import java.io.FileOutputStream
 import java.io.IOException
 
 class ShareDialogFragment : DialogFragment() {

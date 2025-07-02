@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.utils
+package com.interstellar.travelInsurance.utils.biometric
 
 import android.content.Context
 import androidx.biometric.BiometricManager

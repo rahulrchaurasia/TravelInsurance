@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.utils
+package com.interstellar.travelInsurance.utils.decorators
 
 import android.graphics.Rect
 import android.view.View

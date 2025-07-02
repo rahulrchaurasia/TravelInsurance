@@ -1,21 +1,15 @@
 package com.interstellar.travelInsurance.view.login
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
-import android.view.ViewGroup
-import androidx.core.view.WindowCompat
 import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
 import com.interstellar.travelInsurance.databinding.FragmentLoginBinding
-import com.interstellar.travelInsurance.utils.BiometricHelper
+import com.interstellar.travelInsurance.utils.biometric.BiometricHelper
 import com.interstellar.travelInsurance.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -58,6 +52,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.btnLogin.setOnClickListener(this)
         binding.btnRegister.setOnClickListener(this)
+        binding.txtRegister.setOnClickListener(this)
 
         biometricHelper = BiometricHelper(requireActivity())
 
@@ -132,11 +127,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
             }
 
+            binding.btnBiometric.id->{
+                authenticateWithBiometrics()
+            }
+
+            binding.txtRegister.id->{
+
+                val action =   LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                findNavController().navigate(action)
+
+            }
             binding.btnRegister.id -> {
 
-//                    val action =   LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-//                    findNavController().navigate(action)
-                authenticateWithBiometrics()
+                    val action =   LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                    findNavController().navigate(action)
+
                 }
             }
         }

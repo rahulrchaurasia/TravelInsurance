@@ -5,6 +5,20 @@
     <color name="colorPrimaryDark">#E53935</color>
     <color name="colorAccent">#FFAB91</color>
 
+
+    <color name="colorOnPrimary">#EF5350</color>
+    <color name="colorSecondary">#FFAB91</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorSurface">#F0F5FD</color>
+    <color name="colorOnSurface">#212121</color>
+    <color name="colorBackground">#58585b</color>
+    <color name="colorOnBackground">#212121</color>
+    <color name="colorError">#FF0000</color>
+    <color name="colorOnError">#58585b</color>
+
+
+    <color name="boxStrokeColor"> #727272</color>
+
     <color name="green_shaded">#64764c</color>
     <color name="light_green">#9FE2BF</color>
     <color name="white_light">#f4f4f4</color>

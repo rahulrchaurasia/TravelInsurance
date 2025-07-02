@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.utils
+package com.interstellar.travelInsurance.utils.DateRangePicker
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
@@ -6,8 +6,8 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.interstellar.travelInsurance.R
+import com.interstellar.travelInsurance.utils.Utils
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.Calendar
 import javax.inject.Inject
 import javax.inject.Singleton
 

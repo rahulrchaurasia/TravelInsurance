@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.utils
+package com.interstellar.travelInsurance.utils.networkConnect
 
 import kotlinx.coroutines.flow.Flow
 

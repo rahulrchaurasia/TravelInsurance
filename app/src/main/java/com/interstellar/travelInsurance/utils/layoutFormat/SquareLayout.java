@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.utils;
+package com.interstellar.travelInsurance.utils.layoutFormat;
 
 import android.content.Context;
 import android.util.AttributeSet;

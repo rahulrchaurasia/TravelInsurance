@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.utils
+package com.interstellar.travelInsurance.utils.bottomNavigationHelper
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

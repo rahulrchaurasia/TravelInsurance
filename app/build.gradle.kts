@@ -67,7 +67,8 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.paging.runtime)
-    implementation(libs.androidx.biometric.ktx)
+    //If we used KTX than used it
+//    implementation(libs.androidx.biometric.ktx)
     ksp(libs.androidx.room.compiler)
 
     // Coroutines
@@ -102,6 +103,14 @@ dependencies {
 
     //biometric
     implementation(libs.androidx.biometric)
+
+    // NEW: Input Mask Library
+    implementation(libs.input.mask.android) // Add this line
+
+    // NEW/UPDATED: Kotlin Standard Library (if you explicitly need it, often pulled transitively)
+    implementation(libs.kotlin.stdlib) // Add or ensure this uses the version defined in libs.versions.toml
+
+
 
     // Testing
     testImplementation(libs.junit)

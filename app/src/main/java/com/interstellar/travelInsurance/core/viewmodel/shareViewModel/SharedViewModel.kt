@@ -1,4 +1,4 @@
-package com.interstellar.travelInsurance.core.viewmodel
+package com.interstellar.travelInsurance.core.viewmodel.shareViewModel
 
 import androidx.lifecycle.ViewModel
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager

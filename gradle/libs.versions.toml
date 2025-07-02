@@ -52,7 +52,9 @@ paging = "3.3.5"
 imageCropper = "4.6.0"
 dotsIndicator = "5.0"
 biometric = "1.2.0-alpha05"
-biometricKtx = "1.1.0"
+#biometricKtx = "1.1.0"
+inputMaskAndroid = "6.1.0" # Add this line for the input mask library
+kotlinStdlib = "2.0.21"
 
 
 [libraries]
@@ -108,7 +110,14 @@ dots-indicator = { group = "com.tbuonomo", name = "dotsindicator", version.ref =
 
 #biometric
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
-androidx-biometric-ktx = { group = "androidx.biometric", name = "biometric-ktx", version.ref = "biometricKtx" }
+#androidx-biometric-ktx = { group = "androidx.biometric", name = "biometric-ktx", version.ref = "biometricKtx" }
+
+
+# Input Mask Library
+input-mask-android = { module = "com.redmadrobot:input-mask-android", version.ref = "inputMaskAndroid" }
+
+# Kotlin Stdlib (If you're explicitly defining it, otherwise it's often pulled by other kotlin dependencies)
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" } # Add/Update this line
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

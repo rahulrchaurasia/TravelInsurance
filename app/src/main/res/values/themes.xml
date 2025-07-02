@@ -15,10 +15,22 @@
     <!--    android:windowLightStatusBar:	Whether status bar uses light (black) icons-->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
+
 
         <item name="colorPrimary">@color/colorPrimary</item> <!--toolbar color, TextLayout Floating Label-->
         <item name="colorOnPrimary">@color/colorPrimaryDark</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <!-- Customize your light theme here. -->
+
+
 
         <!-- Status bar color -->
         <item name="colorPrimaryVariant">@color/black</item> <!-- status bar color-->
@@ -32,6 +44,9 @@
 
         <!-- deprecated colors -->
         <item name="colorAccent">@color/colorAccent</item>
+
+
+        <item name="android:textCursorDrawable">@drawable/cursor_drawable</item>
 
         <!-- Control colors -->
         <item name="colorControlNormal">@color/colorPrimary</item>
@@ -170,7 +185,7 @@
 
         <item name="boxStrokeWidthFocused">2dp</item> <!--after focused width-->
         <item name="boxStrokeWidth">0.7dp</item> <!--before focused width-->
-        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxStrokeColor">@color/boxStrokeColor</item>
 
         <item name="android:imeOptions">actionNext </item>
 <!--        <item name="android:inputType">text</item>-->
@@ -222,7 +237,7 @@
         <item name="passwordToggleTint">@color/default_icon_color</item>
         <item name="boxStrokeWidthFocused">2dp</item> <!--after focused width-->
         <item name="boxStrokeWidth">0.7dp</item> <!--before focused width-->
-        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxStrokeColor">@color/boxStrokeColor</item>
 
         <item name="android:imeOptions">actionNext </item>
         <!--        <item name="android:inputType">text</item>-->
@@ -236,7 +251,7 @@
 
     <style name="textInputLayoutStyle1" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!-- Box stroke color -->
-        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="boxStrokeColor">@color/boxStrokeColor</item>
         <item name="boxStrokeErrorColor">@color/error_color</item>
         <item name="boxBackgroundColor">@color/white</item>
 
@@ -247,7 +262,9 @@
 
     </style>
 
-    <style name="CustomTextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--    //005 doubt-->
+<!--    <style name="CustomTextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+    <style name="CustomTextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="android:textSize">16sp</item> <!-- Set the desired text size here -->
         <item name="android:background">@color/transparent</item>
         <item name="android:layout_width">match_parent</item>
@@ -268,7 +285,7 @@
         <item name="boxBackgroundColor">@color/white</item>
         <item name="hintTextColor">@color/colorAccent</item>
         <item name="android:textColorHint">@color/color_light_grey</item>
-        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxStrokeColor">@color/boxStrokeColor</item>
         <item name="boxStrokeWidth">0.7dp</item>
         <item name="boxStrokeWidthFocused">2dp</item>
         <item name="endIconTint">@color/default_icon_color</item>

@@ -3,17 +3,15 @@ package com.interstellar.travelInsurance.view.notification
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import com.google.android.material.R.id.design_bottom_sheet
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.databinding.BottomSheetNotificationBinding
-import com.interstellar.travelInsurance.utils.NetworkUtils
+import com.interstellar.travelInsurance.utils.networkConnect.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

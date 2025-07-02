@@ -21,7 +21,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.RecyclerView
 
 import androidx.viewbinding.ViewBinding
@@ -29,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
 
 import com.interstellar.travelInsurance.interfaces.IHandleAppBar
-import com.interstellar.travelInsurance.utils.BottomNavigationHelper
+import com.interstellar.travelInsurance.utils.bottomNavigationHelper.BottomNavigationHelper
 
 
 import com.interstellar.travelInsurance.utils.showSnackbar

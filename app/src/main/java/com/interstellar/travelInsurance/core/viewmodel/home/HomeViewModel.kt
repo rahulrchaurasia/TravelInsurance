@@ -1,9 +1,8 @@
-package com.interstellar.travelInsurance.core.viewmodel
+package com.interstellar.travelInsurance.core.viewmodel.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Config
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
 import com.interstellar.travelInsurance.utils.Constant
 import dagger.hilt.android.lifecycle.HiltViewModel

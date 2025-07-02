@@ -2,10 +2,8 @@ package com.interstellar.travelInsurance
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.Window
@@ -15,13 +13,10 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.button.MaterialButton
 import com.interstellar.travelInsurance.databinding.LayoutLoadingBinding
 import com.interstellar.travelInsurance.databinding.NetworkErrorLayoutBinding
-import com.interstellar.travelInsurance.utils.ConnectivityObserver
-import com.interstellar.travelInsurance.utils.Constant
-import com.interstellar.travelInsurance.utils.NetworkConnectivityObserver
-import dagger.hilt.android.AndroidEntryPoint
+import com.interstellar.travelInsurance.utils.networkConnect.ConnectivityObserver
+import com.interstellar.travelInsurance.utils.networkConnect.NetworkConnectivityObserver
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.text.SimpleDateFormat

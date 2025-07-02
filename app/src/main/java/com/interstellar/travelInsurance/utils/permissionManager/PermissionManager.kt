@@ -1,4 +1,4 @@
-
+package com.interstellar.travelInsurance.utils.permissionManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.interstellar.travelInsurance.R
-import com.interstellar.travelInsurance.utils.Permission
 
 import java.lang.ref.WeakReference
 

@@ -86,7 +86,29 @@
     </com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBiometric"
+        android:layout_marginTop="20dp"
+
+        android:text="Biometic Login"
+        style="@style/ButtonStyle.ternary">
+
+    </com.google.android.material.button.MaterialButton>
+
+
+    <TextView
+        android:id="@+id/txtRegister"
+        android:padding="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_12dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/button_blue"
+         android:textStyle="bold"
+        android:layout_gravity="end"
+        android:text="Register Account"
+        android:layout_height="wrap_content"
+        />
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"
+        android:visibility="gone"
         android:textColor="@color/white"
         style="@style/ButtonStyle.Secondary"
         android:layout_marginTop="40dp"

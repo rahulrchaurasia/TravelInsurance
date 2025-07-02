@@ -1,23 +1,15 @@
 // PdfUtils.kt
-package com.interstellar.travelInsurance.utils
+package com.interstellar.travelInsurance.utils.pdfFromWebView
 
 import android.content.Context
 import android.content.Intent
 import android.graphics.pdf.PdfDocument
 import android.os.Build
 import android.os.Environment
-import android.print.PrintAttributes
-import android.print.PrintManager
 import android.view.View
 import android.webkit.WebView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
-import androidx.lifecycle.LifecycleCoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 
