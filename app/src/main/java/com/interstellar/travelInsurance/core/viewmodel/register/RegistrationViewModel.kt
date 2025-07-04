@@ -2,6 +2,7 @@ package com.interstellar.travelInsurance.core.viewmodel.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.interstellar.travelInsurance.event.FormEvent
 import com.interstellar.travelInsurance.utils.validator.DateValidatorUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,8 +57,8 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
     val genderError: StateFlow<String?> = _genderError.asStateFlow()
 
     // Occupation Type
-    private val _occupationType = MutableStateFlow<OccupationType>(OccupationType.Unselected)
-    val occupationType: StateFlow<OccupationType> = _occupationType.asStateFlow()
+    private val _occupationType = MutableStateFlow("")
+    val occupationType: StateFlow<String> = _occupationType.asStateFlow()
     private val _occupationTypeError = MutableStateFlow<String?>(null)
     val occupationTypeError: StateFlow<String?> = _occupationTypeError.asStateFlow()
 
@@ -99,13 +100,14 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
     }
 
     fun updateOccupationType(selectedType: String) {
-        _occupationType.value = OccupationType.Selected(selectedType)
-        validateOccupationType(selectedType)
+        _occupationType.value = selectedType
+      //  _occupationTypeError.value = null // Clear error immediately on selection
+        validateOccupationType()
     }
 
     // --- Validation Methods ---
 
-    fun validateFullName(name: String): Boolean {
+    private fun validateFullName(name: String): Boolean {
         return if (name.isBlank()) {
             _fullNameError.value = "User Name is required"
             false
@@ -118,7 +120,7 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun validateMobileNumber(number: String): Boolean {
+    private fun validateMobileNumber(number: String): Boolean {
         return if (number.isBlank()) {
             _mobileNumberError.value = "Mobile Number is required"
             false
@@ -134,7 +136,7 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun validateAddress(address: String): Boolean {
+    private fun validateAddress(address: String): Boolean {
         return if (address.isBlank()) {
             _addressError.value = "Address is required"
             false
@@ -174,9 +176,13 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun validateOccupationType(occupation: String?): Boolean {
-        return if (occupation.isNullOrBlank() || occupation == OccupationType.Unselected.toString()) {
-            _occupationTypeError.value = "Occupation Type is required"
+
+    fun validateOccupationType(): Boolean { // Returns Boolean
+        return if (_occupationType.value.isBlank()) {
+            _occupationTypeError.value = "Please select an occupation."
+            false
+        } else if (_occupationType.value !in occupationOptions) {
+            _occupationTypeError.value = "Invalid occupation selected."
             false
         } else {
             _occupationTypeError.value = null
@@ -188,45 +194,77 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
      * Performs a full form validation, typically called on button click.
      * Emits a FormEvent (Success/Error) based on validation result.
      */
+
+
     fun submitForm() {
-        val isFullNameValid = validateFullName(_fullName.value)
-        val isMobileValid = validateMobileNumber(_mobileNumber.value)
-        val isAddressValid = validateAddress(_address.value)
-        val isDobValid = validateDOB(_dobUnmasked.value, _dobFormatted.value, _dobFormatted.value.length == 10)
-        val isGenderValid = validateGender(_gender.value)
-        val isOccupationValid = validateOccupationType((_occupationType.value as? OccupationType.Selected)?.type)
-
-        val isFormValid = isFullNameValid && isMobileValid && isAddressValid && isDobValid && isGenderValid && isOccupationValid
-
         viewModelScope.launch {
-            if (isFormValid) {
-                // If form is valid, prepare data for API call or further processing
-                val formData = mapOf(
-                    "fullName" to _fullName.value,
-                    "mobileNumber" to _mobileNumber.value,
-                    "address" to _address.value,
-                    "dob" to _dobFormatted.value, // Send formatted DOB to API usually
-                    "gender" to _gender.value,
-                    "occupationType" to (_occupationType.value as? OccupationType.Selected)?.type
-                )
-                println("Form Data: $formData")
+            // Clear all previous errors at the start of a new submission attempt
+            _fullNameError.value = null
+            _mobileNumberError.value = null
+            _addressError.value = null
+            _dobError.value = null
+            _genderError.value = null
+            _occupationTypeError.value = null
+            // ... clear any other relevant error states
 
-                // TODO: Make your actual API call here
-                // Example:
-                // when (val result = yourRepository.submitRegistration(formData)) {
-                //     is ApiResult.Loading -> _formEvents.emit(FormEvent.Info("Submitting..."))
-                //     is ApiResult.Success -> _formEvents.emit(FormEvent.Success("Registration successful!"))
-                //     is ApiResult.Error -> _formEvents.emit(FormEvent.Error("Submission failed: ${result.exception.message}"))
-                // }
-
-                _formEvents.emit(FormEvent.Success("Form Submitted Successfully!")) // Simulate success
-            } else {
-                _formEvents.emit(FormEvent.Error("Please correct the errors."))
+            // Perform sequential validation
+            if (!validateFullName(_fullName.value)) {
+                _formEvents.emit(FormEvent.Error("Please correct Full Name."))
+                return@launch // Stop here if validation fails
             }
+
+            if (!validateMobileNumber(_mobileNumber.value)) {
+                _formEvents.emit(FormEvent.Error("Please correct Mobile Number."))
+                return@launch // Stop here
+            }
+
+            if (!validateAddress(_address.value)) {
+                _formEvents.emit(FormEvent.Error("Please correct Address."))
+                return@launch // Stop here
+            }
+
+            // Assuming _dobUnmasked and _dobFormatted are your DOB states
+            if (!validateDOB(_dobUnmasked.value, _dobFormatted.value, _dobFormatted.value?.length == 10)) {
+                _formEvents.emit(FormEvent.Error("Please correct Date of Birth."))
+                return@launch // Stop here
+            }
+
+            if (!validateGender(_gender.value)) {
+                _formEvents.emit(FormEvent.Error("Please select Gender."))
+                return@launch // Stop here
+            }
+
+            // For OccupationType, ensure it's cast correctly for validation
+
+            if (!validateOccupationType()) {
+                _formEvents.emit(FormEvent.Error("Please select Occupation Type."))
+                return@launch // Stop here
+            }
+
+            // If we reach here, all validations passed
+            val formData = mapOf(
+                "fullName" to _fullName.value,
+                "mobileNumber" to _mobileNumber.value,
+                "address" to _address.value,
+                "dob" to _dobFormatted.value, // Send formatted DOB to API usually
+                "gender" to _gender.value,
+                "occupationType" to _occupationType.value
+            )
+            println("Form Data: $formData")
+
+            // TODO: Make your actual API call here
+            // Example:
+            // when (val result = yourRepository.submitRegistration(formData)) {
+            //     is ApiResult.Loading -> _formEvents.emit(FormEvent.Info("Submitting..."))
+            //     is ApiResult.Success -> _formEvents.emit(FormEvent.Success("Registration successful!"))
+            //     is ApiResult.Error -> _formEvents.emit(FormEvent.Error("Submission failed: ${result.exception.message}"))
+            // }
+
+            _formEvents.emit(FormEvent.Success("Form Submitted Successfully!")) // Simulate success
+
+
         }
     }
-
-
 
     // Other sealed class definition for OccupationType dropdown data
 

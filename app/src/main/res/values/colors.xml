@@ -9,10 +9,21 @@
     <color name="colorOnPrimary">#EF5350</color>
     <color name="colorSecondary">#FFAB91</color>
     <color name="colorOnSecondary">#000000</color>
-    <color name="colorSurface">#F0F5FD</color>
-    <color name="colorOnSurface">#212121</color>
-    <color name="colorBackground">#58585b</color>
-    <color name="colorOnBackground">#212121</color>
+
+<!-- colorSurface   This is a background color. It's used for the background of components
+ like cards, sheets, dialogs, and other elements that "float" on top of the main screen background. -->
+  <color name="colorSurface">#F0F5FD</color>
+
+<!--colorOnSurface: This is a "on" color, meaning it's used for content (like text, icons, and strokes) that is placed on top of colorSurface.-->
+<!--Its purpose is to provide good contrast against colorSurface to ensure readability and visibility.-->
+    <color name="colorOnSurface">#303F9F</color>
+
+<!-- colorBackground:    background of the entire screen or window-->
+    <color name="colorBackground">#F0F5FD</color>
+
+<!--  colorOnBackground:   This color is specifically for content (like text and icons) -->
+<!--    that is placed on top of colorBackground.-->
+    <color name="colorOnBackground">#F0F5FD</color>
     <color name="colorError">#FF0000</color>
     <color name="colorOnError">#58585b</color>
 

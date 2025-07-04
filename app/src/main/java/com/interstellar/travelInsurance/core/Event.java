@@ -2,6 +2,10 @@ package com.interstellar.travelInsurance.core;
 
 import androidx.annotation.Nullable;
 
+/*
+  * Used as a wrapper for data that is exposed via a LiveData that represents an event.
+ * Avoids consuming the same event multiple times on configuration changes.
+        */
 public class Event<T> {
 
     private T mContent;

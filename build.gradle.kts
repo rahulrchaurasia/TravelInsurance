@@ -18,6 +18,7 @@ plugins {
 
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.navigation.safeargs) apply false
+    alias(libs.plugins.compose.compiler) apply false  //for compose
 }
 
 //tasks.register("clean", Delete::class) {

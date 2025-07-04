@@ -11,6 +11,7 @@
         alias(libs.plugins.ksp)
         alias(libs.plugins.hilt)
         alias(libs.plugins.navigation.safeargs)
+        alias(libs.plugins.compose.compiler) // ✅ Add this for compose
         id("kotlin-parcelize")
 }
 
@@ -48,7 +49,9 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true    //Enable Compose features
     }
+
 }
 
 dependencies {
@@ -104,13 +107,23 @@ dependencies {
     //biometric
     implementation(libs.androidx.biometric)
 
-    // NEW: Input Mask Library
-    implementation(libs.input.mask.android) // Add this line
 
-    // NEW/UPDATED: Kotlin Standard Library (if you explicitly need it, often pulled transitively)
-    implementation(libs.kotlin.stdlib) // Add or ensure this uses the version defined in libs.versions.toml
+    // Core Compose libraries
+    implementation(platform(libs.androidx.compose.bom)) // composeBom = "2024.06.00"
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.foundation)
+//    implementation(libs.androidx.material)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.runtime)
 
+    // Compose tooling for previews and inspecting Composables during development
+    implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
 
+    // Integration with Activity/Fragment for Compose
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.fragment.compose)
 
     // Testing
     testImplementation(libs.junit)

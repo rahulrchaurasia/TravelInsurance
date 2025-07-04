@@ -1,5 +1,7 @@
 package com.interstellar.travelInsurance.view.login
 
+import android.content.res.ColorStateList
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,13 +11,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.interstellar.travelInsurance.BaseFragment
 import com.interstellar.travelInsurance.R
 import com.interstellar.travelInsurance.core.facade.SharedPreferenceManager
@@ -23,10 +31,12 @@ import com.interstellar.travelInsurance.core.viewmodel.register.RegistrationView
 import com.interstellar.travelInsurance.databinding.FragmentLoginBinding
 import com.interstellar.travelInsurance.databinding.FragmentRegisterBinding
 import com.interstellar.travelInsurance.event.FormEvent
+import com.interstellar.travelInsurance.utils.Constant
 import com.interstellar.travelInsurance.utils.ExtensionFun.toast
 import com.interstellar.travelInsurance.utils.dateMask.applyDateMask
 import com.interstellar.travelInsurance.utils.dateMask.parseDateString
 import com.interstellar.travelInsurance.utils.hideKeyboard
+import com.policyboss.demoandroidapp.Utility.ExtensionFun.dpToPx
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,71 +58,56 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         binding.btnRegister.setOnClickListener(this)
 
-        binding.editTextDateOfBirth.applyDateMask(
-            separator = '-', // Specify the separator
-            onFullDateEntered = { fullDate ->
-                // This callback is triggered when the date reaches DD-MM-YYYY format
-                Log.d("DateInput", "Full date entered: $fullDate")
-                binding.textInputLayoutDateOfBirth.error = null // Clear any previous errors on completion
-                // You can perform immediate validation here if needed
-                val parsedDate = parseDateString(fullDate)
-                if (parsedDate == null) {
-                    binding.textInputLayoutDateOfBirth.error = "Invalid Date"
-                }
-            }
-        )
+
+
 
         setupEventListeners()
-        setupOccupationSpinner() // New method for spinner setup
+       // New method for spinner setup
+        setupOccupationSpinner()
         collectFlows() // <-- New method to collect Flows
+
+
+        binding.tilOccupationType.error = "Please select an occupation"
     }
 
 
     private fun setupEventListeners() {
-        // Full Name Input
-        binding.tieFullName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.updateFullName(s.toString())
+
+
+        binding.tieAddresse.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                binding.editTextDateOfBirth.requestFocus()
+                true
+            } else {
+                false
             }
-        })
+        }
+
+        // 👇 Perform Register action when "Done" pressed on Dropdown
+        binding.autoCompleteOccupationType.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.btnRegister.performClick()
+                true
+            } else {
+                false
+            }
+        }
+        // Full Name Input
+        binding.tieFullName.doAfterTextChanged {
+            viewModel.updateFullName(it.toString())
+        }
 
         // Mobile Number Input
-        binding.tieMobile.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.updateMobileNumber(s.toString())
-            }
-        })
+        binding.tieMobile.doAfterTextChanged {
+            viewModel.updateMobileNumber(it.toString())
+        }
+
 
         // Address Input
-        binding.tieAddresse.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.updateAddress(s.toString())
-            }
-        })
-
-        // Date of Birth Input (MaskedTextInputEditText)
-        binding.editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                val formattedValue = s.toString()
-                val unmaskedValue = binding.editTextDateOfBirth.text.toString()
-                viewModel.updateDOB(formattedValue, unmaskedValue)
-            }
-        })
-
-        // Optional: Cursor lock at end for DOB on touch
-        binding.editTextDateOfBirth.setOnTouchListener { v, _ ->
-            val editText = v as? EditText
-            editText?.setSelection(editText.text?.length ?: 0)
-            false
+        binding.tieAddresse.doAfterTextChanged {
+            viewModel.updateAddress(it.toString())
         }
+
 
         // Gender RadioGroup
         binding.rgGender.setOnCheckedChangeListener { group, checkedId ->
@@ -124,34 +119,53 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             selectedGender?.let { viewModel.updateGender(it) }
         }
 
+//        binding.autoCompleteOccupationType.doAfterTextChanged {
+//            val currentInput = it.toString()
+//
+//            viewModel.updateOccupationType(currentInput)
+////            if (!viewModel.occupationOptions.contains(currentInput)) {
+////                binding.tilOccupationType.error = "Please select a valid option"
+////            }
+//        }
+
 
     }
 
+
+
+
     private fun setupOccupationSpinner() {
+        // Create the ArrayAdapter using your custom dropdown item layout
         val adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_dropdown_item_1line, // Or use a custom item layout
+            R.layout.dropdown_item, // <--- Use your custom layout here!
+
             viewModel.occupationOptions
         )
-        binding.autoCompleteOccupationType.setAdapter(adapter)
+        binding.autoCompleteTextView.setAdapter(adapter)
+        val color = ContextCompat.getColor(requireContext(), R.color.grid_item_bg)
 
-        // Listen for item selection
-        binding.autoCompleteOccupationType.setOnItemClickListener { parent, view, position, id ->
+
+        val backgroundDrawable = MaterialShapeDrawable().apply {
+            fillColor = ColorStateList.valueOf(color)
+
+            shapeAppearanceModel = ShapeAppearanceModel.builder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 16.dpToPx())  // Only top-left
+                .setTopRightCorner(CornerFamily.ROUNDED, 16.dpToPx()) // Only top-right
+                // Bottom corners remain square (default)
+                .build()
+        }
+        binding.autoCompleteTextView.setDropDownBackgroundDrawable(backgroundDrawable)
+
+//        val drawable = ColorDrawable(color)
+//        binding.autoCompleteTextView.setDropDownBackgroundDrawable(drawable)
+
+
+
+        binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
             val selectedItem = parent.getItemAtPosition(position).toString()
             viewModel.updateOccupationType(selectedItem)
         }
-
-        // Optional: TextWatcher if you want to validate as user types in the dropdown (less common for dropdowns)
-        binding.autoCompleteOccupationType.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                // This might be called when user types or when an item is selected programmatically.
-                // It's usually better to rely on OnItemClickListener for dropdowns,
-                // but you can add specific validation here if the user can type arbitrary text.
-                viewModel.updateOccupationType(s.toString()) // Pass current text for validation
-            }
-        })
     }
 
     private fun collectFlows() {
@@ -179,13 +193,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                         }
                     }
                 }
-                launch {
-                    viewModel.dobFormatted.collectLatest { dob ->
-                        if (binding.editTextDateOfBirth.text.toString() != dob) {
-                            binding.editTextDateOfBirth.setText(dob)
-                        }
-                    }
-                }
+
                 // Gender: Set checked radio button if ViewModel has a value
                 launch {
                     viewModel.gender.collectLatest { gender ->
@@ -193,16 +201,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                             "Male" -> binding.rgGender.check(R.id.rbMale)
                             "Female" -> binding.rgGender.check(R.id.rbFemale)
                             else -> binding.rgGender.clearCheck() // Or set a default
-                        }
-                    }
-                }
-                // Occupation Type: Set selected text in AutoCompleteTextView
-                launch {
-                    viewModel.occupationType.collectLatest { occupation ->
-                        val text = (occupation as? RegistrationViewModel.OccupationType.Selected)?.type ?: ""
-                       // val text  = occupation.
-                        if (binding.autoCompleteOccupationType.text.toString() != text) {
-                            binding.autoCompleteOccupationType.setText(text, false) // false to not show dropdown
                         }
                     }
                 }
@@ -233,7 +231,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     viewModel.genderError.collectLatest { error ->
                         // Display error for RadioGroup in the dedicated TextView
                         binding.tvGenderError.text = error
-                        binding.tvGenderError.visibility = if (error.isNullOrBlank()) View.GONE else View.VISIBLE
+                        binding.tvGenderError.visibility =
+                            if (error.isNullOrBlank()) View.GONE else View.VISIBLE
                     }
                 }
                 launch {
@@ -247,7 +246,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     viewModel.formEvents.collect { event -> // Use collect, not collectLatest for events
                         when (event) {
                             is FormEvent.Success -> {
-                               // Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
+                                // Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
                                 // TODO: Navigate to next screen or clear form fields
 
 
@@ -258,17 +257,22 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
                                 binding.root.toast(requireContext(), event.message)
                             }
+                            else ->{
 
-
+                                Log.d(Constant.TAG,"nothing")
+                            }
                         }
                     }
                 }
             }
+
         }
+
+
+
     }
 
-
-    override fun onClick(v: View?) {
+    override fun onClick(view: View?) {
         requireContext().hideKeyboard(binding.root)
         when (view?.id) {
 
