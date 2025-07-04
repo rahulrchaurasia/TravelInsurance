@@ -63,6 +63,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         setupEventListeners()
        // New method for spinner setup
+        setupDateOfBirthInput() /// NEW: Setup DOB input
         setupOccupationSpinner()
         collectFlows() // <-- New method to collect Flows
 
@@ -131,6 +132,47 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     }
 
+
+    private fun setupDateOfBirthInput() {
+        var isUpdatingText = false
+
+        binding.editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (!isUpdatingText) {
+                    val input = s.toString()
+                    val currentCursorPosition = binding.editTextDateOfBirth.selectionStart
+                    viewModel.updateDOB(input, currentCursorPosition)
+                }
+            }
+        })
+
+        // Collect formatted text and cursor position from ViewModel
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.dobFormatted.collectLatest { formattedDob ->
+                        if (!isUpdatingText && binding.editTextDateOfBirth.text.toString() != formattedDob) {
+                            isUpdatingText = true
+                            binding.editTextDateOfBirth.setText(formattedDob)
+                            isUpdatingText = false
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.cursorPosition.collectLatest { position ->
+                        if (!isUpdatingText) {
+                            binding.editTextDateOfBirth.setSelection(position)
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
 

@@ -127,10 +127,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8dp"
             android:hint="Date of Birth"
+
             app:endIconMode="clear_text"
             app:startIconDrawable="@drawable/ic_calendar"
             app:errorEnabled="true"
             app:errorIconDrawable="@null"
+            app:placeholderText="dd-mm-yyyy"
+            app:placeholderTextColor="@color/color_grey"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -139,30 +142,26 @@
                 android:layout_height="wrap_content"
 
                 android:digits="0123456789"
-                android:hint="DD-MM-YYYY"
-                android:inputType="none"
+
+            android:textColorHint="@color/gray_btn_bg_color"
+                android:inputType="number"
                 android:imeOptions="actionNext"
                 android:maxLength="10"
                 android:nextFocusDown="@+id/autoCompleteOccupationType"
                 tools:ignore="TextFieldWithShortText" />
 
 
-<!--            <com.redmadrobot.inputmask.widget.MaskedTextInputEditText-->
-<!--                android:id="@+id/editTextDateOfBirth"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="DD-MM-YYYY"-->
-<!--                android:inputType="number"-->
-<!--                android:maxLength="10"-->
-<!--                app:mask="[00]{-}[00]{-}[0000}"-->
-<!--                android:digits="0123456789"-->
-<!--                android:imeOptions="actionNext"-->
 
-<!--                android:nextFocusDown="@+id/autoCompleteOccupationType" />-->
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/composeView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/padding_50"
+            android:layout_marginTop="16dp"
+            android:background="#DDDDDD" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

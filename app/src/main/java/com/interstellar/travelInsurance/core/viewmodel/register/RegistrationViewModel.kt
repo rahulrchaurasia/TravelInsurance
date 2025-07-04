@@ -13,6 +13,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import javax.inject.Inject
 
 
@@ -43,10 +46,17 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
     val addressError: StateFlow<String?> = _addressError.asStateFlow()
 
     // Date of Birth
+    // NEW: Date of Birth fields
+    private val _dobRaw = MutableStateFlow("")
+    val dobRaw: StateFlow<String> = _dobRaw.asStateFlow()
+
     private val _dobFormatted = MutableStateFlow("")
     val dobFormatted: StateFlow<String> = _dobFormatted.asStateFlow()
-    private val _dobUnmasked = MutableStateFlow("")
-    val dobUnmasked: StateFlow<String> = _dobUnmasked.asStateFlow()
+
+    private val _cursorPosition = MutableStateFlow(0)
+    val cursorPosition: StateFlow<Int> = _cursorPosition.asStateFlow()
+/////////////
+
     private val _dobError = MutableStateFlow<String?>(null)
     val dobError: StateFlow<String?> = _dobError.asStateFlow()
 
@@ -87,13 +97,60 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
         validateAddress(input)
     }
 
-    fun updateDOB(formattedValue: String, unmaskedValue: String) {
-        _dobFormatted.value = formattedValue
-        _dobUnmasked.value = unmaskedValue
-        val isMaskFilled = formattedValue.length == 10
-        validateDOB(unmaskedValue, formattedValue, isMaskFilled)
+
+
+    // NEW: Date of Birth update method
+    fun updateDOB(input: String, currentCursorPosition: Int = input.length) {
+        val digits = input.filter { it.isDigit() }
+
+        if (digits.length <= 8) {
+            _dobRaw.value = digits
+            val formattedDob = formatDOB(digits)
+            _dobFormatted.value = formattedDob
+
+            // Calculate new cursor position based on formatting
+            val newCursorPosition = calculateCursorPosition(digits, currentCursorPosition, formattedDob)
+            _cursorPosition.value = newCursorPosition
+
+            _dobError.value = when {
+                digits.isEmpty() -> "Date of birth is required"
+                digits.length < 8 -> "Complete date is required"
+                !isValidDOB(formattedDob) -> "Invalid date format"
+                else -> null
+            }
+        }
     }
 
+    private fun formatDOB(digits: String): String {
+        return when {
+            digits.length >= 5 -> "${digits.take(2)}-${digits.substring(2, 4)}-${digits.drop(4)}"
+            digits.length >= 3 -> "${digits.take(2)}-${digits.drop(2)}"
+            else -> digits
+        }
+    }
+
+    private fun calculateCursorPosition(digits: String, oldCursorPos: Int, formattedText: String): Int {
+        val digitsBeforeCursor = minOf(oldCursorPos, digits.length)
+
+        return when {
+            digitsBeforeCursor <= 2 -> digitsBeforeCursor
+            digitsBeforeCursor <= 4 -> digitsBeforeCursor + 1
+            else -> digitsBeforeCursor + 2
+        }.coerceAtMost(formattedText.length)
+    }
+
+    private fun isValidDOB(dob: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        return try {
+            val parsedDate = LocalDate.parse(dob, formatter)
+            val minDate = LocalDate.of(1900, 1, 1)
+            val maxDate = LocalDate.now()
+
+            !parsedDate.isBefore(minDate) && !parsedDate.isAfter(maxDate)
+        } catch (e: DateTimeParseException) {
+            false
+        }
+    }
     fun updateGender(selectedGender: String) {
         _gender.value = selectedGender
         validateGender(selectedGender)
@@ -224,7 +281,7 @@ class RegistrationViewModel @Inject constructor() : ViewModel() {
             }
 
             // Assuming _dobUnmasked and _dobFormatted are your DOB states
-            if (!validateDOB(_dobUnmasked.value, _dobFormatted.value, _dobFormatted.value?.length == 10)) {
+            if (!(_dobRaw.value.length == 8 && isValidDOB(_dobFormatted.value))) {
                 _formEvents.emit(FormEvent.Error("Please correct Date of Birth."))
                 return@launch // Stop here
             }
